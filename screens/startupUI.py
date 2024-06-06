@@ -1,14 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import os
-import sys
 
-# Add the 'functions' directory to the system path
-functions_directory = os.path.join(os.path.dirname(__file__), '..', 'functions')
-sys.path.append(functions_directory)
-
-# Import functions from startup_func.py
-from startup_func import handle_guest, handle_login, handle_register
-
+class MainWindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -50,13 +46,8 @@ class Ui_MainWindow(object):
         self.login.setText(_translate("MainWindow", "Login"))
         self.register_2.setText(_translate("MainWindow", "Register"))
 
-class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self):
-        super(MainWindow, self).__init__()
-        self.setupUi(self)
-        self.setup_connections()
 
-    def setup_connections(self):
-        self.guest.clicked.connect(handle_guest)
-        self.login.clicked.connect(handle_login)
-        self.register_2.clicked.connect(handle_register)
+def connect_functions(main_window, func_module):
+    main_window.ui.guest.clicked.connect(func_module.handle_guest)
+    main_window.ui.login.clicked.connect(func_module.handle_login)
+    main_window.ui.register_2.clicked.connect(func_module.handle_register)

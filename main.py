@@ -1,29 +1,24 @@
 import mysql.connector
-import sys
-import os
-from PyQt5.QtWidgets import QApplication
+from screens import startupUI
+from screens import startup_func
 
-#Database connector
+# Database connector
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
     passwd="12345",
     database="softeng"
-    )
+)
 
-#db connection check
+# Database connection check
 if conn.is_connected():
     print("Connected to MySQL database")
 
-#Folder Directory
-ui_directory = os.path.join(os.path.dirname(__file__), 'ui')
-sys.path.append(ui_directory)
-
-from startup import MainWindow
-
 if __name__ == "__main__":
+    import sys
+    from PyQt5.QtWidgets import QApplication
     app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
+    MainWindow = startupUI.MainWindow()
+    MainWindow.show()
+    startupUI.connect_functions(MainWindow, startup_func)
     sys.exit(app.exec_())
-
