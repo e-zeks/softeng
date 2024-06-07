@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from . import login_func
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -55,6 +55,8 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.login.clicked.connect(lambda: self.handle_login(MainWindow))
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -65,6 +67,10 @@ class Ui_MainWindow(object):
         self.login.setText(_translate("MainWindow", "Login"))
         self.forgot.setText(_translate("MainWindow", "Forgot Password?"))
 
+    def handle_login(self, MainWindow):
+        username = self.username.text()
+        password = self.password.text()
+        login_func.handle_login(username,password)
 
 if __name__ == "__main__":
     import sys
