@@ -6,44 +6,135 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(960, 540)
+        MainWindow.setStyleSheet("QMainWindow\n"
+"{\n"
+"background:white;\n"
+"}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.back = QtWidgets.QPushButton(self.centralwidget)
         self.back.setGeometry(QtCore.QRect(10, 130, 61, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setBold(True)
+        self.back.setFont(font)
+        self.back.setStyleSheet("QPushButton\n"
+"{\n"
+"background-color: #5e3b96;\n"
+"color:white;\n"
+" border-radius:20px;\n"
+"}")
         self.back.setObjectName("back")
-        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(390, 210, 135, 170))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.label = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.BGviolet = QtWidgets.QLabel(self.centralwidget)
+        self.BGviolet.setGeometry(QtCore.QRect(0, 0, 961, 121))
+        self.BGviolet.setStyleSheet("QLabel\n"
+"{\n"
+"background: #5e3b96;\n"
+"}")
+        self.BGviolet.setText("")
+        self.BGviolet.setObjectName("BGviolet")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(260, 0, 421, 121))
+        self.label_6.setText("")
+        self.label_6.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../assets/logog.jpg"))
+        self.label_6.setScaledContents(True)
+        self.label_6.setObjectName("label_6")
+        self.login = QtWidgets.QPushButton(self.centralwidget)
+        self.login.setGeometry(QtCore.QRect(360, 380, 231, 23))
+        self.login.setMinimumSize(QtCore.QSize(0, 23))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        self.login.setFont(font)
+        self.login.setStyleSheet("QPushButton\n"
+"{\n"
+"color:#574999;\n"
+"background:white;\n"
+"border-radius:40px;\n"
+"}")
+        self.login.setObjectName("login")
+        self.password = QtWidgets.QLineEdit(self.centralwidget)
+        self.password.setGeometry(QtCore.QRect(360, 350, 231, 20))
+        self.password.setStyleSheet("QLineEdit\n"
+"{\n"
+"background:white;\n"
+"}")
+        self.password.setObjectName("password")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(360, 320, 241, 21))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        self.label_3.setFont(font)
+        self.label_3.setStyleSheet("QLabel\n"
+"{\n"
+"color:white;\n"
+"}")
+        self.label_3.setObjectName("label_3")
+        self.username = QtWidgets.QLineEdit(self.centralwidget)
+        self.username.setGeometry(QtCore.QRect(360, 280, 231, 20))
+        self.username.setStyleSheet("QLineEdit\n"
+"{\n"
+"background:white;\n"
+"}")
+        self.username.setObjectName("username")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(360, 250, 81, 21))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet("QLabel\n"
+"{\n"
+"color:white;\n"
+"}")
+        self.label_2.setObjectName("label_2")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(380, 170, 201, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(17)
+        font.setBold(True)
+        self.label.setFont(font)
         self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.label.setStyleSheet("QLabel\n"
+"{\n"
+"color:white;\n"
+"}")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
-        self.verticalLayout.addWidget(self.label)
-        self.label_2 = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout.addWidget(self.label_2)
-        self.username = QtWidgets.QLineEdit(self.verticalLayoutWidget)
-        self.username.setObjectName("username")
-        self.verticalLayout.addWidget(self.username)
-        self.label_3 = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout.addWidget(self.label_3)
-        self.password = QtWidgets.QLineEdit(self.verticalLayoutWidget)
-        self.password.setObjectName("password")
-        self.verticalLayout.addWidget(self.password)
-        self.login = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.login.setObjectName("login")
-        self.verticalLayout.addWidget(self.login)
-        self.forgot = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.forgot = QtWidgets.QLabel(self.centralwidget)
+        self.forgot.setGeometry(QtCore.QRect(360, 420, 231, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        self.forgot.setFont(font)
+        self.forgot.setStyleSheet("QLabel\n"
+"{\n"
+"color:white;\n"
+"}")
         self.forgot.setAlignment(QtCore.Qt.AlignCenter)
         self.forgot.setObjectName("forgot")
-        self.verticalLayout.addWidget(self.forgot)
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(0, 0, 961, 121))
-        self.label_4.setObjectName("label_4")
+        self.BGviolet_2 = QtWidgets.QLabel(self.centralwidget)
+        self.BGviolet_2.setGeometry(QtCore.QRect(350, 160, 251, 311))
+        self.BGviolet_2.setStyleSheet("QLabel\n"
+"{\n"
+"background: #5e3b96;\n"
+"border-radius:20px;\n"
+"}")
+        self.BGviolet_2.setText("")
+        self.BGviolet_2.setObjectName("BGviolet_2")
+        self.BGviolet_2.raise_()
+        self.back.raise_()
+        self.BGviolet.raise_()
+        self.label_6.raise_()
+        self.login.raise_()
+        self.password.raise_()
+        self.label_3.raise_()
+        self.username.raise_()
+        self.label_2.raise_()
+        self.label.raise_()
+        self.forgot.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 960, 22))
@@ -56,29 +147,25 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        # Connect the login button click event to the handle_login method
         self.login.clicked.connect(lambda: self.handle_login(MainWindow))
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.back.setText(_translate("MainWindow", "back"))
-        self.label.setText(_translate("MainWindow", "Log In"))
-        self.label_2.setText(_translate("MainWindow", "Username"))
-        self.label_3.setText(_translate("MainWindow", "Password"))
         self.login.setText(_translate("MainWindow", "Login"))
+        self.label_3.setText(_translate("MainWindow", "Password"))
+        self.label_2.setText(_translate("MainWindow", "Username"))
+        self.label.setText(_translate("MainWindow", "Log In"))
         self.forgot.setText(_translate("MainWindow", "Forgot Password?"))
 
-    #login function handler
+# login function handler
     def handle_login(self, MainWindow):
         username = self.username.text()
         password = self.password.text()
         conn = connect_to_db()
         if conn:
-            login_successful = login_func.handle_login(conn, username, password)
-            #if login_successful:
-             #   print("Login successful - Proceed with next steps")
-            #else:
-              #  print("Login failed - Inform the user")
+            login_func.handle_login(conn, username, password)
             conn.close()
 
 if __name__ == "__main__":

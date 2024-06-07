@@ -72,7 +72,7 @@ background: #5e3b96;
       <x>80</x>
       <y>140</y>
       <width>821</width>
-      <height>341</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -343,7 +343,7 @@ color:white;
       <x>370</x>
       <y>370</y>
       <width>241</width>
-      <height>101</height>
+      <height>111</height>
      </rect>
     </property>
     <property name="font">
@@ -358,7 +358,7 @@ color:white;
 }</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; color:#ffffff;&quot;&gt;Password must meet the following &lt;br/&gt;requirements:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; color:#ffffff;&quot;&gt;At least 8 characters long&lt;br/&gt;One uppercase character &lt;br/&gt;One lowercase character&lt;br/&gt;One number&lt;br/&gt;No special characters&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; color:#ffffff;&quot;&gt;Password must meet the following &lt;br/&gt;requirements:&lt;br/&gt;&lt;br/&gt;At least 8 characters long&lt;br/&gt;One uppercase character &lt;br/&gt;One lowercase character&lt;br/&gt;One number&lt;br/&gt;No special characters&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_9">
@@ -478,7 +478,7 @@ border-radius-15px;
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../logos/logog.jpg</pixmap>
+     <pixmap>../assets/logog.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
