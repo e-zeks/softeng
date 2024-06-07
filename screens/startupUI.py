@@ -47,6 +47,7 @@ class Ui_MainWindow(object):
         self.register_2.setText(_translate("MainWindow", "Register"))
 
 
+#buttons handler
 def connect_functions(main_window, func_module):
     main_window.ui.guest.clicked.connect(func_module.handle_guest)
     main_window.ui.login.clicked.connect(lambda: func_module.handle_login(main_window))

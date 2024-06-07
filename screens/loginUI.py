@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from . import login_func
+from main import connect_to_db
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -67,10 +68,18 @@ class Ui_MainWindow(object):
         self.login.setText(_translate("MainWindow", "Login"))
         self.forgot.setText(_translate("MainWindow", "Forgot Password?"))
 
+    #login function handler
     def handle_login(self, MainWindow):
         username = self.username.text()
         password = self.password.text()
-        login_func.handle_login(username,password)
+        conn = connect_to_db()
+        if conn:
+            login_successful = login_func.handle_login(conn, username, password)
+            #if login_successful:
+             #   print("Login successful - Proceed with next steps")
+            #else:
+              #  print("Login failed - Inform the user")
+            conn.close()
 
 if __name__ == "__main__":
     import sys

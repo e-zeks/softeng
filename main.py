@@ -1,4 +1,5 @@
 import mysql.connector
+from mysql.connector import Error
 from screens import startupUI
 from screens import startup_func
 
@@ -13,6 +14,22 @@ conn = mysql.connector.connect(
 # Database connection check
 if conn.is_connected():
     print("Connected to MySQL database")
+
+#Read and write from DB
+def connect_to_db():
+    try:
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="12345",
+            database="softeng"
+        )
+        if conn.is_connected():
+            print("Connected to MySQL database")
+        return conn
+    except Error as e:
+        print(f"Error: {e}")
+        return None
 
 if __name__ == "__main__":
     import sys
