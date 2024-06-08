@@ -121,7 +121,7 @@ class Ui_MainWindow(object):
         self.guest.setText(_translate("MainWindow", "Guest"))
 
 
-#buttons handler
+#button connectors
 def connect_functions(main_window, func_module):
     main_window.ui.guest.clicked.connect(func_module.handle_guest)
     main_window.ui.login.clicked.connect(lambda: func_module.handle_login(main_window))
