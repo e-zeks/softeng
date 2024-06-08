@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from main import connect_to_db
 from . import register_func
 
 class Ui_MainWindow(object):
@@ -24,7 +25,6 @@ class Ui_MainWindow(object):
 " border-radius:20px;\n"
 "}")
         self.back.setObjectName("back")
-        self.back.clicked.connect(lambda: register_func.handle_back(MainWindow, startup_window)) #Back button connector
         self.BGviolet = QtWidgets.QLabel(self.centralwidget)
         self.BGviolet.setGeometry(QtCore.QRect(0, 0, 961, 121))
         self.BGviolet.setStyleSheet("QLabel\n"
@@ -241,6 +241,10 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        # connect button to functions
+        self.back.clicked.connect(lambda: register_func.handle_back(MainWindow, startup_window))  # Back button connector
+        self.register_2.clicked.connect(lambda: self.handle_register_button(MainWindow))  # Register button connector
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -257,6 +261,28 @@ class Ui_MainWindow(object):
         self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:14pt;\">Ensure that your details <br/>are final before clicking <br/>the ‘Register’ button.</span></p><p align=\"justify\"><span style=\" font-size:14pt;\"><br/></span></p></body></html>"))
         self.label_11.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Please update the <br/>admin after successfully<br/>registering an account.</span></p></body></html>"))
         self.register_2.setText(_translate("MainWindow", "Register"))
+
+    def handle_register_button(self, MainWindow):
+        lname = self.lname.text()
+        fname = self.fname.text()
+        contactnum = self.contactnum.text()
+        email = self.email.text()
+        username = self.username.text()
+        password = self.password.text()
+        confirm_password = self.confirm_password.text()
+
+        # Connect to the database
+        conn = connect_to_db()
+
+        try:
+                # Handle the register function
+                register_func.handle_register(conn, lname, fname, email, contactnum, username, password, confirm_password)
+        except Exception as e:
+                print(f"Error during registration: {e}")
+
+        # Close the database connection
+        conn.close()
+
 
 if __name__ == "__main__":
     import sys

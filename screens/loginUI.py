@@ -25,7 +25,6 @@ class Ui_MainWindow(object):
 " border-radius:20px;\n"
 "}")
         self.back.setObjectName("back")
-        self.back.clicked.connect(lambda: login_func.handle_back(MainWindow, startup_window))  # Back button connector
         self.BGviolet = QtWidgets.QLabel(self.centralwidget)
         self.BGviolet.setGeometry(QtCore.QRect(0, 0, 961, 121))
         self.BGviolet.setStyleSheet("QLabel\n"
@@ -149,7 +148,9 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         # Connect the login button click event to the handle_login method
-        self.login.clicked.connect(lambda: self.handle_login(MainWindow))
+        self.login.clicked.connect(lambda: self.handle_login(MainWindow))#login button
+        self.back.clicked.connect(lambda: login_func.handle_back(MainWindow, startup_window))  # Back button connector
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -161,7 +162,7 @@ class Ui_MainWindow(object):
         self.forgot.setText(_translate("MainWindow", "Forgot Password?"))
 
 # login function handler
-    def handle_login(self, MainWindow):
+    def handle_login(self):
         username = self.username.text()
         password = self.password.text()
         conn = connect_to_db()
