@@ -1,9 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
-
 from screens import startupUI
 from screens import startup_func
-
 
 #Read and write from DB
 def connect_to_db():

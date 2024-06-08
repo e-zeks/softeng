@@ -125,4 +125,4 @@ class Ui_MainWindow(object):
 def connect_functions(main_window, func_module):
     main_window.ui.guest.clicked.connect(func_module.handle_guest)
     main_window.ui.login.clicked.connect(lambda: func_module.handle_login(main_window))
-    main_window.ui.register_2.clicked.connect(func_module.handle_register)
+    main_window.ui.register_2.clicked.connect(lambda: func_module.handle_register(main_window))
