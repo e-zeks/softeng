@@ -1,7 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from . import register_func
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow, startup_window=None):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(960, 540)
         MainWindow.setStyleSheet("QMainWindow\n"
@@ -23,6 +24,7 @@ class Ui_MainWindow(object):
 " border-radius:20px;\n"
 "}")
         self.back.setObjectName("back")
+        self.back.clicked.connect(lambda: register_func.handle_back(MainWindow, startup_window)) #Back button connector
         self.BGviolet = QtWidgets.QLabel(self.centralwidget)
         self.BGviolet.setGeometry(QtCore.QRect(0, 0, 961, 121))
         self.BGviolet.setStyleSheet("QLabel\n"

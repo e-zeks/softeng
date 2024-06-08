@@ -24,3 +24,7 @@ def handle_login(conn, username, password):
             return True
     print("Login failed")
     return False
+
+def handle_back(current_window, startup_window):
+    current_window.close()
+    startup_window.show()

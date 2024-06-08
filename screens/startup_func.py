@@ -10,7 +10,7 @@ def handle_login(main_window):
     login_window = QtWidgets.QMainWindow()
 
     ui = loginUI.Ui_MainWindow()
-    ui.setupUi(login_window)
+    ui.setupUi(login_window, startup_window=main_window)
 
     login_window.show()
 
@@ -21,7 +21,7 @@ def handle_register(main_window):
     register_window = QtWidgets.QMainWindow()
 
     ui = registerUI.Ui_MainWindow()
-    ui.setupUi(register_window)
+    ui.setupUi(register_window, startup_window=main_window)
 
     register_window.show()
 
