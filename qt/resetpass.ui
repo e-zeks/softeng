@@ -38,7 +38,7 @@ color:white;
 }</string>
     </property>
     <property name="text">
-     <string>back</string>
+     <string>Back</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_12">
@@ -95,7 +95,7 @@ background: #5e3b96;
      </font>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel
@@ -107,7 +107,7 @@ color:white;
      <string>Reset Password</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">

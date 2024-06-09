@@ -44,7 +44,7 @@ color:white;
 }</string>
     </property>
     <property name="text">
-     <string>back</string>
+     <string>Back</string>
     </property>
    </widget>
    <widget class="QLabel" name="BGviolet">
@@ -79,7 +79,7 @@ background: #5e3b96;
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../assets/logog.jpg</pixmap>
+     <pixmap>../logos/logog.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -217,7 +217,7 @@ color:white;
      </font>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel
@@ -229,7 +229,7 @@ color:white;
      <string>Log In</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="forgot">
@@ -257,7 +257,7 @@ color:white;
      <string>Forgot Password?</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="BGviolet_2">
