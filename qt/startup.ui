@@ -51,7 +51,7 @@ background-url:&quot;C:\Users\JC\Desktop\SOFT ENG\assets\Anytime_Fitness_logo.pn
      <bool>false</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+     <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
     </property>
    </widget>
    <widget class="QPushButton" name="register_2">

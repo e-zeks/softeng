@@ -50,12 +50,12 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.label.setFont(font)
-        self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.label.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.label.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
         self.login = QtWidgets.QPushButton(self.centralwidget)
         self.login.setGeometry(QtCore.QRect(390, 430, 171, 31))
@@ -97,7 +97,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.back.setText(_translate("MainWindow", "back"))
+        self.back.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Password Reset<br/>Succesful!</p></body></html>"))
         self.login.setText(_translate("MainWindow", "Back to Login"))
 

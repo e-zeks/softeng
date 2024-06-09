@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
         self.logo.setText("")
         self.logo.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/Anytime_Fitness_logo.png"))
         self.logo.setScaledContents(False)
-        self.logo.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.logo.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignTop)
         self.logo.setObjectName("logo")
         self.register_2 = QtWidgets.QPushButton(self.centralwidget)
         self.register_2.setEnabled(True)
@@ -119,7 +119,6 @@ class Ui_MainWindow(object):
         self.register_2.setText(_translate("MainWindow", "Register"))
         self.login.setText(_translate("MainWindow", "Login"))
         self.guest.setText(_translate("MainWindow", "Guest"))
-
 
 #button connectors
 def connect_functions(main_window, func_module):
