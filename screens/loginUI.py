@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from . import login_func
+from . import forgotpassUI
 from main import connect_to_db
 
 # Class for creating clickable label
@@ -163,7 +164,7 @@ class Ui_MainWindow(object):
         # Connect the login button click event to the handle_login method
         self.login.clicked.connect(lambda: self.handle_login(MainWindow))#login button
         self.back.clicked.connect(lambda: login_func.handle_back(MainWindow, startup_window))  # Back button connector
-        self.forgot.clicked.connect(login_func.handle_forgot) #forgot password connector
+        self.forgot.clicked.connect(lambda: login_func.handle_forgot(MainWindow))  # forgot password connector
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

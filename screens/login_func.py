@@ -1,4 +1,6 @@
 from mysql.connector import Error
+from PyQt5 import QtWidgets
+from . import forgotpassUI
 
 # Function to fetch login data
 def fetch_login_data(conn):
@@ -25,8 +27,19 @@ def handle_login(conn, username, password):
     print("Login failed")
     return False
 
-def handle_forgot():
-    print("illuminati triangle")
+def handle_forgot(main_window):
+    try:
+        main_window.close()
+        forgotpass_window = QtWidgets.QMainWindow()
+
+        ui = forgotpassUI.Ui_MainWindow()
+        ui.setupUi(forgotpass_window, login_window=main_window)
+
+        forgotpass_window.show()
+
+        main_window.forgotpass_window = forgotpass_window
+    except Exception as e:
+        print(f"Exception occurred: {e}")
 
 def handle_back(current_window, startup_window):
     current_window.close()
