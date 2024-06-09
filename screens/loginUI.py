@@ -162,7 +162,7 @@ class Ui_MainWindow(object):
         self.forgot.setText(_translate("MainWindow", "Forgot Password?"))
 
 # login function handler
-    def handle_login(self):
+    def handle_login(self, MainWindow):
         username = self.username.text()
         password = self.password.text()
         conn = connect_to_db()
