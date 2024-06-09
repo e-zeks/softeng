@@ -36,7 +36,7 @@ class Ui_MainWindow(object):
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(260, 0, 421, 121))
         self.label_6.setText("")
-        self.label_6.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../assets/logog.jpg"))
+        self.label_6.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/logog.jpg"))
         self.label_6.setScaledContents(True)
         self.label_6.setObjectName("label_6")
         self.login = QtWidgets.QPushButton(self.centralwidget)
@@ -96,12 +96,12 @@ class Ui_MainWindow(object):
         font.setPointSize(17)
         font.setBold(True)
         self.label.setFont(font)
-        self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.label.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.label.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
         self.forgot = QtWidgets.QLabel(self.centralwidget)
         self.forgot.setGeometry(QtCore.QRect(360, 420, 231, 31))
@@ -113,7 +113,7 @@ class Ui_MainWindow(object):
 "{\n"
 "color:white;\n"
 "}")
-        self.forgot.setAlignment(QtCore.Qt.AlignCenter)
+        self.forgot.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.forgot.setObjectName("forgot")
         self.BGviolet_2 = QtWidgets.QLabel(self.centralwidget)
         self.BGviolet_2.setGeometry(QtCore.QRect(350, 160, 251, 311))
@@ -154,7 +154,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.back.setText(_translate("MainWindow", "back"))
+        self.back.setText(_translate("MainWindow", "Back"))
         self.login.setText(_translate("MainWindow", "Login"))
         self.label_3.setText(_translate("MainWindow", "Password"))
         self.label_2.setText(_translate("MainWindow", "Username"))

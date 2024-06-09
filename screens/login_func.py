@@ -17,6 +17,7 @@ def fetch_login_data(conn):
 
 # Function to handle login
 def handle_login(conn, username, password):
+    print("login yes")
     login_data = fetch_login_data(conn)
     for db_username, db_password in login_data:
         if username == db_username and password == db_password:

@@ -36,13 +36,13 @@ background:white;
      </font>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Account&lt;br/&gt;Registered!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">

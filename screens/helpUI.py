@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\zek\3rd yr comsci\summer\CS 304\soft eng\github\qt\resetpass.ui'
+# Form implementation generated from reading ui file 'D:\zek\3rd yr comsci\summer\CS 304\soft eng\github\qt\help.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -17,6 +17,20 @@ class Ui_MainWindow(object):
         MainWindow.resize(960, 540)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(260, 0, 421, 121))
+        self.label_6.setText("")
+        self.label_6.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/logog.jpg"))
+        self.label_6.setScaledContents(True)
+        self.label_6.setObjectName("label_6")
+        self.BGviolet = QtWidgets.QLabel(self.centralwidget)
+        self.BGviolet.setGeometry(QtCore.QRect(0, 0, 961, 121))
+        self.BGviolet.setStyleSheet("QLabel\n"
+"{\n"
+"background: #5e3b96;\n"
+"}")
+        self.BGviolet.setText("")
+        self.BGviolet.setObjectName("BGviolet")
         self.back = QtWidgets.QPushButton(self.centralwidget)
         self.back.setGeometry(QtCore.QRect(10, 131, 61, 41))
         font = QtGui.QFont()
@@ -30,25 +44,12 @@ class Ui_MainWindow(object):
 " border-radius:20px;\n"
 "}")
         self.back.setObjectName("back")
-        self.label_12 = QtWidgets.QLabel(self.centralwidget)
-        self.label_12.setGeometry(QtCore.QRect(260, 0, 421, 121))
-        self.label_12.setText("")
-        self.label_12.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/logog.jpg"))
-        self.label_12.setScaledContents(True)
-        self.label_12.setObjectName("label_12")
-        self.BGviolet = QtWidgets.QLabel(self.centralwidget)
-        self.BGviolet.setGeometry(QtCore.QRect(0, 0, 961, 121))
-        self.BGviolet.setStyleSheet("QLabel\n"
-"{\n"
-"background: #5e3b96;\n"
-"}")
-        self.BGviolet.setText("")
-        self.BGviolet.setObjectName("BGviolet")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(360, 200, 231, 23))
+        self.label.setGeometry(QtCore.QRect(360, 160, 221, 51))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
-        font.setPointSize(19)
+        font.setPointSize(25)
+        font.setBold(True)
         self.label.setFont(font)
         self.label.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
         self.label.setStyleSheet("QLabel\n"
@@ -58,47 +59,29 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignCenter)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(380, 250, 171, 38))
+        self.label_2.setGeometry(QtCore.QRect(100, 220, 161, 31))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(15)
+        font.setBold(True)
         self.label_2.setFont(font)
         self.label_2.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
         self.label_2.setObjectName("label_2")
-        self.newpass = QtWidgets.QLineEdit(self.centralwidget)
-        self.newpass.setGeometry(QtCore.QRect(380, 290, 191, 22))
-        self.newpass.setObjectName("newpass")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(380, 320, 191, 31))
+        self.label_3.setGeometry(QtCore.QRect(90, 240, 771, 241))
         font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(15)
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
         self.label_3.setFont(font)
-        self.label_3.setStyleSheet("QLabel\n"
-"{\n"
-"color:white;\n"
-"}")
+        self.label_3.setScaledContents(True)
+        self.label_3.setWordWrap(True)
         self.label_3.setObjectName("label_3")
-        self.newpass_confirm = QtWidgets.QLineEdit(self.centralwidget)
-        self.newpass_confirm.setGeometry(QtCore.QRect(380, 360, 191, 22))
-        self.newpass_confirm.setObjectName("newpass_confirm")
-        self.reset = QtWidgets.QPushButton(self.centralwidget)
-        self.reset.setGeometry(QtCore.QRect(390, 430, 171, 31))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(14)
-        self.reset.setFont(font)
-        self.reset.setStyleSheet("QPushButton\n"
-"{\n"
-"background-color:white;\n"
-"color:#5e3b96;\n"
-"}")
-        self.reset.setObjectName("reset")
         self.BGviolet_2 = QtWidgets.QLabel(self.centralwidget)
-        self.BGviolet_2.setGeometry(QtCore.QRect(350, 170, 251, 311))
+        self.BGviolet_2.setGeometry(QtCore.QRect(80, 150, 791, 341))
         self.BGviolet_2.setStyleSheet("QLabel\n"
 "{\n"
 "background: #5e3b96;\n"
@@ -108,14 +91,11 @@ class Ui_MainWindow(object):
         self.BGviolet_2.setObjectName("BGviolet_2")
         self.BGviolet_2.raise_()
         self.BGviolet.raise_()
+        self.label_6.raise_()
         self.back.raise_()
-        self.label_12.raise_()
         self.label.raise_()
         self.label_2.raise_()
-        self.newpass.raise_()
         self.label_3.raise_()
-        self.newpass_confirm.raise_()
-        self.reset.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 960, 22))
@@ -132,10 +112,9 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.back.setText(_translate("MainWindow", "Back"))
-        self.label.setText(_translate("MainWindow", "Reset Password"))
-        self.label_2.setText(_translate("MainWindow", "New Password"))
-        self.label_3.setText(_translate("MainWindow", "Retype Password"))
-        self.reset.setText(_translate("MainWindow", "Reset Now"))
+        self.label.setText(_translate("MainWindow", "Need Help?"))
+        self.label_2.setText(_translate("MainWindow", "User\'s Manual:"))
+        self.label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ffffff;\">1. User manual depending on what process</span></p><p><span style=\" color:#ffffff;\">2.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore <br/>et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </span></p><p><span style=\" color:#ffffff;\">3.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt inculpa qui officia deserunt mollit anim id est laborum.</span></p><p><span style=\" color:#ffffff;\">4.</span></p></body></html>"))
 
 
 if __name__ == "__main__":
