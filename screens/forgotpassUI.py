@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from . import forgotpass_func
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow, startup_window=None, login_window=None):
+    def setupUi(self, MainWindow, login_window=None):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(960, 540)
         self.centralwidget = QtWidgets.QWidget(MainWindow)

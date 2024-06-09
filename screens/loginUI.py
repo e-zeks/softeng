@@ -182,14 +182,5 @@ class Ui_MainWindow(object):
         password = self.password.text()
         conn = connect_to_db()
         if conn:
-            login_func.handle_login(conn, username, password)
+            login_func.handle_login(conn, username, password, MainWindow)
             conn.close()
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

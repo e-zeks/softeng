@@ -1,6 +1,7 @@
 from mysql.connector import Error
 from PyQt5 import QtWidgets
 from . import forgotpassUI
+from . import adminhomeUI
 
 # Function to fetch login data
 def fetch_login_data(conn):
@@ -18,15 +19,28 @@ def fetch_login_data(conn):
         return []
 
 # Function to handle login
-def handle_login(conn, username, password):
+def handle_login(conn, username, password, main_window):
     login_data = fetch_login_data(conn)
     for db_username, db_password in login_data:
         if username == db_username and password == db_password:
-            print("Login successful")
+            print("Log in successful")
+            try:
+                main_window.close()
+                adminhome_window = QtWidgets.QMainWindow()
+
+                ui = adminhomeUI.Ui_MainWindow()
+                ui.setupUi(adminhome_window, login_window=main_window)
+
+                adminhome_window.show()
+
+                main_window.adminhome_window = adminhome_window
+            except Exception as e:
+                print(f"Exception occurred: {e}")
             return True
     print("Login failed")
     return False
 
+#forgot password button
 def handle_forgot(main_window):
     try:
         main_window.close()
