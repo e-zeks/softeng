@@ -2,6 +2,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from . import login_func
 from main import connect_to_db
 
+# Class for creating clickable label
+class ClickableLabel(QtWidgets.QLabel):
+    clicked = QtCore.pyqtSignal()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.setStyleSheet("text-decoration: underline; color: blue;")
+
+    def mousePressEvent(self, event):
+        self.clicked.emit()
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, startup_window=None):
         MainWindow.setObjectName("MainWindow")
@@ -103,7 +115,7 @@ class Ui_MainWindow(object):
 "}")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
-        self.forgot = QtWidgets.QLabel(self.centralwidget)
+        self.forgot = ClickableLabel(self.centralwidget) #clickable text
         self.forgot.setGeometry(QtCore.QRect(360, 420, 231, 31))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
@@ -114,6 +126,7 @@ class Ui_MainWindow(object):
 "color:white;\n"
 "}")
         self.forgot.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.forgot.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.NoTextInteraction)
         self.forgot.setObjectName("forgot")
         self.BGviolet_2 = QtWidgets.QLabel(self.centralwidget)
         self.BGviolet_2.setGeometry(QtCore.QRect(350, 160, 251, 311))
@@ -150,6 +163,7 @@ class Ui_MainWindow(object):
         # Connect the login button click event to the handle_login method
         self.login.clicked.connect(lambda: self.handle_login(MainWindow))#login button
         self.back.clicked.connect(lambda: login_func.handle_back(MainWindow, startup_window))  # Back button connector
+        self.forgot.clicked.connect(login_func.handle_forgot) #forgot password connector
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -159,7 +173,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Password"))
         self.label_2.setText(_translate("MainWindow", "Username"))
         self.label.setText(_translate("MainWindow", "Log In"))
-        self.forgot.setText(_translate("MainWindow", "Forgot Password?"))
+        self.forgot.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" text-decoration: underline;\">Forgot Password?</span></p></body></html>"))
 
 # login function handler
     def handle_login(self, MainWindow):

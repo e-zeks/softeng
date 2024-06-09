@@ -254,10 +254,13 @@ color:white;
 }</string>
     </property>
     <property name="text">
-     <string>Forgot Password?</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Forgot Password?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::TextInteractionFlag::NoTextInteraction</set>
     </property>
    </widget>
    <widget class="QLabel" name="BGviolet_2">
