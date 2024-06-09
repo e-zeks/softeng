@@ -40,7 +40,7 @@ background-url:&quot;C:\Users\JC\Desktop\SOFT ENG\assets\Anytime_Fitness_logo.pn
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../assets/Anytime_Fitness_logo.png</pixmap>
+     <pixmap>../logos/Anytime_Fitness_logo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>false</bool>

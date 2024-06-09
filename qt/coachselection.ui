@@ -346,7 +346,7 @@ color:white;
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../assets/pfp.jpg</pixmap>
+     <pixmap>../logos/pfp.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -370,7 +370,7 @@ color:white;
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../assets/pfp.jpg</pixmap>
+     <pixmap>../logos/pfp.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -394,7 +394,7 @@ color:white;
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../assets/pfp.jpg</pixmap>
+     <pixmap>../logos/pfp.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

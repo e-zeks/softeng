@@ -29,9 +29,9 @@ class Ui_MainWindow(object):
 "background-url:\"C:\\Users\\JC\\Desktop\\SOFT ENG\\assets\\Anytime_Fitness_logo.png\";\n"
 "}")
         self.logo.setText("")
-        self.logo.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../assets/Anytime_Fitness_logo.png"))
+        self.logo.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/Anytime_Fitness_logo.png"))
         self.logo.setScaledContents(False)
-        self.logo.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignCenter)
+        self.logo.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.logo.setWordWrap(False)
         self.logo.setObjectName("logo")
         self.label_12 = QtWidgets.QLabel(self.centralwidget)

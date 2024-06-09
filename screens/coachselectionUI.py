@@ -50,12 +50,12 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(16)
         self.coachname.setFont(font)
-        self.coachname.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.coachname.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.coachname.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
-        self.coachname.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.coachname.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.coachname.setObjectName("coachname")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(30, 190, 171, 20))
@@ -129,7 +129,7 @@ class Ui_MainWindow(object):
 "{\n"
 "color:white;\n"
 "}")
-        self.label_4.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignTop)
+        self.label_4.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(30, 330, 91, 21))
@@ -152,7 +152,7 @@ class Ui_MainWindow(object):
 "{\n"
 "color:white;\n"
 "}")
-        self.label_6.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignTop)
+        self.label_6.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_6.setObjectName("label_6")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(210, 160, 80, 80))
@@ -160,7 +160,7 @@ class Ui_MainWindow(object):
         font.setPointSize(5)
         self.label.setFont(font)
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../assets/pfp.jpg"))
+        self.label.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/pfp.jpg"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
@@ -169,7 +169,7 @@ class Ui_MainWindow(object):
         font.setPointSize(5)
         self.label_7.setFont(font)
         self.label_7.setText("")
-        self.label_7.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../assets/pfp.jpg"))
+        self.label_7.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/pfp.jpg"))
         self.label_7.setScaledContents(True)
         self.label_7.setObjectName("label_7")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
@@ -178,7 +178,7 @@ class Ui_MainWindow(object):
         font.setPointSize(5)
         self.label_8.setFont(font)
         self.label_8.setText("")
-        self.label_8.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../assets/pfp.jpg"))
+        self.label_8.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/pfp.jpg"))
         self.label_8.setScaledContents(True)
         self.label_8.setObjectName("label_8")
         self.coachname_2 = QtWidgets.QLabel(self.centralwidget)
@@ -187,12 +187,12 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(16)
         self.coachname_2.setFont(font)
-        self.coachname_2.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.coachname_2.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.coachname_2.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
-        self.coachname_2.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.coachname_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.coachname_2.setObjectName("coachname_2")
         self.coachname_3 = QtWidgets.QLabel(self.centralwidget)
         self.coachname_3.setGeometry(QtCore.QRect(650, 160, 171, 31))
@@ -200,12 +200,12 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(16)
         self.coachname_3.setFont(font)
-        self.coachname_3.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.coachname_3.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.coachname_3.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
-        self.coachname_3.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.coachname_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.coachname_3.setObjectName("coachname_3")
         self.label_9 = QtWidgets.QLabel(self.centralwidget)
         self.label_9.setGeometry(QtCore.QRect(340, 190, 171, 20))
@@ -250,7 +250,7 @@ class Ui_MainWindow(object):
 "{\n"
 "color:white;\n"
 "}")
-        self.label_13.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignTop)
+        self.label_13.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_13.setObjectName("label_13")
         self.label_14 = QtWidgets.QLabel(self.centralwidget)
         self.label_14.setGeometry(QtCore.QRect(340, 330, 91, 21))
@@ -273,7 +273,7 @@ class Ui_MainWindow(object):
 "{\n"
 "color:white;\n"
 "}")
-        self.label_15.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignTop)
+        self.label_15.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_15.setObjectName("label_15")
         self.booknow1_2 = QtWidgets.QPushButton(self.centralwidget)
         self.booknow1_2.setGeometry(QtCore.QRect(400, 430, 171, 31))
@@ -311,7 +311,7 @@ class Ui_MainWindow(object):
 "{\n"
 "color:white;\n"
 "}")
-        self.label_16.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignTop)
+        self.label_16.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_16.setObjectName("label_16")
         self.label_17 = QtWidgets.QLabel(self.centralwidget)
         self.label_17.setGeometry(QtCore.QRect(650, 330, 91, 21))
@@ -334,7 +334,7 @@ class Ui_MainWindow(object):
 "{\n"
 "color:white;\n"
 "}")
-        self.label_18.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignTop)
+        self.label_18.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_18.setObjectName("label_18")
         self.label_19 = QtWidgets.QLabel(self.centralwidget)
         self.label_19.setGeometry(QtCore.QRect(650, 230, 91, 21))
