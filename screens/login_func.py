@@ -7,10 +7,9 @@ from . import adminhomeUI
 def fetch_login_data(conn):
     if conn is None:
         return []
-
     try:
         with conn.cursor() as cursor:
-            query = "SELECT Username, Password FROM employees"
+            query = "SELECT Username, Password, LOA FROM employees"
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows
@@ -21,21 +20,27 @@ def fetch_login_data(conn):
 # Function to handle login
 def handle_login(conn, username, password, main_window):
     login_data = fetch_login_data(conn)
-    for db_username, db_password in login_data:
+    for db_username, db_password, db_loa in login_data:
         if username == db_username and password == db_password:
             print("Log in successful")
-            try:
-                main_window.close()
-                adminhome_window = QtWidgets.QMainWindow()
+            if db_loa == 'Admin':
+                try:
+                    main_window.close()
+                    adminhome_window = QtWidgets.QMainWindow()
 
-                ui = adminhomeUI.Ui_MainWindow()
-                ui.setupUi(adminhome_window, login_window=main_window)
+                    ui = adminhomeUI.Ui_MainWindow()
+                    ui.setupUi(adminhome_window, login_window=main_window)
 
-                adminhome_window.show()
+                    adminhome_window.show()
 
-                main_window.adminhome_window = adminhome_window
-            except Exception as e:
-                print(f"Exception occurred: {e}")
+                    main_window.adminhome_window = adminhome_window
+                except Exception as e:
+                    print(f"Exception occurred: {e}")
+            #elif db_loa == 'Coach':
+
+            #elif db_loa == 'Auditor':
+
+            #elif db_loa == 'Client':
             return True
     print("Login failed")
     return False

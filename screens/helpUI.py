@@ -51,12 +51,12 @@ class Ui_MainWindow(object):
         font.setPointSize(25)
         font.setBold(True)
         self.label.setFont(font)
-        self.label.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.label.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.label.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
-        self.label.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignCenter)
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(100, 220, 161, 31))
