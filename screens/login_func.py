@@ -36,11 +36,12 @@ def handle_login(conn, username, password, main_window):
                     main_window.adminhome_window = adminhome_window
                 except Exception as e:
                     print(f"Exception occurred: {e}")
-            #elif db_loa == 'Coach':
-
-            #elif db_loa == 'Auditor':
-
-            #elif db_loa == 'Client':
+            elif db_loa == 'Coach':
+                print("coach screen")
+            elif db_loa == 'Auditor':
+                print("auditor screen")
+            elif db_loa == 'Client':
+                print("client screen")
             return True
     print("Login failed")
     return False
