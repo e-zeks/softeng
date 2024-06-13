@@ -35,7 +35,7 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(370, 290, 191, 51))
+        self.label_3.setGeometry(QtCore.QRect(360, 290, 241, 51))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(15)
@@ -104,6 +104,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.sendOTP.clicked.connect(lambda: self.handle_sendOTP(MainWindow)) # send OTP button connector
         self.back.clicked.connect(lambda: forgotpass_func.handle_back(MainWindow, login_window))  # Back button connector
 
     def retranslateUi(self, MainWindow):
@@ -111,5 +112,10 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.back.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Forgot <br/>Password?</p></body></html>"))
-        self.label_3.setText(_translate("MainWindow", "Registered Email"))
+        self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Registered Email</p></body></html>"))
         self.sendOTP.setText(_translate("MainWindow", "Send OTP"))
+
+    #send OTP function handler
+    def handle_sendOTP(self, MainWindow):
+        email = self.registered_email.text()
+        forgotpass_func.handle_sendOTP(email, MainWindow)
