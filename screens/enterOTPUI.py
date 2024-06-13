@@ -53,22 +53,22 @@ class Ui_MainWindow(object):
 "background: white;\n"
 "}")
         self.otp1.setObjectName("otp1")
-        self.sendOTP = QtWidgets.QPushButton(self.centralwidget)
-        self.sendOTP.setGeometry(QtCore.QRect(450, 340, 181, 31))
+        self.verifyOTP = QtWidgets.QPushButton(self.centralwidget)
+        self.verifyOTP.setGeometry(QtCore.QRect(450, 340, 181, 31))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(15)
         font.setBold(False)
-        self.sendOTP.setFont(font)
-        self.sendOTP.setAutoFillBackground(False)
-        self.sendOTP.setStyleSheet("QPushButton {\n"
+        self.verifyOTP.setFont(font)
+        self.verifyOTP.setAutoFillBackground(False)
+        self.verifyOTP.setStyleSheet("QPushButton {\n"
 "border-radius: 10px;\n"
 "background-color: white;\n"
 "color: #5e3b96;\n"
 "width: 20px;\n"
 "}")
-        self.sendOTP.setIconSize(QtCore.QSize(100, 16))
-        self.sendOTP.setObjectName("sendOTP")
+        self.verifyOTP.setIconSize(QtCore.QSize(100, 16))
+        self.verifyOTP.setObjectName("verifyOTP")
         self.otp2 = QtWidgets.QLineEdit(self.centralwidget)
         self.otp2.setGeometry(QtCore.QRect(440, 260, 41, 41))
         self.otp2.setStyleSheet("QLineEdit {\n"
@@ -135,7 +135,7 @@ class Ui_MainWindow(object):
         self.label.raise_()
         self.label_6.raise_()
         self.otp1.raise_()
-        self.sendOTP.raise_()
+        self.verifyOTP.raise_()
         self.otp2.raise_()
         self.otp3.raise_()
         self.otp4.raise_()
@@ -159,10 +159,12 @@ class Ui_MainWindow(object):
         self.forgotpass_window = forgotpass_window
         self.back_2.clicked.connect(lambda: enterOTP_func.handle_back(MainWindow, forgotpass_window))
 
+        self.verifyOTP.clicked.connect(lambda: self.handle_verifyOTP(MainWindow)) #verify otp button
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ffffff;\">Enter One Time Password</span></p></body></html>"))
-        self.sendOTP.setText(_translate("MainWindow", "Verify OTP"))
+        self.verifyOTP.setText(_translate("MainWindow", "Verify OTP"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" text-decoration: underline;\">Did not receive a code? Resend now</span></p></body></html>"))
         self.back_2.setText(_translate("MainWindow", "back"))
