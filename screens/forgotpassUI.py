@@ -1,6 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from . import forgotpass_func
-from . import enterOTPUI
+from . import forgotpass_func, enterOTPUI
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, login_window=None):
@@ -111,7 +110,7 @@ class Ui_MainWindow(object):
         #OTP window
         self.enterOTP_window = QtWidgets.QMainWindow()
         self.enterOTP_ui = enterOTPUI.Ui_MainWindow()
-        self.enterOTP_ui.setupUi(self.enterOTP_window)
+        self.enterOTP_ui.setupUi(self.enterOTP_window, MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
