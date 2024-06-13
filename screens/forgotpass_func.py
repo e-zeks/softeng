@@ -9,7 +9,7 @@ def generate_otp():
     return ''.join([str(random.randint(0, 9)) for _ in range(6)])
 
 # send OTP button function
-def handle_sendOTP(email, MainWindow):
+def handle_sendOTP(email, MainWindow, enterOTP_window):
     if re.match(r"[^@]+@[^@]+\.[^@]+", email): #validate email
         print("Sending OTP...")  # Debugging statement
         sender_email = "thenoskalos@gmail.com"
@@ -30,11 +30,16 @@ def handle_sendOTP(email, MainWindow):
                 server.sendmail(sender_email, [email], message.as_string())
             print("OTP sent successfully")  # Debugging statement
             QMessageBox.information(None, "OTP Sent", "OTP has been sent to your email address.")
+            switch_to_enterOTP(MainWindow, enterOTP_window) # Function to switch screen here
         except Exception as e:
             print(f"Failed to send OTP: {str(e)}")  # Debugging statement
             QMessageBox.critical(None, "Error", f"Failed to send OTP: {str(e)}")
     else:
         print("Invalid email address")
+
+def switch_to_enterOTP(current_window, enterOTP_window):
+    current_window.close()
+    enterOTP_window.show()
 
 def handle_back(current_window, login_window):
     current_window.close()
