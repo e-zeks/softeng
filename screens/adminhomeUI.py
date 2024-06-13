@@ -171,6 +171,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         self.log_out.clicked.connect(lambda: adminhome_func.handle_logout(MainWindow, login_window))  # logout connector
+        self.employees.clicked.connect(lambda: adminhome_func.handle_employees(MainWindow))  # employees connector
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

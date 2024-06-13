@@ -1,8 +1,6 @@
-import sys
-import mysql.connector
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QPushButton, QLabel
-
+from main import connect_to_db #db connection
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -240,12 +238,7 @@ class Ui_MainWindow(object):
 
     def load_data(self):
         # Connect to the MySQL database
-        connection = mysql.connector.connect(
-            host="localhost",  # Replace with your MySQL host
-            user="root",  # Replace with your MySQL username
-            password="12345",  # Replace with your MySQL password
-            database="softeng"  # Replace with your MySQL database name
-        )
+        connection = connect_to_db()
         cursor = connection.cursor()
 
         # Execute a query to fetch data
@@ -286,14 +279,3 @@ class Ui_MainWindow(object):
         self.save.setText(_translate("MainWindow", "Save"))
         self.previous.setText(_translate("MainWindow", "Previous"))
         self.next.setText(_translate("MainWindow", "Next"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    ui.load_data()  # Call the load_data method here
-    MainWindow.show()
-    sys.exit(app.exec_())
