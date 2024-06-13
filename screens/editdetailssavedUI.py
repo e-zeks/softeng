@@ -137,13 +137,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.numofsessions.setFont(font)
-        self.numofsessions.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.numofsessions.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.numofsessions.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
         self.numofsessions.setScaledContents(True)
-        self.numofsessions.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.numofsessions.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.numofsessions.setObjectName("numofsessions")
         self.BGviolet.raise_()
         self.label_12.raise_()

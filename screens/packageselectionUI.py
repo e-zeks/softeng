@@ -50,13 +50,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.package_2.setFont(font)
-        self.package_2.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.package_2.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.package_2.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
         self.package_2.setScaledContents(True)
-        self.package_2.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.package_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.package_2.setObjectName("package_2")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(180, 250, 171, 20))
@@ -112,7 +112,7 @@ class Ui_MainWindow(object):
 "color:white;\n"
 "}")
         self.label_4.setScaledContents(True)
-        self.label_4.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignTop)
+        self.label_4.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_4.setWordWrap(True)
         self.label_4.setObjectName("label_4")
         self.package_3 = QtWidgets.QLabel(self.centralwidget)
@@ -121,13 +121,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.package_3.setFont(font)
-        self.package_3.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.package_3.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.package_3.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
         self.package_3.setScaledContents(True)
-        self.package_3.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.package_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.package_3.setObjectName("package_3")
         self.label_9 = QtWidgets.QLabel(self.centralwidget)
         self.label_9.setGeometry(QtCore.QRect(620, 250, 171, 20))
@@ -152,7 +152,7 @@ class Ui_MainWindow(object):
 "color:white;\n"
 "}")
         self.label_13.setScaledContents(True)
-        self.label_13.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignTop)
+        self.label_13.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_13.setWordWrap(True)
         self.label_13.setObjectName("label_13")
         self.booknow1_2 = QtWidgets.QPushButton(self.centralwidget)

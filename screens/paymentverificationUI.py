@@ -37,13 +37,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.payatcounter.setFont(font)
-        self.payatcounter.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.payatcounter.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.payatcounter.setStyleSheet("QLabel\n"
 "{\n"
 "color:white;\n"
 "}")
         self.payatcounter.setScaledContents(True)
-        self.payatcounter.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.payatcounter.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.payatcounter.setObjectName("payatcounter")
         self.booknow1 = QtWidgets.QPushButton(self.centralwidget)
         self.booknow1.setGeometry(QtCore.QRect(680, 430, 171, 31))
@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
 "color:white;\n"
 "}")
         self.label_4.setScaledContents(True)
-        self.label_4.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignTop)
+        self.label_4.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_4.setWordWrap(True)
         self.label_4.setObjectName("label_4")
         self.back = QtWidgets.QPushButton(self.centralwidget)
@@ -100,13 +100,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.finalizelbl.setFont(font)
-        self.finalizelbl.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.finalizelbl.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.finalizelbl.setStyleSheet("QLabel\n"
 "{\n"
 "color: #5e3b96;\n"
 "}")
         self.finalizelbl.setScaledContents(True)
-        self.finalizelbl.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.finalizelbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.finalizelbl.setObjectName("finalizelbl")
         self.coachlbl = QtWidgets.QLabel(self.centralwidget)
         self.coachlbl.setGeometry(QtCore.QRect(50, 210, 111, 31))
@@ -114,13 +114,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.coachlbl.setFont(font)
-        self.coachlbl.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.coachlbl.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.coachlbl.setStyleSheet("QLabel\n"
 "{\n"
 "color: #5e3b96;\n"
 "}")
         self.coachlbl.setScaledContents(True)
-        self.coachlbl.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.coachlbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.coachlbl.setObjectName("coachlbl")
         self.progplanlbl = QtWidgets.QLabel(self.centralwidget)
         self.progplanlbl.setGeometry(QtCore.QRect(50, 260, 211, 31))
@@ -128,13 +128,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.progplanlbl.setFont(font)
-        self.progplanlbl.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.progplanlbl.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.progplanlbl.setStyleSheet("QLabel\n"
 "{\n"
 "color: #5e3b96;\n"
 "}")
         self.progplanlbl.setScaledContents(True)
-        self.progplanlbl.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.progplanlbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.progplanlbl.setObjectName("progplanlbl")
         self.packagelbl = QtWidgets.QLabel(self.centralwidget)
         self.packagelbl.setGeometry(QtCore.QRect(50, 310, 141, 41))
@@ -142,13 +142,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.packagelbl.setFont(font)
-        self.packagelbl.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.packagelbl.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.packagelbl.setStyleSheet("QLabel\n"
 "{\n"
 "color: #5e3b96;\n"
 "}")
         self.packagelbl.setScaledContents(True)
-        self.packagelbl.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.packagelbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.packagelbl.setObjectName("packagelbl")
         self.noofsesslbl = QtWidgets.QLabel(self.centralwidget)
         self.noofsesslbl.setGeometry(QtCore.QRect(50, 370, 311, 31))
@@ -156,13 +156,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.noofsesslbl.setFont(font)
-        self.noofsesslbl.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.noofsesslbl.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.noofsesslbl.setStyleSheet("QLabel\n"
 "{\n"
 "color: #5e3b96;\n"
 "}")
         self.noofsesslbl.setScaledContents(True)
-        self.noofsesslbl.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.noofsesslbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.noofsesslbl.setObjectName("noofsesslbl")
         self.totalamtlbl = QtWidgets.QLabel(self.centralwidget)
         self.totalamtlbl.setGeometry(QtCore.QRect(50, 420, 211, 31))
@@ -170,13 +170,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.totalamtlbl.setFont(font)
-        self.totalamtlbl.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
+        self.totalamtlbl.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.totalamtlbl.setStyleSheet("QLabel\n"
 "{\n"
 "color: #5e3b96;\n"
 "}")
         self.totalamtlbl.setScaledContents(True)
-        self.totalamtlbl.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
+        self.totalamtlbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.totalamtlbl.setObjectName("totalamtlbl")
         self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(170, 211, 341, 31))
@@ -190,7 +190,7 @@ class Ui_MainWindow(object):
 "color: #5e3b96;\n"
 "}")
         self.lineEdit.setText("")
-        self.lineEdit.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignBottom|QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft)
+        self.lineEdit.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom|QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft)
         self.lineEdit.setReadOnly(True)
         self.lineEdit.setObjectName("lineEdit")
         self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
@@ -200,7 +200,7 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         font.setBold(True)
         self.lineEdit_2.setFont(font)
-        self.lineEdit_2.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignBottom|QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft)
+        self.lineEdit_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom|QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft)
         self.lineEdit_2.setReadOnly(True)
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.lineEdit_3 = QtWidgets.QLineEdit(self.centralwidget)
@@ -210,7 +210,7 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         font.setBold(True)
         self.lineEdit_3.setFont(font)
-        self.lineEdit_3.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignBottom|QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft)
+        self.lineEdit_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom|QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft)
         self.lineEdit_3.setReadOnly(True)
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.lineEdit_4 = QtWidgets.QLineEdit(self.centralwidget)
@@ -220,7 +220,7 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         font.setBold(True)
         self.lineEdit_4.setFont(font)
-        self.lineEdit_4.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignBottom|QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft)
+        self.lineEdit_4.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom|QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft)
         self.lineEdit_4.setReadOnly(True)
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.lineEdit_5 = QtWidgets.QLineEdit(self.centralwidget)
@@ -230,7 +230,7 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         font.setBold(True)
         self.lineEdit_5.setFont(font)
-        self.lineEdit_5.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignBottom|QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft)
+        self.lineEdit_5.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom|QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft)
         self.lineEdit_5.setReadOnly(True)
         self.lineEdit_5.setObjectName("lineEdit_5")
         self.lineEdit_6 = QtWidgets.QLineEdit(self.centralwidget)
@@ -240,7 +240,7 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         font.setBold(True)
         self.lineEdit_6.setFont(font)
-        self.lineEdit_6.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignBottom|QtCore.Qt.Qt::AlignmentFlag::AlignLeading|QtCore.Qt.Qt::AlignmentFlag::AlignLeft)
+        self.lineEdit_6.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom|QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft)
         self.lineEdit_6.setReadOnly(False)
         self.lineEdit_6.setObjectName("lineEdit_6")
         self.BGviolet_2.raise_()
