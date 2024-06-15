@@ -104,13 +104,15 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.sendOTP.clicked.connect(lambda: self.handle_sendOTP(MainWindow)) # send OTP button connector
-        self.back.clicked.connect(lambda: forgotpass_func.handle_back(MainWindow, login_window))  # Back button connector
-
-        #OTP window
+        # OTP window
         self.enterOTP_window = QtWidgets.QMainWindow()
         self.enterOTP_ui = enterOTPUI.Ui_MainWindow()
         self.enterOTP_ui.setupUi(self.enterOTP_window, MainWindow)
+
+        self.sendOTP.clicked.connect(lambda: self.handle_sendOTP(MainWindow)) # send OTP button connector
+        self.back.clicked.connect(lambda: forgotpass_func.handle_back(MainWindow, login_window))  # Back button connector
+
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -123,4 +125,4 @@ class Ui_MainWindow(object):
     #send OTP function handler
     def handle_sendOTP(self, MainWindow):
         email = self.registered_email.text()
-        forgotpass_func.handle_sendOTP(email, MainWindow, self.enterOTP_window)
+        forgotpass_func.handle_sendOTP(email, MainWindow, self.enterOTP_window, self.enterOTP_ui)

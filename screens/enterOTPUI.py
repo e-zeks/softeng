@@ -1,9 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from . import enterOTP_func
-
+from . import enterOTP_func, forgotpass_func
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, forgotpass_window=None):
+
+        self.generated_otp = None
+            
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(960, 540)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -159,7 +161,7 @@ class Ui_MainWindow(object):
         self.forgotpass_window = forgotpass_window
         self.back_2.clicked.connect(lambda: enterOTP_func.handle_back(MainWindow, forgotpass_window))
 
-        self.verifyOTP.clicked.connect(lambda: self.handle_verifyOTP(MainWindow)) #verify otp button
+        self.verifyOTP.clicked.connect(lambda: enterOTP_func.handle_verifyOTP(MainWindow, self.generated_otp)) #verify otp button
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -168,3 +170,4 @@ class Ui_MainWindow(object):
         self.verifyOTP.setText(_translate("MainWindow", "Verify OTP"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" text-decoration: underline;\">Did not receive a code? Resend now</span></p></body></html>"))
         self.back_2.setText(_translate("MainWindow", "back"))
+

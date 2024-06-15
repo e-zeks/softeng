@@ -9,7 +9,7 @@ def generate_otp():
     return ''.join([str(random.randint(0, 9)) for _ in range(6)])
 
 # send OTP button function
-def handle_sendOTP(email, MainWindow, enterOTP_window):
+def handle_sendOTP(email, MainWindow, enterOTP_window, enterOTP_UI):
     if re.match(r"[^@]+@[^@]+\.[^@]+", email): #validate email
         print("Sending OTP...")  # Debugging statement
         sender_email = "thenoskalos@gmail.com"
@@ -24,6 +24,8 @@ def handle_sendOTP(email, MainWindow, enterOTP_window):
         message["From"] = sender_email
         message["To"] = email
 
+        enterOTP_UI.generated_otp = otp
+
         try:
             with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
                 server.login(sender_email, sender_password)
@@ -37,10 +39,16 @@ def handle_sendOTP(email, MainWindow, enterOTP_window):
     else:
         print("Invalid email address")
 
+#email validator for enterOTP
+#def validate_OTP():
+
+
+#enterOTP screen
 def switch_to_enterOTP(current_window, enterOTP_window):
     current_window.close()
     enterOTP_window.show()
 
+#back button
 def handle_back(current_window, login_window):
     current_window.close()
     login_window.show()
