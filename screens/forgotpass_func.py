@@ -39,10 +39,6 @@ def handle_sendOTP(email, MainWindow, enterOTP_window, enterOTP_UI):
     else:
         print("Invalid email address")
 
-#email validator for enterOTP
-#def validate_OTP():
-
-
 #enterOTP screen
 def switch_to_enterOTP(current_window, enterOTP_window):
     current_window.close()

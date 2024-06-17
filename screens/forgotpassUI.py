@@ -112,8 +112,6 @@ class Ui_MainWindow(object):
         self.sendOTP.clicked.connect(lambda: self.handle_sendOTP(MainWindow)) # send OTP button connector
         self.back.clicked.connect(lambda: forgotpass_func.handle_back(MainWindow, login_window))  # Back button connector
 
-
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
