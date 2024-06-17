@@ -1,28 +1,23 @@
-from PyQt5 import QtWidgets
-from . import loginUI
-from . import registerUI
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtCore import pyqtSignal
+from screens.startupUI import Ui_MainWindow
 
-def handle_guest():
-    print("booking screen")
+class startup_win(QMainWindow, Ui_MainWindow):
+    # login_signal = pyqtSignal(str, str)
+    login_signal_btn = pyqtSignal()
+    register_signal_btn = pyqtSignal()
 
-def handle_login(main_window):
-    main_window.close()
-    login_window = QtWidgets.QMainWindow()
+    # Signal with two string parameters
+    def __init__(self):
+        super(startup_win, self).__init__()
+        super(startup_win, self).__init__()
+        self.setupUi(self)
 
-    ui = loginUI.Ui_MainWindow()
-    ui.setupUi(login_window, startup_window=main_window)
+        self.login.clicked.connect(self.handle_login)
+        self.register_2.clicked.connect(self.handle_register)
 
-    login_window.show()
+    def handle_login(self):
+        self.login_signal_btn.emit()
 
-    main_window.login_window = login_window
-
-def handle_register(main_window):
-    main_window.close()
-    register_window = QtWidgets.QMainWindow()
-
-    ui = registerUI.Ui_MainWindow()
-    ui.setupUi(register_window, startup_window=main_window)
-
-    register_window.show()
-
-    main_window.register_window = register_window
+    def handle_register(self):
+        self.register_signal_btn.emit()

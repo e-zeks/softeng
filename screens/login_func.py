@@ -1,7 +1,22 @@
 from mysql.connector import Error
-from PyQt5 import QtWidgets
-from . import forgotpassUI
-from . import adminhomeUI
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtWidgets import QMainWindow
+from screens.loginUI import Ui_MainWindow
+
+class LoginWindow(QMainWindow, Ui_MainWindow):
+    back_button = QtCore.pyqtSignal()
+    forgot_button = QtCore.pyqtSignal()
+    def __init__(self):
+        super(LoginWindow, self).__init__()
+        self.setupUi(self)
+        self.back.clicked.connect(self.button_clicked)
+        self.forgotpassword.clicked.connect(self.handle_OTP)
+
+    def button_clicked(self):
+        self.back_button.emit()
+
+    def handle_OTP(self):
+        self.forgot_button.emit()
 
 # Function to fetch login data
 def fetch_login_data(conn):
@@ -16,26 +31,15 @@ def fetch_login_data(conn):
     except Error as e:
         print(f"Error: {e}")
         return []
-
-# Function to handle login
+#
+# # Function to handle login
 def handle_login(conn, username, password, main_window):
     login_data = fetch_login_data(conn)
     for db_username, db_password, db_loa in login_data:
         if username == db_username and password == db_password:
             print("Log in successful")
             if db_loa == 'Admin':
-                try:
-                    main_window.close()
-                    adminhome_window = QtWidgets.QMainWindow()
-
-                    ui = adminhomeUI.Ui_MainWindow()
-                    ui.setupUi(adminhome_window, login_window=main_window)
-
-                    adminhome_window.show()
-
-                    main_window.adminhome_window = adminhome_window
-                except Exception as e:
-                    print(f"Exception occurred: {e}")
+                print("Admin Screen")
             elif db_loa == 'Coach':
                 print("coach screen")
             elif db_loa == 'Auditor':
@@ -45,22 +49,3 @@ def handle_login(conn, username, password, main_window):
             return True
     print("Login failed")
     return False
-
-#forgot password button
-def handle_forgot(main_window):
-    try:
-        main_window.close()
-        forgotpass_window = QtWidgets.QMainWindow()
-
-        ui = forgotpassUI.Ui_MainWindow()
-        ui.setupUi(forgotpass_window, login_window=main_window)
-
-        forgotpass_window.show()
-
-        main_window.forgotpass_window = forgotpass_window
-    except Exception as e:
-        print(f"Exception occurred: {e}")
-
-def handle_back(current_window, startup_window):
-    current_window.close()
-    startup_window.show()

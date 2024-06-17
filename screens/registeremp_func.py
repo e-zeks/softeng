@@ -1,6 +1,18 @@
-from mysql.connector import Error
 import re
+from mysql.connector import Error
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QMainWindow
+from screens.registerempUI import Ui_MainWindow
 
+class RegisterWindow(QMainWindow, Ui_MainWindow):
+    back_button = QtCore.pyqtSignal()
+    def __init__(self):
+        super(RegisterWindow, self).__init__()
+        self.setupUi(self)
+        self.back.clicked.connect(self.button_clicked)
+
+    def button_clicked(self):
+        self.back_button.emit()
 def handle_register(conn, lname, fname, email, contactnum, username, password, confirm_password):
     if not validate_password(password):
         print("Password does not meet requirements.")
@@ -48,6 +60,3 @@ def validate_password(password):
         return False
     return True
 
-def handle_back(current_window, startup_window):
-    current_window.close()
-    startup_window.show()
