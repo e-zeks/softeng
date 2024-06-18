@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import QtCore
 from screens.bookingUI import Ui_MainWindow
+import re
 
 class ClientRegWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
@@ -8,6 +9,7 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
     # Signal with two string parameters
     def __init__(self):
         super(ClientRegWindow, self).__init__()
+        #self.conn = conn
         self.setupUi(self)
 
         #object name (back in this ex.)

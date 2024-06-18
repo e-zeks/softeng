@@ -6,12 +6,13 @@ from screens.loginUI import Ui_MainWindow
 class LoginWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
     forgot_button = QtCore.pyqtSignal()
-    login_button = QtCore.pyqtSignal()
+    #login_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
         super(LoginWindow, self).__init__()
         self.conn = conn
         self.setupUi(self)
+
         self.back.clicked.connect(self.button_clicked)
         self.forgotpassword.clicked.connect(self.handle_OTP)
         self.login.clicked.connect(self.handle_login)

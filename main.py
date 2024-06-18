@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
         self.startup_screen = startup_win()
         self.login_screen = LoginWindow(conn)
         self.startup2_screen = startup2_win()
-        self.register_screen = RegisterWindow()
+        self.register_screen = RegisterWindow(conn)
         self.clientreg_screen = ClientRegWindow()
         self.OTP_screen = OTPWindow()
 
