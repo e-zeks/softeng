@@ -11,7 +11,7 @@ from screens.startup2_func import startup2_win
 from screens.enterOTP_func import OTPWindow
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, conn):
         super(MainWindow, self).__init__()
 
         self.setWindowTitle("Main Window")
@@ -20,29 +20,29 @@ class MainWindow(QMainWindow):
         self.stack = QStackedWidget(self)
         self.setCentralWidget(self.stack)
 
-        #Full Screen on start
-        #self.showFullScreen()
+        # Full Screen on start
+        # self.showFullScreen()
 
-        #Variable Definitions - class of screen functions
+        # Variable Definitions - class of screen functions
         self.startup_screen = startup_win()
-        self.login_screen = LoginWindow()
+        self.login_screen = LoginWindow(conn)
         self.startup2_screen = startup2_win()
         self.register_screen = RegisterWindow()
         self.clientreg_screen = ClientRegWindow()
         self.OTP_screen = OTPWindow()
 
-        #Adding Screens to Stack
-        self.stack.addWidget(self.startup_screen) #startup
-        self.stack.addWidget(self.login_screen) #login
-        self.stack.addWidget(self.register_screen) #employee register
-        self.stack.addWidget(self.startup2_screen) #startup 2
-        self.stack.addWidget(self.clientreg_screen) #client register
-        self.stack.addWidget(self.OTP_screen) #WINDOW FOR OTP SCREEN
+        # Adding Screens to Stack
+        self.stack.addWidget(self.startup_screen)  # startup
+        self.stack.addWidget(self.login_screen)  # login
+        self.stack.addWidget(self.register_screen)  # employee register
+        self.stack.addWidget(self.startup2_screen)  # startup 2
+        self.stack.addWidget(self.clientreg_screen)  # client register
+        self.stack.addWidget(self.OTP_screen)  # WINDOW FOR OTP SCREEN
 
-        #startup
+        # Startup
         self.stack.setCurrentWidget(self.startup_screen)
 
-        #Button functions
+        # Button functions
         self.startup_screen.login_signal_btn.connect(self.handle_login)
         self.startup_screen.register_signal_btn.connect(self.handle_startup2)
 
@@ -77,13 +77,13 @@ class MainWindow(QMainWindow):
     def handle_clientreg(self):
         self.stack.setCurrentWidget(self.clientreg_screen)
 
-#Read and write from DB
+# Read and write from DB
 def connect_to_db():
     try:
         conn = mysql.connector.connect(
             host="localhost",
             user="root",
-            passwd="1234",
+            passwd="12345",
             database="softeng"
         )
         if conn.is_connected():
@@ -94,10 +94,11 @@ def connect_to_db():
         return None
 
 def main():
-        app = QApplication(sys.argv)
-        window = MainWindow()
-        window.show()
-        sys.exit(app.exec_())
+    conn = connect_to_db()
+    app = QApplication(sys.argv)
+    window = MainWindow(conn)
+    window.show()
+    sys.exit(app.exec_())
 
 if __name__ == "__main__":
-        main()
+    main()
