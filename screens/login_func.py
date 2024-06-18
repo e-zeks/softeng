@@ -6,7 +6,7 @@ from screens.loginUI import Ui_MainWindow
 class LoginWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
     forgot_button = QtCore.pyqtSignal()
-    #login_button = QtCore.pyqtSignal()
+    loginadmin_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
         super(LoginWindow, self).__init__()
@@ -18,10 +18,14 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         self.login.clicked.connect(self.handle_login)
 
     def button_clicked(self):
+        self.usernameinput.clear()
+        self.passwordinput.clear()
         self.back_button.emit()
 
     # Forgot pass button
     def handle_OTP(self):
+        self.usernameinput.clear()
+        self.passwordinput.clear()
         self.forgot_button.emit()
 
     # Function to fetch login data
@@ -49,6 +53,9 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
                 print("Log in successful")
                 if db_loa == 'Admin':
                     print("Admin Screen")
+                    self.usernameinput.clear()
+                    self.passwordinput.clear()
+                    self.loginadmin_button.emit()
                 elif db_loa == 'Coach':
                     print("Coach Screen")
                 elif db_loa == 'Auditor':

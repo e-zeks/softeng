@@ -151,41 +151,41 @@ class Ui_MainWindow(object):
         self.label_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom|QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft)
         self.label_3.setObjectName("label_3")
         self.verticalLayout_3.addWidget(self.label_3)
-        self.password = QtWidgets.QLineEdit(self.widget_6)
-        self.password.setMaximumSize(QtCore.QSize(16777215, 43))
+        self.registeredemail = QtWidgets.QLineEdit(self.widget_6)
+        self.registeredemail.setMaximumSize(QtCore.QSize(16777215, 43))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(19)
-        self.password.setFont(font)
-        self.password.setStyleSheet("QLineEdit\n"
+        self.registeredemail.setFont(font)
+        self.registeredemail.setStyleSheet("QLineEdit\n"
 "{\n"
 "color: #5e3b96;\n"
 "background-color:white;\n"
 "}")
-        self.password.setObjectName("password")
-        self.verticalLayout_3.addWidget(self.password)
+        self.registeredemail.setObjectName("password")
+        self.verticalLayout_3.addWidget(self.registeredemail)
         spacerItem8 = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_3.addItem(spacerItem8)
-        self.resetnow = QtWidgets.QPushButton(self.widget_6)
+        self.sendOTP = QtWidgets.QPushButton(self.widget_6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.resetnow.sizePolicy().hasHeightForWidth())
-        self.resetnow.setSizePolicy(sizePolicy)
-        self.resetnow.setMaximumSize(QtCore.QSize(16777215, 55))
+        sizePolicy.setHeightForWidth(self.sendOTP.sizePolicy().hasHeightForWidth())
+        self.sendOTP.setSizePolicy(sizePolicy)
+        self.sendOTP.setMaximumSize(QtCore.QSize(16777215, 55))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(22)
         font.setBold(True)
-        self.resetnow.setFont(font)
-        self.resetnow.setStyleSheet("QPushButton\n"
+        self.sendOTP.setFont(font)
+        self.sendOTP.setStyleSheet("QPushButton\n"
 "{\n"
 "color: #5e3b96;\n"
 "background-color:white;\n"
 "border-radius:20px;\n"
 "}")
-        self.resetnow.setObjectName("resetnow")
-        self.verticalLayout_3.addWidget(self.resetnow)
+        self.sendOTP.setObjectName("resetnow")
+        self.verticalLayout_3.addWidget(self.sendOTP)
         spacerItem9 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem9)
         self.horizontalLayout_3.addWidget(self.widget_6)
@@ -207,7 +207,7 @@ class Ui_MainWindow(object):
         self.back.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Forgot Password<br/></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "Registered Email"))
-        self.resetnow.setText(_translate("MainWindow", "Reset Now"))
+        self.sendOTP.setText(_translate("MainWindow", "Send OTP"))
 
 
 if __name__ == "__main__":

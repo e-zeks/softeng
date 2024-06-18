@@ -8,6 +8,10 @@ class OTPWindow(QMainWindow, Ui_MainWindow):
         super(OTPWindow, self).__init__()
         self.setupUi(self)
         self.back.clicked.connect(self.button_clicked)
+        self.verifyOTP.clicked.connect(self.handle_verifyOTP)
 
     def button_clicked(self):
         self.back_button.emit()
+
+    def handle_verifyOTP(self):
+        print("otp")

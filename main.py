@@ -3,8 +3,11 @@ import mysql.connector
 from mysql.connector import Error
 from PyQt5.QtWidgets import QStackedWidget, QMainWindow, QApplication
 
+from screens.adminhome_func import AdminHomeWindow
 from screens.booking_func import ClientRegWindow
+from screens.forgotpass_func import ForgotPassWindow
 from screens.login_func import LoginWindow
+from screens.manageempUI import ManageEmpWindow
 from screens.startup_func import startup_win
 from screens.registeremp_func import RegisterWindow
 from screens.startup2_func import startup2_win
@@ -29,7 +32,10 @@ class MainWindow(QMainWindow):
         self.startup2_screen = startup2_win()
         self.register_screen = RegisterWindow(conn)
         self.clientreg_screen = ClientRegWindow()
-        self.OTP_screen = OTPWindow()
+        self.forgotpass_screen = ForgotPassWindow()
+        self.enterOTP_screen = OTPWindow()
+        self.manageemp_screen = ManageEmpWindow(conn)
+        self.adminhome_screen = AdminHomeWindow()
 
         # Adding Screens to Stack
         self.stack.addWidget(self.startup_screen)  # startup
@@ -37,7 +43,10 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.register_screen)  # employee register
         self.stack.addWidget(self.startup2_screen)  # startup 2
         self.stack.addWidget(self.clientreg_screen)  # client register
-        self.stack.addWidget(self.OTP_screen)  # WINDOW FOR OTP SCREEN
+        self.stack.addWidget(self.forgotpass_screen)  # forgot password
+        self.stack.addWidget(self.enterOTP_screen) # enter OTP
+        self.stack.addWidget(self.adminhome_screen) # admin home
+        #self.stack.addWidget(self.manageemp_screen) # employee management
 
         # Startup
         self.stack.setCurrentWidget(self.startup_screen)
@@ -47,7 +56,8 @@ class MainWindow(QMainWindow):
         self.startup_screen.register_signal_btn.connect(self.handle_startup2)
 
         self.login_screen.back_button.connect(self.show_startupui)
-        self.login_screen.forgot_button.connect(self.handle_otp)
+        self.login_screen.forgot_button.connect(self.handle_forgotpass)
+        self.login_screen.loginadmin_button.connect(self.handle_adminlogin)
 
         self.register_screen.back_button.connect(self.handle_startup2)
 
@@ -57,7 +67,15 @@ class MainWindow(QMainWindow):
 
         self.clientreg_screen.back_button.connect(self.handle_startup2)
 
-        self.OTP_screen.back_button.connect(self.handle_login)
+        self.forgotpass_screen.back_button.connect(self.handle_login)
+        self.forgotpass_screen.sendOTP_button.connect(self.handle_enterOTP)
+
+        self.enterOTP_screen.back_button.connect(self.handle_forgotpass)
+
+        self.adminhome_screen.logout_button.connect(self.show_startupui)
+        self.adminhome_screen.employeemanage_button.connect(self.handle_manageemp)
+
+        #self.manageemp_screen.back_button.connect(self.handle_adminlogin)
 
     def show_startupui(self):
         self.stack.setCurrentWidget(self.startup_screen)
@@ -65,8 +83,8 @@ class MainWindow(QMainWindow):
     def handle_login(self):
         self.stack.setCurrentWidget(self.login_screen)
 
-    def handle_otp(self):
-        self.stack.setCurrentWidget(self.OTP_screen)
+    def handle_forgotpass(self):
+        self.stack.setCurrentWidget(self.forgotpass_screen)
 
     def handle_register(self):
         self.stack.setCurrentWidget(self.register_screen)
@@ -76,6 +94,15 @@ class MainWindow(QMainWindow):
 
     def handle_clientreg(self):
         self.stack.setCurrentWidget(self.clientreg_screen)
+
+    def handle_enterOTP(self):
+        self.stack.setCurrentWidget(self.enterOTP_screen)
+
+    def handle_manageemp(self):
+        self.stack.setCurrentWidget(self.manageemp_screen)
+
+    def handle_adminlogin(self):
+        self.stack.setCurrentWidget(self.adminhome_screen)
 
 # Read and write from DB
 def connect_to_db():

@@ -248,20 +248,20 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addWidget(self.widget_7)
         spacerItem8 = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_3.addItem(spacerItem8)
-        self.VerifyOTP = QtWidgets.QPushButton(self.widget_6)
+        self.verifyOTP = QtWidgets.QPushButton(self.widget_6)
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(22)
         font.setBold(True)
-        self.VerifyOTP.setFont(font)
-        self.VerifyOTP.setStyleSheet("QPushButton\n"
+        self.verifyOTP.setFont(font)
+        self.verifyOTP.setStyleSheet("QPushButton\n"
 "{\n"
 "color: #5e3b96;\n"
 "background-color:white;\n"
 "border-radius:20px;\n"
 "}")
-        self.VerifyOTP.setObjectName("VerifyOTP")
-        self.verticalLayout_3.addWidget(self.VerifyOTP)
+        self.verifyOTP.setObjectName("VerifyOTP")
+        self.verticalLayout_3.addWidget(self.verifyOTP)
         spacerItem9 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_3.addItem(spacerItem9)
         self.forgot = QtWidgets.QLabel(self.widget_6)
@@ -298,7 +298,7 @@ class Ui_MainWindow(object):
         self.back.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Enter One Time</p><p align=\"center\">Password</p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "Registered Email"))
-        self.VerifyOTP.setText(_translate("MainWindow", "Verify OTP"))
+        self.verifyOTP.setText(_translate("MainWindow", "Verify OTP"))
         self.forgot.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" text-decoration: underline;\">Did not receive a code? </span></p><p align=\"center\"><span style=\" text-decoration: underline;\">Resend now</span></p></body></html>"))
 
 
