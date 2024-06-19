@@ -21,7 +21,6 @@ class RegisterWindow(QMainWindow, Ui_MainWindow):
         self.back_button.emit()
 
     def handle_register(self):
-        print("Register button clicked")
         lname = self.lname.text()
         fname = self.fname.text()
         email = self.emailadd.text()
@@ -48,6 +47,13 @@ class RegisterWindow(QMainWindow, Ui_MainWindow):
             cursor.execute(query, (lname, fname, email, contactnum, username, password))
             self.conn.commit()
             print("Registration successful.")
+            self.lname.clear()
+            self.fname.clear()
+            self.emailadd.clear()
+            self.contactno.clear()
+            self.username.clear()
+            self.password.clear()
+            self.confirmpassword.clear()
         except Error as e:
             self.conn.rollback()
             print(f"Error during registration: {e}")

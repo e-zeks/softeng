@@ -14,9 +14,13 @@ class ResetPassWindow(QMainWindow, Ui_MainWindow):
         self.back.clicked.connect(self.button_clicked)
         self.resetnow.clicked.connect(self.handle_resetnow)
         self.conn = conn  # Store the database connection
+        self.email = None
 
     def button_clicked(self):
         self.back_button.emit()
+
+    def set_email(self, email):
+        self.email = email
 
     def handle_resetnow(self):
         newpassword = self.password.text()
@@ -50,9 +54,7 @@ class ResetPassWindow(QMainWindow, Ui_MainWindow):
     def update_password_in_db(self, newpassword):
         try:
             cursor = self.conn.cursor()
-            # Assuming the user is identified by a unique field like `email` or `user_id`
-            email = "user@example.com"  # Replace with the actual way to identify the user
-            cursor.execute("UPDATE employees SET password = %s WHERE email = %s", (newpassword, email))
+            cursor.execute("UPDATE employees SET password = %s WHERE email = %s", (newpassword, self.email))
             self.conn.commit()
             return cursor.rowcount > 0
         except mysql.connector.Error as e:

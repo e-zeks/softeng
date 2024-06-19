@@ -7,6 +7,9 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
     forgot_button = QtCore.pyqtSignal()
     loginadmin_button = QtCore.pyqtSignal()
+    logincoach_button = QtCore.pyqtSignal()
+    loginauditor_button = QtCore.pyqtSignal()
+    loginclient_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
         super(LoginWindow, self).__init__()
@@ -57,10 +60,19 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
                     self.passwordinput.clear()
                     self.loginadmin_button.emit()
                 elif db_loa == 'Coach':
+                    self.usernameinput.clear()
+                    self.passwordinput.clear()
+                    self.logincoach_button.emit()
                     print("Coach Screen")
                 elif db_loa == 'Auditor':
+                    self.usernameinput.clear()
+                    self.passwordinput.clear()
+                    self.loginauditor_button.emit()
                     print("Auditor Screen")
                 elif db_loa == 'Client':
+                    self.usernameinput.clear()
+                    self.passwordinput.clear()
+                    self.loginclient_button.emit()
                     print("Client Screen")
                 return True
         print("Login failed")

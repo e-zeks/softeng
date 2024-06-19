@@ -7,9 +7,9 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
 
     # Signal with two string parameters
-    def __init__(self):
+    def __init__(self, conn):
         super(ClientRegWindow, self).__init__()
-        #self.conn = conn
+        self.conn = conn
         self.setupUi(self)
 
         #object name (back in this ex.)

@@ -10,7 +10,7 @@ import mysql.connector  # Added to import mysql.connector
 
 class ForgotPassWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
-    sendOTP_button = QtCore.pyqtSignal(str)
+    sendOTP_button = QtCore.pyqtSignal(str, str)
 
     def __init__(self, conn):
         super(ForgotPassWindow, self).__init__()
@@ -61,7 +61,7 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
                     QMessageBox.information(None, "OTP Sent", "OTP has been sent to your email address.")
 
                     self.registeredemail.clear()
-                    self.sendOTP_button.emit(self.otp)  # Function to switch screen here
+                    self.sendOTP_button.emit(self.otp, email)  # Function to switch screen here
 
                 except Exception as e:
                     print(f"Failed to send OTP: {str(e)}")  # Debugging statement
