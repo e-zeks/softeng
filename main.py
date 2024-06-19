@@ -9,6 +9,7 @@ from screens.forgotpass_func import ForgotPassWindow
 from screens.login_func import LoginWindow
 from screens.manageempUI import ManageEmpWindow
 from screens.resetpass_func import ResetPassWindow
+from screens.resetsuccess_func import ResetSuccessWindow
 from screens.startup_func import startup_win
 from screens.registeremp_func import RegisterWindow
 from screens.startup2_func import startup2_win
@@ -33,11 +34,12 @@ class MainWindow(QMainWindow):
         self.startup2_screen = startup2_win()
         self.register_screen = RegisterWindow(conn)
         self.clientreg_screen = ClientRegWindow()
-        self.forgotpass_screen = ForgotPassWindow()
+        self.forgotpass_screen = ForgotPassWindow(conn)
         self.enterOTP_screen = OTPWindow()
         self.manageemp_screen = ManageEmpWindow(conn)
         self.adminhome_screen = AdminHomeWindow()
-        self.resetpass_screen = ResetPassWindow()
+        self.resetpass_screen = ResetPassWindow(conn)
+        self.resetsuccess_screen = ResetSuccessWindow()
 
         # Adding Screens to Stack
         self.stack.addWidget(self.startup_screen)  # startup
@@ -48,6 +50,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.forgotpass_screen)  # forgot password
         self.stack.addWidget(self.enterOTP_screen) # enter OTP
         self.stack.addWidget(self.resetpass_screen) # reset pass
+        self.stack.addWidget(self.resetsuccess_screen) # reset success
         self.stack.addWidget(self.adminhome_screen) # admin home
         #self.stack.addWidget(self.manageemp_screen) # employee management
 
@@ -77,6 +80,9 @@ class MainWindow(QMainWindow):
         self.enterOTP_screen.verifyOTP_button.connect(self.handle_resetpass)
 
         self.resetpass_screen.back_button.connect(self.handle_login)
+        self.resetpass_screen.reset_button.connect(self.handle_resetsuccess)
+
+        self.resetsuccess_screen.back_button.connect(self.handle_login)
 
         self.adminhome_screen.logout_button.connect(self.show_startupui)
         self.adminhome_screen.employeemanage_button.connect(self.handle_manageemp)
@@ -107,6 +113,9 @@ class MainWindow(QMainWindow):
 
     def handle_resetpass(self):
         self.stack.setCurrentWidget(self.resetpass_screen)
+
+    def handle_resetsuccess(self):
+        self.stack.setCurrentWidget(self.resetsuccess_screen)
 
     def handle_manageemp(self):
         self.stack.setCurrentWidget(self.manageemp_screen)
