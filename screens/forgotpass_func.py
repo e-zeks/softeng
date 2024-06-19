@@ -8,12 +8,13 @@ import smtplib
 
 class ForgotPassWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
-    sendOTP_button = QtCore.pyqtSignal()
+    sendOTP_button = QtCore.pyqtSignal(str)
     def __init__(self):
         super(ForgotPassWindow, self).__init__()
         self.setupUi(self)
         self.back.clicked.connect(self.button_clicked)
         self.sendOTP.clicked.connect(self.handle_sendOTP)
+        self.otp = ""
 
     # otp generator
     def generate_otp(self):
@@ -27,9 +28,9 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
             sender_email = "thenoskalos@gmail.com"
             sender_password = "zdih vuqe dzsl asxj"
 
-            otp = self.generate_otp()
+            self.otp = self.generate_otp()
             subject = "Password Reset OTP"
-            body = f"Your OTP for password reset is: {otp}"
+            body = f"Your OTP for password reset is: {self.otp}"
 
             message = MIMEText(body)
             message["Subject"] = subject
@@ -44,7 +45,7 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
                 QMessageBox.information(None, "OTP Sent", "OTP has been sent to your email address.")
 
                 self.registeredemail.clear()
-                self.sendOTP_button.emit() # Function to switch screen here
+                self.sendOTP_button.emit(self.otp) # Function to switch screen here
 
             except Exception as e:
                 print(f"Failed to send OTP: {str(e)}")  # Debugging statement
