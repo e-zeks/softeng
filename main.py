@@ -86,6 +86,7 @@ class MainWindow(QMainWindow):
         self.startup2_screen.back_button.connect(self.show_startupui)
 
         self.clientreg_screen.back_button.connect(self.handle_startup2)
+        #self.clientreg_screen.register_button.connect()
 
         self.forgotpass_screen.back_button.connect(self.handle_login)
         self.forgotpass_screen.sendOTP_button.connect(self.handle_enterOTP)
@@ -102,11 +103,15 @@ class MainWindow(QMainWindow):
         self.adminhome_screen.employeemanage_button.connect(self.handle_manageemp)
         self.adminhome_screen.clientmanage_button.connect(self.handle_manageclient)
 
+        self.manageemp_screen.logout_button.connect(self.show_startupui)
+        self.manageemp_screen.clientmanage_button.connect(self.handle_manageclient)
+
+        self.manageclient_screen.logout_button.connect(self.show_startupui)
+        self.manageclient_screen.employeemanage_button.connect(self.handle_manageemp)
+
         self.coachhome_screen.logout_button.connect(self.handle_login)
 
         self.auditorhome_screen.logout_button.connect(self.handle_login)
-
-        #self.manageemp_screen.back_button.connect(self.handle_adminlogin)
 
     def show_startupui(self):
         self.stack.setCurrentWidget(self.startup_screen)

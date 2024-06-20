@@ -4,6 +4,9 @@ from screens.manageclientUI import Ui_MainWindow
 from PyQt5 import QtCore
 
 class ManageClientWindow(QMainWindow, Ui_MainWindow):
+    logout_button = QtCore.pyqtSignal()
+    employeemanage_button = QtCore.pyqtSignal()
+
     def __init__(self, conn):
         super(ManageClientWindow, self).__init__()
         self.setupUi(self)
@@ -15,6 +18,9 @@ class ManageClientWindow(QMainWindow, Ui_MainWindow):
         self.edit.clicked.connect(self.enable_editing)
         self.save.clicked.connect(self.save_data)
         self.search_bar.textChanged.connect(self.search_table)
+
+        self.logout.clicked.connect(self.button_clicked)
+        self.employees.clicked.connect(self.handle_employees)
 
     def load_data(self):
         cursor = self.conn.cursor()
@@ -100,3 +106,10 @@ class ManageClientWindow(QMainWindow, Ui_MainWindow):
                     break  # Exit the loop once any match is found in the row
 
             self.table.setRowHidden(row, not row_visible)
+
+    def button_clicked(self):
+        print("Logging Out")
+        self.logout_button.emit()
+
+    def handle_employees(self):
+        self.employeemanage_button.emit()

@@ -4,6 +4,8 @@ from screens.manageempUI import Ui_MainWindow
 from PyQt5 import QtCore
 
 class ManageEmpWindow(QMainWindow, Ui_MainWindow):
+    logout_button = QtCore.pyqtSignal()
+    clientmanage_button = QtCore.pyqtSignal()
     def __init__(self, conn):
         super(ManageEmpWindow, self).__init__()
         self.setupUi(self)
@@ -16,7 +18,9 @@ class ManageEmpWindow(QMainWindow, Ui_MainWindow):
         self.edit.clicked.connect(self.enable_editing)
         self.save.clicked.connect(self.save_data)
         self.search_bar.textChanged.connect(self.search_table)
-    # self.stack.mousePressEvent(get_data)
+
+        self.clients.clicked.connect(self.handle_clients)
+        self.logout.clicked.connect(self.button_clicked)
 
     def load_data(self):
         cursor = self.conn.cursor()
@@ -106,3 +110,10 @@ class ManageEmpWindow(QMainWindow, Ui_MainWindow):
                     break  # Exit the loop once any match is found in the row
 
             self.table.setRowHidden(row, not row_visible)
+
+    def button_clicked(self):
+        print("Logging Out")
+        self.logout_button.emit()
+
+    def handle_clients(self):
+        self.clientmanage_button.emit()
