@@ -57,17 +57,17 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
             print(f"Database error: {e}")
             return True
 
-    def handle_register(self): #check object names
+    def handle_register(self):
         # Get the input values from the form fields and strip any leading/trailing whitespace
         last_name = self.lname.text().strip()
         first_name = self.fname.text().strip()
         address = self.address.text().strip()
-        birthday = self.dateEdit.text().strip()
+        birthday = self.dateEdit.date().toString('yyyy-MM-dd')
         contact_number = self.contact_number.text().strip()
         email = self.emailaddress.text().strip()
         username = self.username.text().strip()
         password = self.password.text().strip()
-        program_plan = self.comboBox.currentText().strip()  # Assuming programPlan is a QComboBox
+        program_plan = self.programplan.currentText().strip()  # Assuming programPlan is a QComboBox
         conditions = self.medical_conditions.text().strip()  # Assuming conditions is a QTextEdit
 
         # Check if any of the fields are empty
@@ -100,7 +100,7 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
             # Execute the SQL INSERT statement to add the client to the database
             cursor.execute(
                 """
-                INSERT INTO clients (Last_Name, First_Name, Address, Birthday, Contact_Number, Email, Username, Password, Program_Plan, Conditions)
+                INSERT INTO clients (Last_Name, First_Name, Address, Birthdate, Contact_Number, Email, Username, Password, Program_Plan, Conditions)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (last_name, first_name, address, birthday, contact_number, email, username, password, program_plan,
