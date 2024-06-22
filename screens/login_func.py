@@ -31,8 +31,8 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         self.passwordinput.clear()
         self.forgot_button.emit()
 
-    # Function to fetch login data
-    def fetch_login_data(self):
+    # Function to fetch login data from employees table
+    def fetch_employee_login_data(self):
         if self.conn is None:
             return []
         try:
@@ -45,13 +45,28 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
             print(f"Error: {e}")
             return []
 
+    # Function to fetch login data from clients table
+    def fetch_client_login_data(self):
+        if self.conn is None:
+            return []
+        try:
+            cursor = self.conn.cursor()
+            query = "SELECT Username, Password FROM clients"
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+        except Error as e:
+            print(f"Error: {e}")
+            return []
+
     # Function to handle login
     def handle_login(self):
         username = self.usernameinput.text()
         password = self.passwordinput.text()
-        login_data = self.fetch_login_data()
 
-        for db_username, db_password, db_loa in login_data:
+        # Fetch login data from employees table
+        employee_login_data = self.fetch_employee_login_data()
+        for db_username, db_password, db_loa in employee_login_data:
             if username == db_username and password == db_password:
                 print("Log in successful")
                 if db_loa == 'Admin':
@@ -69,11 +84,26 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
                     self.passwordinput.clear()
                     self.loginauditor_button.emit()
                     print("Auditor Screen")
-                elif db_loa == 'Client':
-                    self.usernameinput.clear()
-                    self.passwordinput.clear()
-                    self.loginclient_button.emit()
-                    print("Client Screen")
                 return True
+
+        # Fetch login data from clients table
+        client_login_data = self.fetch_client_login_data()
+        for db_username, db_password in client_login_data:
+            if username == db_username and password == db_password:
+                print("Log in successful")
+                self.usernameinput.clear()
+                self.passwordinput.clear()
+                self.loginclient_button.emit()
+                print("Client Screen")
+                return True
+
         print("Login failed")
         return False
+
+# Example usage:
+# conn = mysql.connector.connect(user='username', password='password', host='host', database='database')
+# app = QtWidgets.QApplication([])
+# window = LoginWindow(conn)
+# window.show()
+# app.exec_()
+# conn.close()  # Close the connection when done
