@@ -17,6 +17,7 @@ from screens.startup2_func import startup2_win
 from screens.enterOTP_func import OTPWindow
 from screens.coachhome_func import CoachHomeWindow
 from screens.auditorhome_func import AuditorHomeWindow
+from screens.userdetails_func import ClientDetailsWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, conn):
@@ -48,6 +49,7 @@ class MainWindow(QMainWindow):
         self.auditorhome_screen = AuditorHomeWindow()
         self.resetpass_screen = ResetPassWindow(conn)
         self.resetsuccess_screen = ResetSuccessWindow()
+        self.clientdetails_screen = ClientDetailsWindow()
 
         # Adding Screens to Stack
         self.stack.addWidget(self.startup_screen)  # startup
@@ -62,6 +64,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.adminhome_screen) # admin home
         self.stack.addWidget(self.coachhome_screen) # coach home
         self.stack.addWidget(self.auditorhome_screen) # auditor home
+        self.stack.addWidget(self.clientdetails_screen) # client details
         self.stack.addWidget(self.manageemp_screen) # employee management
         self.stack.addWidget(self.manageclient_screen) # client management
 
@@ -77,7 +80,7 @@ class MainWindow(QMainWindow):
         self.login_screen.loginadmin_button.connect(self.handle_adminlogin)
         self.login_screen.logincoach_button.connect(self.handle_coachlogin)
         self.login_screen.loginauditor_button.connect(self.handle_auditorlogin)
-        self.login_screen.loginclient_button.connect(self.handle_clientreg) #revise opening screen for client
+        self.login_screen.loginclient_button.connect(self.handle_clientlogin)
 
         self.register_screen.back_button.connect(self.handle_startup2)
 
@@ -110,6 +113,8 @@ class MainWindow(QMainWindow):
         self.manageclient_screen.employeemanage_button.connect(self.handle_manageemp)
 
         self.coachhome_screen.logout_button.connect(self.handle_login)
+
+        self.clientdetails_screen.back_button.connect(self.handle_login)
 
         self.auditorhome_screen.logout_button.connect(self.handle_login)
 
@@ -144,6 +149,21 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.coachhome_screen)
     def handle_auditorlogin(self):
         self.stack.setCurrentWidget(self.auditorhome_screen)
+    def handle_clientlogin(self, client_data):
+        client_details = {
+            'Last_Name': client_data['Last_Name'],
+            'First_Name': client_data['First_Name'],
+            'Address': client_data['Address'],
+            'Birthdate': client_data['Birthdate'],
+            'Contact_Number': client_data['Contact_Number'],
+            'Email': client_data['Email'],
+            'Username': client_data['Username'],
+            'Password': client_data['Password'],
+            'Program_Plan': client_data['Program_Plan'],
+            'Conditions': client_data['Conditions']
+        }
+        self.clientdetails_screen.set_clientdetails(client_details)
+        self.stack.setCurrentWidget(self.clientdetails_screen)
 
 # Read and write from DB
 def connect_to_db():
