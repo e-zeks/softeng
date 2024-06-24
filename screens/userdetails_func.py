@@ -11,13 +11,13 @@ class ClientDetailsWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.back.clicked.connect(self.button_clicked)
 
-        self.setDisabled(self.lname)
-        self.setDisabled(self.fname)
+        self.disable_field(self.lname)
+        self.disable_field(self.fname)
         self.dateEdit.setReadOnly(True)
         self.dateEdit.setEnabled(False)
         self.dateEdit.setStyleSheet("background-color: #f0f0f0; color: #808080; border: 1px solid #c0c0c0;")
-        self.setDisabled(self.username)
-        self.setDisabled(self.password)
+        self.disable_field(self.username)
+        self.disable_field(self.password)
 
     def button_clicked(self):
         self.back_button.emit()
