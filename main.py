@@ -18,6 +18,7 @@ from screens.enterOTP_func import OTPWindow
 from screens.coachhome_func import CoachHomeWindow
 from screens.auditorhome_func import AuditorHomeWindow
 from screens.userdetails_func import ClientDetailsWindow
+from screens.calender_func import CalendarWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, conn):
@@ -46,6 +47,7 @@ class MainWindow(QMainWindow):
         self.manageclient_screen = ManageClientWindow(conn)
         self.adminhome_screen = AdminHomeWindow()
         self.coachhome_screen = CoachHomeWindow()
+        self.calendar_screen = CalendarWindow()
         self.auditorhome_screen = AuditorHomeWindow()
         self.resetpass_screen = ResetPassWindow(conn)
         self.resetsuccess_screen = ResetSuccessWindow()
@@ -67,6 +69,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.clientdetails_screen) # client details
         self.stack.addWidget(self.manageemp_screen) # employee management
         self.stack.addWidget(self.manageclient_screen) # client management
+        self.stack.addWidget(self.calendar_screen) # calendar screen
 
         # Startup
         self.stack.setCurrentWidget(self.startup_screen)
@@ -113,6 +116,10 @@ class MainWindow(QMainWindow):
         self.manageclient_screen.employeemanage_button.connect(self.handle_manageemp)
 
         self.coachhome_screen.logout_button.connect(self.handle_login)
+        self.coachhome_screen.schedule_button.connect(self.handle_schedule)
+
+        self.calendar_screen.logout_button.connect(self.handle_login)
+        self.calendar_screen.back_button.connect(self.handle_coachlogin)
 
         self.clientdetails_screen.back_button.connect(self.handle_login)
 
@@ -139,14 +146,16 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.resetpass_screen)
     def handle_resetsuccess(self):
         self.stack.setCurrentWidget(self.resetsuccess_screen)
+    def handle_adminlogin(self):
+        self.stack.setCurrentWidget(self.adminhome_screen)
     def handle_manageemp(self):
         self.stack.setCurrentWidget(self.manageemp_screen)
     def handle_manageclient(self):
         self.stack.setCurrentWidget(self.manageclient_screen)
-    def handle_adminlogin(self):
-        self.stack.setCurrentWidget(self.adminhome_screen)
     def handle_coachlogin(self):
         self.stack.setCurrentWidget(self.coachhome_screen)
+    def handle_schedule(self):
+        self.stack.setCurrentWidget(self.calendar_screen)
     def handle_auditorlogin(self):
         self.stack.setCurrentWidget(self.auditorhome_screen)
     def handle_clientlogin(self, client_data):

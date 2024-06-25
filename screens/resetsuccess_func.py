@@ -1,5 +1,5 @@
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow
 from screens.resetsuccessUI import Ui_MainWindow
 
 class ResetSuccessWindow(QMainWindow, Ui_MainWindow):
