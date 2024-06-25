@@ -19,6 +19,8 @@ from screens.coachhome_func import CoachHomeWindow
 from screens.auditorhome_func import AuditorHomeWindow
 from screens.userdetails_func import ClientDetailsWindow
 from screens.calender_func import CalendarWindow
+from screens.empdetails_func import EmployeeDetailsWindow
+from screens.coachselection_func import CoachSelectionWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, conn):
@@ -30,7 +32,7 @@ class MainWindow(QMainWindow):
         self.stack = QStackedWidget(self)
         self.setCentralWidget(self.stack)
 
-        self.email = None
+        self.email = None # OTP parameter
 
         # Full Screen on start
         # self.showFullScreen()
@@ -41,6 +43,7 @@ class MainWindow(QMainWindow):
         self.startup2_screen = startup2_win()
         self.register_screen = RegisterWindow(conn)
         self.clientreg_screen = ClientRegWindow(conn)
+        self.coachselection_screen = CoachSelectionWindow()
         self.forgotpass_screen = ForgotPassWindow(conn)
         self.enterOTP_screen = OTPWindow()
         self.manageemp_screen = ManageEmpWindow(conn)
@@ -51,7 +54,8 @@ class MainWindow(QMainWindow):
         self.auditorhome_screen = AuditorHomeWindow()
         self.resetpass_screen = ResetPassWindow(conn)
         self.resetsuccess_screen = ResetSuccessWindow()
-        self.clientdetails_screen = ClientDetailsWindow()
+        self.clientdetails_screen = ClientDetailsWindow(conn)
+        self.empdetails_screen = EmployeeDetailsWindow({}, conn)
 
         # Adding Screens to Stack
         self.stack.addWidget(self.startup_screen)  # startup
@@ -59,6 +63,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.register_screen)  # employee register
         self.stack.addWidget(self.startup2_screen)  # startup 2
         self.stack.addWidget(self.clientreg_screen)  # client register
+        self.stack.addWidget(self.coachselection_screen) # coach select
         self.stack.addWidget(self.forgotpass_screen)  # forgot password
         self.stack.addWidget(self.enterOTP_screen) # enter OTP
         self.stack.addWidget(self.resetpass_screen) # reset pass
@@ -68,6 +73,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.auditorhome_screen) # auditor home
         self.stack.addWidget(self.clientdetails_screen) # client details
         self.stack.addWidget(self.manageemp_screen) # employee management
+        self.stack.addWidget(self.empdetails_screen) # employee details
         self.stack.addWidget(self.manageclient_screen) # client management
         self.stack.addWidget(self.calendar_screen) # calendar screen
 
@@ -92,7 +98,12 @@ class MainWindow(QMainWindow):
         self.startup2_screen.back_button.connect(self.show_startupui)
 
         self.clientreg_screen.back_button.connect(self.handle_startup2)
-        #self.clientreg_screen.register_button.connect()
+        self.clientreg_screen.register_button.connect(self.handle_coachselect)
+
+        self.clientdetails_screen.back_button.connect(self.handle_login)
+        self.clientdetails_screen.save_button.connect(self.handle_coachselect)
+
+        self.coachselection_screen.back_button.connect(self.handle_clientlogin) #back button parameter problem for details
 
         self.forgotpass_screen.back_button.connect(self.handle_login)
         self.forgotpass_screen.sendOTP_button.connect(self.handle_enterOTP)
@@ -110,7 +121,12 @@ class MainWindow(QMainWindow):
         self.adminhome_screen.clientmanage_button.connect(self.handle_manageclient)
 
         self.manageemp_screen.logout_button.connect(self.show_startupui)
+        self.manageemp_screen.back_button.connect(self.handle_adminlogin)
         self.manageemp_screen.clientmanage_button.connect(self.handle_manageclient)
+        self.manageemp_screen.edit_button.connect(self.handle_empdetails)
+
+        self.empdetails_screen.cancel_button.connect(self.handle_manageemp)
+        self.empdetails_screen.save_button.connect(self.handle_manageemp)
 
         self.manageclient_screen.logout_button.connect(self.show_startupui)
         self.manageclient_screen.employeemanage_button.connect(self.handle_manageemp)
@@ -120,8 +136,6 @@ class MainWindow(QMainWindow):
 
         self.calendar_screen.logout_button.connect(self.handle_login)
         self.calendar_screen.back_button.connect(self.handle_coachlogin)
-
-        self.clientdetails_screen.back_button.connect(self.handle_login)
 
         self.auditorhome_screen.logout_button.connect(self.handle_login)
 
@@ -137,6 +151,8 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.startup2_screen)
     def handle_clientreg(self):
         self.stack.setCurrentWidget(self.clientreg_screen)
+    def handle_coachselect(self):
+        self.stack.setCurrentWidget(self.coachselection_screen)
     def handle_enterOTP(self, otp, email):
         self.email = email
         self.enterOTP_screen.set_otp(otp)
@@ -149,7 +165,12 @@ class MainWindow(QMainWindow):
     def handle_adminlogin(self):
         self.stack.setCurrentWidget(self.adminhome_screen)
     def handle_manageemp(self):
+        self.manageemp_screen.refresh_data()
         self.stack.setCurrentWidget(self.manageemp_screen)
+    def handle_empdetails(self, emp_details):
+        self.empdetails_screen.set_empdetails(emp_details)
+        self.empdetails_screen.emp_details = emp_details
+        self.stack.setCurrentWidget(self.empdetails_screen)
     def handle_manageclient(self):
         self.stack.setCurrentWidget(self.manageclient_screen)
     def handle_coachlogin(self):
