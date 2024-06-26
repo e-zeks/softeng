@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         self.email = None # OTP parameter
 
         # Full Screen on start
-        # self.showFullScreen()
+        #self.showFullScreen()
 
         # Variable Definitions - class of screen functions
         self.startup_screen = startup_win()
@@ -110,6 +110,7 @@ class MainWindow(QMainWindow):
 
         self.enterOTP_screen.back_button.connect(self.handle_forgotpass)
         self.enterOTP_screen.verifyOTP_button.connect(self.handle_resetpass)
+        #self.enterOTP_screen.resend_button.connect()
 
         self.resetpass_screen.back_button.connect(self.handle_login)
         self.resetpass_screen.reset_button.connect(self.handle_resetsuccess)

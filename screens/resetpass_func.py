@@ -2,6 +2,7 @@ from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from screens.resetpassUI import Ui_MainWindow
 import re
+import hashlib
 import mysql.connector  # Import mysql.connector for database interaction
 
 class ResetPassWindow(QMainWindow, Ui_MainWindow):
@@ -28,8 +29,11 @@ class ResetPassWindow(QMainWindow, Ui_MainWindow):
 
         if self.validate_password(newpassword):
             if newpassword == newpassword2:
-                if self.update_password_in_db(newpassword):  # Update password in the database
+                hashed_password = hashlib.sha256(newpassword.encode('utf-8')).hexdigest()
+                if self.update_password_in_db(hashed_password):  # Update password in the database
                     QMessageBox.information(self, "Success", "Password reset successfully!")
+                    self.password.clear()
+                    self.retypepassword.clear()
                     self.reset_button.emit()
                 else:
                     QMessageBox.critical(self, "Database Error", "Failed to update the password in the database.")
@@ -51,12 +55,23 @@ class ResetPassWindow(QMainWindow, Ui_MainWindow):
             return False
         return True
 
-    def update_password_in_db(self, newpassword):
+    def update_password_in_db(self, hashed_password):
         try:
             cursor = self.conn.cursor()
-            cursor.execute("UPDATE employees SET password = %s WHERE email = %s", (newpassword, self.email))
-            self.conn.commit()
-            return cursor.rowcount > 0
+
+            # Update password in employees table
+            cursor.execute("UPDATE employees SET password = %s WHERE email = %s", (hashed_password, self.email))
+            if cursor.rowcount > 0:
+                self.conn.commit()
+                return True
+
+            # If not found in employees, try clients table
+            cursor.execute("UPDATE clients SET password = %s WHERE email = %s", (hashed_password, self.email))
+            if cursor.rowcount > 0:
+                self.conn.commit()
+                return True
+
+            return False
         except mysql.connector.Error as e:
             print(f"Database error: {e}")
             return False

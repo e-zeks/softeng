@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import hashlib
 from mysql.connector import Error
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
@@ -75,10 +76,13 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         username = self.usernameinput.text()
         password = self.passwordinput.text()
 
+        # Hash the entered password using SHA-256
+        hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
         # Fetch login data from employees table
         employee_login_data = self.fetch_employee_login_data()
         for db_username, db_password, db_loa in employee_login_data:
-            if username == db_username and password == db_password:
+            if username == db_username and hashed_password == db_password:
                 self.usernameinput.clear()
                 self.passwordinput.clear()
                 if db_loa == 'Admin':
@@ -97,7 +101,7 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         for client_data in client_login_data:
             db_username = client_data[7]
             db_password = client_data[8]
-            if username == db_username and password == db_password:
+            if username == db_username and hashed_password == db_password:
                 self.usernameinput.clear()
                 self.passwordinput.clear()
                 self.loginclient_button.emit({

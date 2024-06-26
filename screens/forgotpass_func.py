@@ -28,9 +28,15 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
     def is_email_registered(self, email):
         try:
             cursor = self.conn.cursor()
+            # Check in employees table
             cursor.execute("SELECT COUNT(*) FROM employees WHERE email = %s", (email,))
-            result = cursor.fetchone()
-            return result[0] > 0
+            employee_result = cursor.fetchone()
+
+            # Check in clients table
+            cursor.execute("SELECT COUNT(*) FROM clients WHERE email = %s", (email,))
+            client_result = cursor.fetchone()
+
+            return employee_result[0] > 0 or client_result[0] > 0
         except mysql.connector.Error as e:
             print(f"Database error: {e}")
             return False

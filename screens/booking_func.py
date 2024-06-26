@@ -1,8 +1,9 @@
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
-from PyQt5 import QtCore
-from screens.bookingUI import Ui_MainWindow
 import re
+import hashlib
 import mysql.connector  # MySQL connector
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from screens.bookingUI import Ui_MainWindow
 
 class ClientRegWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
@@ -70,11 +71,6 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
         program_plan = self.programplan.currentText().strip()  # Assuming programPlan is a QComboBox
         conditions = self.medical_conditions.text().strip()  # Assuming conditions is a QTextEdit
 
-        # Check if any of the fields are empty
-        # if not all([last_name, first_name, address, birthday, contact_number, email, username, password, program_plan]):
-        #     QMessageBox.warning(self, "Input Error", "All fields must be filled.")
-        #     return
-
         # Validate the email format using a regular expression
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             QMessageBox.warning(self, "Input Error", "Invalid email format.")
@@ -87,13 +83,16 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
 
         # Validate the password
         if not self.validate_password():
-            QMessageBox.warning(self, "Input Error","Password must: \n- Have at least 8 characters\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Not contain any special characters")
+            QMessageBox.warning(self, "Input Error", "Password must: \n- Have at least 8 characters\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Not contain any special characters")
             return
 
         # Check if the email is already registered
         if self.is_email_registered(email):
             QMessageBox.warning(self, "Input Error", "Email is already registered.")
             return
+
+        # Hash the password using SHA-256
+        hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
         try:
             cursor = self.conn.cursor()
@@ -103,7 +102,7 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
                 INSERT INTO clients (Last_Name, First_Name, Address, Birthdate, Contact_Number, Email, Username, Password, Program_Plan, Conditions)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
-                (last_name, first_name, address, birthday, contact_number, email, username, password, program_plan,
+                (last_name, first_name, address, birthday, contact_number, email, username, hashed_password, program_plan,
                  conditions)
             )
             self.conn.commit()  # Commit the transaction
