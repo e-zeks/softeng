@@ -1,6 +1,6 @@
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow
-from screens.addcoachUI import Ui_MainWindow
+from screens.addpackageUI import Ui_MainWindow
 
 class AddPackageWindow(QMainWindow, Ui_MainWindow):
     cancel_button = QtCore.pyqtSignal()
