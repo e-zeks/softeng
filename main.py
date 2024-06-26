@@ -25,6 +25,7 @@ from screens.maintenance_func import MaintenanceWindow
 from screens.userlogs_func import UserLogsWindow
 from screens.addcoach_func import AddCoachWindow
 from screens.addpackage_func import AddPackageWindow
+from screens.clientreport_func import ClientReportWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, conn):
@@ -60,6 +61,7 @@ class MainWindow(QMainWindow):
         self.coachhome_screen = CoachHomeWindow()
         self.calendar_screen = CalendarWindow()
         self.auditorhome_screen = AuditorHomeWindow()
+        self.clientreport_screen = ClientReportWindow(conn)
         self.resetpass_screen = ResetPassWindow(conn)
         self.resetsuccess_screen = ResetSuccessWindow()
         self.clientdetails_screen = ClientDetailsWindow(conn)
@@ -87,7 +89,8 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.maintenance_screen) # maintenance screen
         self.stack.addWidget(self.userlogs_screen) # user logs screen
         self.stack.addWidget(self.addcoach_screen) # add coach screen
-        self.stack.addWidget(self.addpackage_screen)
+        self.stack.addWidget(self.addpackage_screen) # add package screen
+        self.stack.addWidget(self.clientreport_screen) # clients report screen
 
         # Startup
         self.stack.setCurrentWidget(self.startup_screen)
@@ -168,6 +171,9 @@ class MainWindow(QMainWindow):
         self.calendar_screen.back_button.connect(self.handle_coachlogin)
 
         self.auditorhome_screen.logout_button.connect(self.handle_login)
+        self.auditorhome_screen.clientreport_button.connect(self.handle_clientreport)
+
+        self.clientreport_screen.back_button.connect(self.handle_auditorlogin)
 
     def show_startupui(self):
         self.stack.setCurrentWidget(self.startup_screen)
@@ -219,6 +225,8 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.calendar_screen)
     def handle_auditorlogin(self):
         self.stack.setCurrentWidget(self.auditorhome_screen)
+    def handle_clientreport(self):
+        self.stack.setCurrentWidget(self.clientreport_screen)
     def handle_clientlogin(self, client_data):
         client_details = {
             'Last_Name': client_data['Last_Name'],
