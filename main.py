@@ -17,7 +17,7 @@ from screens.startup2_func import startup2_win
 from screens.enterOTP_func import OTPWindow
 from screens.coachhome_func import CoachHomeWindow
 from screens.auditorhome_func import AuditorHomeWindow
-from screens.userdetails_func import ClientDetailsWindow
+from screens.userdetails_func import UserDetailsWindow
 from screens.calender_func import CalendarWindow
 from screens.empdetails_func import EmployeeDetailsWindow
 from screens.coachselection_func import CoachSelectionWindow
@@ -26,6 +26,7 @@ from screens.userlogs_func import UserLogsWindow
 from screens.addcoach_func import AddCoachWindow
 from screens.addpackage_func import AddPackageWindow
 from screens.clientreport_func import ClientReportWindow
+from screens.clientdetails_func import ClientDetailsWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, conn):
@@ -64,7 +65,8 @@ class MainWindow(QMainWindow):
         self.clientreport_screen = ClientReportWindow(conn)
         self.resetpass_screen = ResetPassWindow(conn)
         self.resetsuccess_screen = ResetSuccessWindow()
-        self.clientdetails_screen = ClientDetailsWindow(conn)
+        self.userdetails_screen = UserDetailsWindow(conn)
+        self.clientdetails_screen = ClientDetailsWindow({}, conn)
         self.empdetails_screen = EmployeeDetailsWindow({}, conn)
 
         # Adding Screens to Stack
@@ -81,10 +83,11 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.adminhome_screen) # admin home
         self.stack.addWidget(self.coachhome_screen) # coach home
         self.stack.addWidget(self.auditorhome_screen) # auditor home
-        self.stack.addWidget(self.clientdetails_screen) # client details
+        self.stack.addWidget(self.userdetails_screen) # client details
         self.stack.addWidget(self.manageemp_screen) # employee management
         self.stack.addWidget(self.empdetails_screen) # employee details
         self.stack.addWidget(self.manageclient_screen) # client management
+        self.stack.addWidget(self.clientdetails_screen) # client details
         self.stack.addWidget(self.calendar_screen) # calendar screen
         self.stack.addWidget(self.maintenance_screen) # maintenance screen
         self.stack.addWidget(self.userlogs_screen) # user logs screen
@@ -115,8 +118,8 @@ class MainWindow(QMainWindow):
         self.clientreg_screen.back_button.connect(self.handle_startup2)
         self.clientreg_screen.register_button.connect(self.handle_coachselect)
 
-        self.clientdetails_screen.back_button.connect(self.handle_login)
-        self.clientdetails_screen.save_button.connect(self.handle_coachselect)
+        self.userdetails_screen.back_button.connect(self.handle_login)
+        self.userdetails_screen.save_button.connect(self.handle_coachselect)
 
         self.coachselection_screen.back_button.connect(self.handle_clientlogin) #back button parameter problem for details
 
@@ -139,19 +142,24 @@ class MainWindow(QMainWindow):
         self.adminhome_screen.maintenance_button.connect(self.handle_maintenance)
 
         self.manageemp_screen.logout_button.connect(self.handle_login)
+        self.manageemp_screen.edit_button.connect(self.handle_empdetails)
         self.manageemp_screen.back_button.connect(self.handle_adminlogin)
         self.manageemp_screen.clientmanage_button.connect(self.handle_manageclient)
-        self.manageemp_screen.edit_button.connect(self.handle_empdetails)
         self.manageemp_screen.userlogs_button.connect(self.handle_userlogs)
         self.manageemp_screen.maintenance_button.connect(self.handle_maintenance)
 
         self.empdetails_screen.cancel_button.connect(self.handle_manageemp)
         self.empdetails_screen.save_button.connect(self.handle_manageemp)
 
+        self.manageclient_screen.back_button.connect(self.handle_adminlogin)
+        self.manageclient_screen.edit_button.connect(self.handle_clientdetails)
         self.manageclient_screen.logout_button.connect(self.handle_login)
         self.manageclient_screen.employeemanage_button.connect(self.handle_manageemp)
         self.manageclient_screen.userlogs_button.connect(self.handle_userlogs)
         self.manageclient_screen.maintenance_button.connect(self.handle_maintenance)
+
+        self.clientdetails_screen.cancel_button.connect(self.handle_manageemp)
+        self.clientdetails_screen.save_button.connect(self.handle_manageemp)
 
         self.maintenance_screen.addcoach_button.connect(self.handle_addcoach)
         self.maintenance_screen.addpackage_button.connect(self.handle_addpackage)
@@ -210,6 +218,10 @@ class MainWindow(QMainWindow):
     def handle_manageclient(self):
         self.manageclient_screen.refresh_data()
         self.stack.setCurrentWidget(self.manageclient_screen)
+    def handle_clientdetails(self, client_details):
+        self.clientdetails_screen.set_clientdetails(client_details)
+        self.clientdetails_screen.client_details = client_details
+        self.stack.setCurrentWidget(self.clientdetails_screen)
     def handle_userlogs(self):
         self.userlogs_screen.refresh_data()
         self.stack.setCurrentWidget(self.userlogs_screen)
@@ -240,8 +252,8 @@ class MainWindow(QMainWindow):
             'Program_Plan': client_data['Program_Plan'],
             'Conditions': client_data['Conditions']
         }
-        self.clientdetails_screen.set_clientdetails(client_details)
-        self.stack.setCurrentWidget(self.clientdetails_screen)
+        self.userdetails_screen.set_clientdetails(client_details)
+        self.stack.setCurrentWidget(self.userdetails_screen)
 
 # Read and write from DB
 def connect_to_db():

@@ -4,12 +4,12 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from screens.userdetailsUI import Ui_MainWindow
 from mysql.connector import Error
 
-class ClientDetailsWindow(QMainWindow, Ui_MainWindow):
+class UserDetailsWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
     save_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
-        super(ClientDetailsWindow, self).__init__()
+        super(UserDetailsWindow, self).__init__()
         self.setupUi(self)
         self.conn = conn
 

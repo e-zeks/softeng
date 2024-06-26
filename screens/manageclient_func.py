@@ -25,8 +25,8 @@ class ManageClientWindow(QMainWindow, Ui_MainWindow):
         self.client_details = {}  # To store selected client details
 
         #screen buttons
-        #self.back.clicked.connect(self.handle_back)
-        #self.edit.clicked.connect(self.handle_edit)
+        self.back.clicked.connect(self.handle_back)
+        self.edit.clicked.connect(self.handle_edit)
 
         #nav bar buttons
         self.employees.clicked.connect(self.handle_employees)
@@ -93,7 +93,7 @@ class ManageClientWindow(QMainWindow, Ui_MainWindow):
         if selected_items:
             row = selected_items[0].row()
             column_names = ["ClientID", "Last_Name", "First_Name", "Address", "Birthdate",
-                            "Contact_Number", "Email", "Username", "Program_Plan", "Conditions"]
+                            "Contact_Number", "Email", "Username", "Password", "Program_Plan", "Conditions"]
             client_details = {}
             table_headers = [self.table.horizontalHeaderItem(i).text() for i in range(self.table.columnCount())]
             for column_name in column_names:
@@ -109,6 +109,10 @@ class ManageClientWindow(QMainWindow, Ui_MainWindow):
         print(f"Selected Row Data: {self.client_details}")
         self.edit_button.emit(self.client_details)
 
+    def handle_back(self):
+        self.back_button.emit()
+
+    #nav bar buttons
     def handle_employees(self):
         self.employeemanage_button.emit()
 
