@@ -22,6 +22,9 @@ from screens.calender_func import CalendarWindow
 from screens.empdetails_func import EmployeeDetailsWindow
 from screens.coachselection_func import CoachSelectionWindow
 from screens.maintenance_func import MaintenanceWindow
+from screens.userlogs_func import UserLogsWindow
+from screens.addcoach_func import AddCoachWindow
+from screens.addpackage_func import AddPackageWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, conn):
@@ -36,7 +39,7 @@ class MainWindow(QMainWindow):
         self.email = None # OTP parameter
 
         # Full Screen on start
-        #self.showFullScreen()
+        self.showMaximized()
 
         # Variable Definitions - class of screen functions
         self.startup_screen = startup_win()
@@ -50,6 +53,9 @@ class MainWindow(QMainWindow):
         self.manageemp_screen = ManageEmpWindow(conn)
         self.manageclient_screen = ManageClientWindow(conn)
         self.maintenance_screen = MaintenanceWindow()
+        self.addcoach_screen = AddCoachWindow()
+        self.addpackage_screen = AddPackageWindow()
+        self.userlogs_screen = UserLogsWindow(conn)
         self.adminhome_screen = AdminHomeWindow()
         self.coachhome_screen = CoachHomeWindow()
         self.calendar_screen = CalendarWindow()
@@ -79,6 +85,9 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.manageclient_screen) # client management
         self.stack.addWidget(self.calendar_screen) # calendar screen
         self.stack.addWidget(self.maintenance_screen) # maintenance screen
+        self.stack.addWidget(self.userlogs_screen) # user logs screen
+        self.stack.addWidget(self.addcoach_screen) # add coach screen
+        self.stack.addWidget(self.addpackage_screen)
 
         # Startup
         self.stack.setCurrentWidget(self.startup_screen)
@@ -123,12 +132,14 @@ class MainWindow(QMainWindow):
         self.adminhome_screen.logout_button.connect(self.show_startupui)
         self.adminhome_screen.employeemanage_button.connect(self.handle_manageemp)
         self.adminhome_screen.clientmanage_button.connect(self.handle_manageclient)
+        self.adminhome_screen.userlogs_button.connect(self.handle_userlogs)
         self.adminhome_screen.maintenance_button.connect(self.handle_maintenance)
 
         self.manageemp_screen.logout_button.connect(self.handle_login)
         self.manageemp_screen.back_button.connect(self.handle_adminlogin)
         self.manageemp_screen.clientmanage_button.connect(self.handle_manageclient)
         self.manageemp_screen.edit_button.connect(self.handle_empdetails)
+        self.manageemp_screen.userlogs_button.connect(self.handle_userlogs)
         self.manageemp_screen.maintenance_button.connect(self.handle_maintenance)
 
         self.empdetails_screen.cancel_button.connect(self.handle_manageemp)
@@ -136,11 +147,19 @@ class MainWindow(QMainWindow):
 
         self.manageclient_screen.logout_button.connect(self.handle_login)
         self.manageclient_screen.employeemanage_button.connect(self.handle_manageemp)
+        self.manageclient_screen.userlogs_button.connect(self.handle_userlogs)
         self.manageclient_screen.maintenance_button.connect(self.handle_maintenance)
 
+        self.maintenance_screen.addcoach_button.connect(self.handle_addcoach)
+        self.maintenance_screen.addpackage_button.connect(self.handle_addpackage)
         self.maintenance_screen.employeemanage_button.connect(self.handle_manageemp)
         self.maintenance_screen.clientmanage_button.connect(self.handle_manageclient)
+        self.maintenance_screen.userlogs_button.connect(self.handle_userlogs)
         self.maintenance_screen.logout_button.connect(self.handle_login)
+
+        self.addcoach_screen.cancel_button.connect(self.handle_maintenance)
+
+        self.addpackage_screen.cancel_button.connect(self.handle_maintenance)
 
         self.coachhome_screen.logout_button.connect(self.handle_login)
         self.coachhome_screen.schedule_button.connect(self.handle_schedule)
@@ -185,8 +204,15 @@ class MainWindow(QMainWindow):
     def handle_manageclient(self):
         self.manageclient_screen.refresh_data()
         self.stack.setCurrentWidget(self.manageclient_screen)
+    def handle_userlogs(self):
+        self.userlogs_screen.refresh_data()
+        self.stack.setCurrentWidget(self.userlogs_screen)
     def handle_maintenance(self):
         self.stack.setCurrentWidget(self.maintenance_screen)
+    def handle_addcoach(self):
+        self.stack.setCurrentWidget(self.addcoach_screen)
+    def handle_addpackage(self):
+        self.stack.setCurrentWidget(self.addpackage_screen)
     def handle_coachlogin(self):
         self.stack.setCurrentWidget(self.coachhome_screen)
     def handle_schedule(self):

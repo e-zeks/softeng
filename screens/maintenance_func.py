@@ -3,6 +3,10 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from screens.maintenanceUI import Ui_MainWindow
 
 class MaintenanceWindow(QMainWindow, Ui_MainWindow):
+    #screen buttons
+    addcoach_button = QtCore.pyqtSignal()
+    addpackage_button = QtCore.pyqtSignal()
+
     #nav bar buttons
     employeemanage_button = QtCore.pyqtSignal()
     clientmanage_button = QtCore.pyqtSignal()
@@ -16,6 +20,10 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
         super(MaintenanceWindow, self).__init__()
         self.setupUi(self)
 
+        #screen buttons
+        self.addcoach.clicked.connect(self.handle_addcoach)
+        self.addpackage.clicked.connect(self.handle_addpackage)
+
         #nav bar buttons
         self.employees.clicked.connect(self.handle_employees)
         self.clients.clicked.connect(self.handle_clients)
@@ -24,6 +32,12 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
         self.userlogs.clicked.connect(self.handle_userlogs)
         self.help.clicked.connect(self.handle_help)
         self.logout.clicked.connect(self.button_clicked)
+
+    def handle_addcoach(self):
+        self.addcoach_button.emit()
+
+    def handle_addpackage(self):
+        self.addpackage_button.emit()
 
     def handle_employees(self):
         self.employeemanage_button.emit()
