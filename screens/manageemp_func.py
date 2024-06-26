@@ -5,10 +5,18 @@ from PyQt5 import QtCore, QtWidgets
 
 
 class ManageEmpWindow(QMainWindow, Ui_MainWindow):
-    logout_button = QtCore.pyqtSignal()
+    #screen buttons
     back_button = QtCore.pyqtSignal()
     edit_button = QtCore.pyqtSignal(dict)
+
+    #nav bar
     clientmanage_button = QtCore.pyqtSignal()
+    payments_button = QtCore.pyqtSignal()
+    reports_button = QtCore.pyqtSignal()
+    userlogs_button = QtCore.pyqtSignal()
+    maintenance_button = QtCore.pyqtSignal()
+    help_button = QtCore.pyqtSignal()
+    logout_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
         super(ManageEmpWindow, self).__init__()
@@ -16,10 +24,18 @@ class ManageEmpWindow(QMainWindow, Ui_MainWindow):
         self.conn = conn
         self.emp_details = {}
 
-        self.logout.clicked.connect(self.handle_logout)
+        #screen buttons
         self.back.clicked.connect(self.handle_back)
-        self.clients.clicked.connect(self.handle_clients)
         self.edit.clicked.connect(self.handle_edit)
+
+        #nav bar buttons
+        self.clients.clicked.connect(self.handle_clients)
+        self.payments.clicked.connect(self.handle_payments)
+        self.report.clicked.connect(self.handle_reports)
+        self.userlogs.clicked.connect(self.handle_userlogs)
+        self.maintenance.clicked.connect(self.handle_maintenance)
+        self.help.clicked.connect(self.handle_help)
+        self.logout.clicked.connect(self.button_clicked)
 
         self.search_bar.textChanged.connect(self.search_table)  # search in table
         self.table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)  # Enable row selection
@@ -72,16 +88,6 @@ class ManageEmpWindow(QMainWindow, Ui_MainWindow):
 
             self.table.setRowHidden(row, not row_visible)
 
-    def handle_logout(self):
-        print("Logging Out")
-        self.logout_button.emit()
-
-    def handle_back(self):
-        self.back_button.emit()
-
-    def handle_clients(self):
-        self.clientmanage_button.emit()
-
     def handle_row_selection(self):
         selected_items = self.table.selectedItems()
         if selected_items:
@@ -101,3 +107,29 @@ class ManageEmpWindow(QMainWindow, Ui_MainWindow):
     def handle_edit(self):
         print(f"Selected Row Data: {self.emp_details}")
         self.edit_button.emit(self.emp_details)
+
+    def handle_back(self):
+        self.back_button.emit()
+
+    #nav bar buttons
+    def handle_clients(self):
+        self.clientmanage_button.emit()
+
+    def handle_payments(self):
+        self.payments_button.emit()
+
+    def handle_reports(self):
+        self.reports_button.emit()
+
+    def handle_userlogs(self):
+        self.userlogs_button.emit()
+
+    def handle_maintenance(self):
+        self.maintenance_button.emit()
+
+    def handle_help(self):
+        self.help_button.emit()
+
+    def button_clicked(self):
+        print("Logging Out")
+        self.logout_button.emit()

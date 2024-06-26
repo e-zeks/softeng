@@ -21,6 +21,7 @@ from screens.userdetails_func import ClientDetailsWindow
 from screens.calender_func import CalendarWindow
 from screens.empdetails_func import EmployeeDetailsWindow
 from screens.coachselection_func import CoachSelectionWindow
+from screens.maintenance_func import MaintenanceWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, conn):
@@ -48,6 +49,7 @@ class MainWindow(QMainWindow):
         self.enterOTP_screen = OTPWindow()
         self.manageemp_screen = ManageEmpWindow(conn)
         self.manageclient_screen = ManageClientWindow(conn)
+        self.maintenance_screen = MaintenanceWindow()
         self.adminhome_screen = AdminHomeWindow()
         self.coachhome_screen = CoachHomeWindow()
         self.calendar_screen = CalendarWindow()
@@ -76,6 +78,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.empdetails_screen) # employee details
         self.stack.addWidget(self.manageclient_screen) # client management
         self.stack.addWidget(self.calendar_screen) # calendar screen
+        self.stack.addWidget(self.maintenance_screen) # maintenance screen
 
         # Startup
         self.stack.setCurrentWidget(self.startup_screen)
@@ -120,17 +123,24 @@ class MainWindow(QMainWindow):
         self.adminhome_screen.logout_button.connect(self.show_startupui)
         self.adminhome_screen.employeemanage_button.connect(self.handle_manageemp)
         self.adminhome_screen.clientmanage_button.connect(self.handle_manageclient)
+        self.adminhome_screen.maintenance_button.connect(self.handle_maintenance)
 
-        self.manageemp_screen.logout_button.connect(self.show_startupui)
+        self.manageemp_screen.logout_button.connect(self.handle_login)
         self.manageemp_screen.back_button.connect(self.handle_adminlogin)
         self.manageemp_screen.clientmanage_button.connect(self.handle_manageclient)
         self.manageemp_screen.edit_button.connect(self.handle_empdetails)
+        self.manageemp_screen.maintenance_button.connect(self.handle_maintenance)
 
         self.empdetails_screen.cancel_button.connect(self.handle_manageemp)
         self.empdetails_screen.save_button.connect(self.handle_manageemp)
 
-        self.manageclient_screen.logout_button.connect(self.show_startupui)
+        self.manageclient_screen.logout_button.connect(self.handle_login)
         self.manageclient_screen.employeemanage_button.connect(self.handle_manageemp)
+        self.manageclient_screen.maintenance_button.connect(self.handle_maintenance)
+
+        self.maintenance_screen.employeemanage_button.connect(self.handle_manageemp)
+        self.maintenance_screen.clientmanage_button.connect(self.handle_manageclient)
+        self.maintenance_screen.logout_button.connect(self.handle_login)
 
         self.coachhome_screen.logout_button.connect(self.handle_login)
         self.coachhome_screen.schedule_button.connect(self.handle_schedule)
@@ -173,7 +183,10 @@ class MainWindow(QMainWindow):
         self.empdetails_screen.emp_details = emp_details
         self.stack.setCurrentWidget(self.empdetails_screen)
     def handle_manageclient(self):
+        self.manageclient_screen.refresh_data()
         self.stack.setCurrentWidget(self.manageclient_screen)
+    def handle_maintenance(self):
+        self.stack.setCurrentWidget(self.maintenance_screen)
     def handle_coachlogin(self):
         self.stack.setCurrentWidget(self.coachhome_screen)
     def handle_schedule(self):

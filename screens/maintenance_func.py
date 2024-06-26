@@ -1,29 +1,27 @@
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow
-from screens.adminhomeUI import Ui_MainWindow
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from screens.maintenanceUI import Ui_MainWindow
 
-class AdminHomeWindow(QMainWindow, Ui_MainWindow):
+class MaintenanceWindow(QMainWindow, Ui_MainWindow):
     #nav bar buttons
     employeemanage_button = QtCore.pyqtSignal()
     clientmanage_button = QtCore.pyqtSignal()
     payments_button = QtCore.pyqtSignal()
     reports_button = QtCore.pyqtSignal()
     userlogs_button = QtCore.pyqtSignal()
-    maintenance_button = QtCore.pyqtSignal()
     help_button = QtCore.pyqtSignal()
     logout_button = QtCore.pyqtSignal()
 
     def __init__(self):
-        super(AdminHomeWindow, self).__init__()
+        super(MaintenanceWindow, self).__init__()
         self.setupUi(self)
 
-        #nav bar button
+        #nav bar buttons
         self.employees.clicked.connect(self.handle_employees)
         self.clients.clicked.connect(self.handle_clients)
         self.payments.clicked.connect(self.handle_payments)
         self.report.clicked.connect(self.handle_reports)
         self.userlogs.clicked.connect(self.handle_userlogs)
-        self.maintenance.clicked.connect(self.handle_maintenance)
         self.help.clicked.connect(self.handle_help)
         self.logout.clicked.connect(self.button_clicked)
 
