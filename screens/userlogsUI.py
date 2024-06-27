@@ -226,71 +226,6 @@ class Ui_MainWindow(object):
                                 "}")
         self.back.setObjectName("back")
         self.verticalLayout_3.addWidget(self.back)
-        self.edit = QtWidgets.QPushButton(self.widget_4)
-        self.edit.setMaximumSize(QtCore.QSize(16777215, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(13)
-        font.setBold(False)
-        self.edit.setFont(font)
-        self.edit.setStyleSheet("QPushButton\n"
-                                "{\n"
-                                "background-color: #5e3b96;\n"
-                                "color:white;\n"
-                                " border-radius:20px;\n"
-                                "}")
-        self.edit.setObjectName("edit")
-        self.verticalLayout_3.addWidget(self.edit)
-        self.save = QtWidgets.QPushButton(self.widget_4)
-        self.save.setMaximumSize(QtCore.QSize(16777215, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(13)
-        font.setBold(False)
-        self.save.setFont(font)
-        self.save.setStyleSheet("QPushButton\n"
-                                "{\n"
-                                "background-color: #5e3b96;\n"
-                                "color:white;\n"
-                                " border-radius:20px;\n"
-                                "}")
-        self.save.setObjectName("save")
-        self.verticalLayout_3.addWidget(self.save)
-        self.previous = QtWidgets.QPushButton(self.widget_4)
-        self.previous.setMaximumSize(QtCore.QSize(16777215, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(10)
-        font.setBold(False)
-        self.previous.setFont(font)
-        self.previous.setStyleSheet("QPushButton\n"
-                                    "{\n"
-                                    "background-color: #5e3b96;\n"
-                                    "color:white;\n"
-                                    "border-radius:20px;\n"
-                                    "}")
-        self.previous.setObjectName("previous")
-        self.verticalLayout_3.addWidget(self.previous)
-        self.next = QtWidgets.QPushButton(self.widget_4)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.next.sizePolicy().hasHeightForWidth())
-        self.next.setSizePolicy(sizePolicy)
-        self.next.setMaximumSize(QtCore.QSize(16777215, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(13)
-        font.setBold(False)
-        self.next.setFont(font)
-        self.next.setStyleSheet("QPushButton\n"
-                                "{\n"
-                                "background-color: #5e3b96;\n"
-                                "color:white;\n"
-                                " border-radius:20px;\n"
-                                "}")
-        self.next.setObjectName("next")
-        self.verticalLayout_3.addWidget(self.next)
         spacerItem1 = QtWidgets.QSpacerItem(20, 730, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_3.addItem(spacerItem1)
         self.horizontalLayout.addWidget(self.widget_4)
@@ -346,7 +281,3 @@ class Ui_MainWindow(object):
         self.help.setText(_translate("MainWindow", "Help"))
         self.logout.setText(_translate("MainWindow", "Log Out"))
         self.back.setText(_translate("MainWindow", "Back"))
-        self.edit.setText(_translate("MainWindow", "Edit"))
-        self.save.setText(_translate("MainWindow", "Save"))
-        self.previous.setText(_translate("MainWindow", "Previous"))
-        self.next.setText(_translate("MainWindow", "Next"))

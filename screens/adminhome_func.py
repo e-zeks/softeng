@@ -27,6 +27,7 @@ class AdminHomeWindow(QMainWindow, Ui_MainWindow):
         self.help.clicked.connect(self.handle_help)
         self.logout.clicked.connect(self.button_clicked)
 
+    #nav bar buttons
     def handle_employees(self):
         self.employeemanage_button.emit()
 

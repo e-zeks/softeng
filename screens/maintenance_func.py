@@ -4,8 +4,10 @@ from screens.maintenanceUI import Ui_MainWindow
 
 class MaintenanceWindow(QMainWindow, Ui_MainWindow):
     #screen buttons
+    back_button = QtCore.pyqtSignal()
     addcoach_button = QtCore.pyqtSignal()
     addpackage_button = QtCore.pyqtSignal()
+    editpackage_button = QtCore.pyqtSignal()
 
     #nav bar buttons
     employeemanage_button = QtCore.pyqtSignal()
@@ -21,8 +23,10 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         #screen buttons
+        self.back.clicked.connect(self.handle_back)
         self.addcoach.clicked.connect(self.handle_addcoach)
         self.addpackage.clicked.connect(self.handle_addpackage)
+        self.editpackage.clicked.connect(self.handle_editpackage)
 
         #nav bar buttons
         self.employees.clicked.connect(self.handle_employees)
@@ -33,12 +37,19 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
         self.help.clicked.connect(self.handle_help)
         self.logout.clicked.connect(self.button_clicked)
 
+    def handle_back(self):
+        self.back_button.emit()
+
     def handle_addcoach(self):
         self.addcoach_button.emit()
 
     def handle_addpackage(self):
         self.addpackage_button.emit()
 
+    def handle_editpackage(self):
+        self.editpackage_button.emit()
+
+    #nav bar screens
     def handle_employees(self):
         self.employeemanage_button.emit()
 

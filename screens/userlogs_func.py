@@ -6,6 +6,15 @@ from screens.userlogsUI import Ui_MainWindow
 class UserLogsWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
 
+    #nav bar buttons
+    employeemanage_button = QtCore.pyqtSignal()
+    clientmanage_button = QtCore.pyqtSignal()
+    payments_button = QtCore.pyqtSignal()
+    reports_button = QtCore.pyqtSignal()
+    maintenance_button = QtCore.pyqtSignal()
+    help_button = QtCore.pyqtSignal()
+    logout_button = QtCore.pyqtSignal()
+
     def __init__(self, conn):
         super(UserLogsWindow, self).__init__()
         self.conn = conn
@@ -13,7 +22,17 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
 
         self.set_table_elements()
         self.search_bar.textChanged.connect(self.search_table)
-        self.back.clicked.connect(self.button_clicked)
+
+        self.back.clicked.connect(self.handle_back)
+
+        #nav bar button
+        self.employees.clicked.connect(self.handle_employees)
+        self.clients.clicked.connect(self.handle_clients)
+        self.payments.clicked.connect(self.handle_payments)
+        self.report.clicked.connect(self.handle_reports)
+        self.maintenance.clicked.connect(self.handle_maintenance)
+        self.help.clicked.connect(self.handle_help)
+        self.logout.clicked.connect(self.button_clicked)
 
     def refresh_data(self):
         self.table.clearContents()
@@ -96,5 +115,31 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
                 if item:
                     item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
 
-    def button_clicked(self):
+    def handle_back(self):
         self.back_button.emit()
+
+    #nav bar
+    def handle_employees(self):
+        self.employeemanage_button.emit()
+
+    def handle_clients(self):
+        self.clientmanage_button.emit()
+
+    def handle_payments(self):
+        self.payments_button.emit()
+
+    def handle_reports(self):
+        self.reports_button.emit()
+
+    def handle_userlogs(self):
+        self.userlogs_button.emit()
+
+    def handle_maintenance(self):
+        self.maintenance_button.emit()
+
+    def handle_help(self):
+        self.help_button.emit()
+
+    def button_clicked(self):
+        print("Logging Out")
+        self.logout_button.emit()

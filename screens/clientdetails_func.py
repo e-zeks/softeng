@@ -38,22 +38,22 @@ class ClientDetailsWindow(QMainWindow, Ui_MainWindow):
 
     def handle_save(self):
         clientid = self.client_details.get('ClientID')
-        lname = self.client_details.text()
-        fname = self.client_details.text()
-        address = self.client_details.text()
-        birthday = self.client_details.date().toString('yyyy-MM-dd')
-        contactnum = self.client_details.text()
-        email = self.client_details.text()
-        username = self.client_details.text()
-        password = self.client_details.text()
-        program = self.client_details.currentText()
-        conditions = self.client_details.text()
+        lname = self.lname.text()
+        fname = self.fname.text()
+        address = self.address.text()
+        birthday = self.dateEdit.date().toString('yyyy-MM-dd')
+        contactnum = self.contact_number.text()
+        email = self.emailaddress.text()
+        username = self.username.text()
+        password = self.password.text()
+        program = self.programplan.currentText()
+        conditions = self.medical_conditions.text()
 
         try:
             cursor = self.conn.cursor()
             sql = """UPDATE clients 
                      SET Last_Name = %s, First_Name = %s, Address = %s, Birthdate = %s, 
-                         Contact_Number = %s, Email = %s, Password = %s, Program_Plan = %s, 
+                         Contact_Number = %s, Email = %s, Username = %s, Password = %s, Program_Plan = %s, 
                          Conditions = %s
                      WHERE ClientID = %s"""
             data = (fname, lname, address, birthday, contactnum, email, username, password, program, conditions, clientid)
@@ -67,7 +67,6 @@ class ClientDetailsWindow(QMainWindow, Ui_MainWindow):
             QMessageBox.critical(self, 'Error', f"Error updating client details: {e}")
 
     def set_clientdetails(self, client_details):
-        self.client_details = client_details
         self.lname.setText(client_details.get('Last_Name', ''))
         self.fname.setText(client_details.get('First_Name', ''))
         self.address.setText(client_details.get('Address', ''))
@@ -75,7 +74,8 @@ class ClientDetailsWindow(QMainWindow, Ui_MainWindow):
         # Handling Birthdate
         birthdate = client_details.get('Birthdate')
         if birthdate:
-            self.dateEdit.setDate(QDate(birthdate.year, birthdate.month, birthdate.day))
+            qdate = QDate.fromString(birthdate, 'yyyy-MM-dd')
+            self.dateEdit.setDate(qdate)
 
         self.contact_number.setText(client_details.get('Contact_Number', ''))
         self.emailaddress.setText(client_details.get('Email', ''))

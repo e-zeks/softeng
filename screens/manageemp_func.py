@@ -1,4 +1,3 @@
-from mysql.connector import Error
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QMainWindow
 from screens.manageempUI import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets

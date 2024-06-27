@@ -31,7 +31,7 @@ CREATE TABLE `clients` (
   `Contact_Number` varchar(11) NOT NULL,
   `Email` varchar(45) NOT NULL,
   `Username` varchar(45) NOT NULL,
-  `Password` varchar(15) NOT NULL,
+  `Password` varchar(64) NOT NULL,
   `Program_Plan` varchar(45) NOT NULL,
   `Conditions` varchar(45) DEFAULT NULL,
   `LOA` varchar(15) DEFAULT 'Client',
@@ -45,7 +45,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (1,'Cruz','Myek Jego','1234 Mango Street, Barangay San Antonio, Pasig City','2000-05-16','09845527624','myek@gmail.com','myek','Hello123','Body Building','','Client');
+INSERT INTO `clients` VALUES (1,'Cruz','Myek Jego','1234 Mango Street, Barangay San Antonio, Pasig City','2000-05-16','09845527624','myek@gmail.com','myek','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Body Building','','Client');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-25 21:12:46
+-- Dump completed on 2024-06-28  4:06:23
