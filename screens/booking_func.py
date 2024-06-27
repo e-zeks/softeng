@@ -1,13 +1,17 @@
 import re
 import hashlib
+import random
 import mysql.connector  # MySQL connector
+import smtplib
 from PyQt5 import QtCore
+from email.mime.text import MIMEText
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from screens.bookingUI import Ui_MainWindow
 
+
 class ClientRegWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
-    register_button = QtCore.pyqtSignal()
+    register_button = QtCore.pyqtSignal(str, tuple)
 
     def __init__(self, conn):
         super(ClientRegWindow, self).__init__()
@@ -21,6 +25,9 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
     def button_clicked(self):
         # Emit the back_button signal when the back button is clicked
         self.back_button.emit()
+
+    def generate_otp(self):
+        return ''.join([str(random.randint(0, 9)) for _ in range(6)])
 
     def is_username_taken(self):
         username = self.username.text().strip()
@@ -68,13 +75,8 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
         email = self.emailaddress.text().strip()
         username = self.username.text().strip()
         password = self.password.text().strip()
-        program_plan = self.programplan.currentText().strip()  # Assuming programPlan is a QComboBox
-        conditions = self.medical_conditions.text().strip()  # Assuming conditions is a QTextEdit
-
-        # Validate the email format using a regular expression
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
-            QMessageBox.warning(self, "Input Error", "Invalid email format.")
-            return
+        program_plan = self.programplan.currentText().strip()
+        conditions = self.medical_conditions.text().strip()
 
         # Check if the username is already taken
         if self.is_username_taken():
@@ -83,31 +85,49 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
 
         # Validate the password
         if not self.validate_password():
-            QMessageBox.warning(self, "Input Error", "Password must: \n- Have at least 8 characters\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Not contain any special characters")
+            QMessageBox.warning(self, "Input Error",
+                                "Password must: \n- Have at least 8 characters\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Not contain any special characters")
             return
 
-        # Check if the email is already registered
-        if self.is_email_registered(email):
-            QMessageBox.warning(self, "Input Error", "Email is already registered.")
-            return
+        if re.match(r"[^@]+@[^@]+\.[^@]+", email):  # validate email
+            if not self.is_email_registered(email):  # Check if email is registered
+                print("Sending OTP...")  # Debugging statement
+                sender_email = "thenoskalos@gmail.com"
+                sender_password = "zdih vuqe dzsl asxj"
 
-        # Hash the password using SHA-256
-        hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+                self.otp = self.generate_otp()
+                subject = "Password Reset OTP"
+                body = f"Your OTP for password reset is: {self.otp}"
 
-        try:
-            cursor = self.conn.cursor()
-            # Execute the SQL INSERT statement to add the client to the database
-            cursor.execute(
-                """
-                INSERT INTO clients (Last_Name, First_Name, Address, Birthdate, Contact_Number, Email, Username, Password, Program_Plan, Conditions)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """,
-                (last_name, first_name, address, birthday, contact_number, email, username, hashed_password, program_plan,
-                 conditions)
-            )
-            self.conn.commit()  # Commit the transaction
-            QMessageBox.information(self, "Success", "Client registered successfully.")
-            self.register_button.emit()  # Emit the register_button signal
-        except mysql.connector.Error as e:
-            QMessageBox.critical(self, "Database Error", f"An error occurred: {e}")
-            self.conn.rollback()  # Rollback the transaction on error
+                message = MIMEText(body)
+                message["Subject"] = subject
+                message["From"] = sender_email
+                message["To"] = email
+
+                try:
+                    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+                        server.login(sender_email, sender_password)
+                        server.sendmail(sender_email, [email], message.as_string())
+                    print("OTP sent successfully")  # Debugging statement
+                    QMessageBox.information(None, "OTP Sent", "OTP has been sent to your email address.")
+
+                    # Hash the password using SHA-256
+                    hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+                    # Prepare data tuple to emit
+                    data_tuple = (
+                    last_name, first_name, address, birthday, contact_number, email, username, hashed_password,
+                    program_plan, conditions)
+
+                    # Emit the register_button signal with data_tuple
+                    self.register_button.emit(self.otp, data_tuple)
+
+                    #self.sendOTP_button.emit(self.otp, email)  # Function to switch screen here
+
+                except Exception as e:
+                    print(f"Failed to send OTP: {str(e)}")  # Debugging statement
+                    QMessageBox.critical(None, "Error", f"Failed to send OTP: {str(e)}")
+            else:
+                QMessageBox.warning(self, "Input Error", "Email is already registered.")
+        else:
+            QMessageBox.warning(self, "Input Error", "Invalid email format.")

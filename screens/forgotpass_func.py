@@ -5,8 +5,7 @@ from screens.forgotpassUI import Ui_MainWindow
 import re
 import random
 import smtplib
-import mysql.connector  # Added to import mysql.connector
-
+import mysql.connector
 
 class ForgotPassWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()

@@ -15,6 +15,7 @@ from screens.startup_func import startup_win
 from screens.registeremp_func import RegisterWindow
 from screens.startup2_func import startup2_win
 from screens.enterOTP_func import OTPWindow
+from screens.bookingOTP_func import BookingOTPWindow
 from screens.coachhome_func import CoachHomeWindow
 from screens.auditorhome_func import AuditorHomeWindow
 from screens.userdetails_func import UserDetailsWindow
@@ -41,6 +42,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.stack)
 
         self.email = None # OTP parameter
+        self.context = None # navigator helper
 
         # Full Screen on start
         self.showMaximized()
@@ -55,6 +57,7 @@ class MainWindow(QMainWindow):
         self.packageselection_screen = PackageSelectionWindow(conn)
         self.forgotpass_screen = ForgotPassWindow(conn)
         self.enterOTP_screen = OTPWindow()
+        self.bookingOTP_screen = BookingOTPWindow(conn)
         self.manageemp_screen = ManageEmpWindow(conn)
         self.manageclient_screen = ManageClientWindow(conn)
         self.maintenance_screen = MaintenanceWindow()
@@ -83,6 +86,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.packageselection_screen) # package select
         self.stack.addWidget(self.forgotpass_screen)  # forgot password
         self.stack.addWidget(self.enterOTP_screen) # enter OTP
+        self.stack.addWidget(self.bookingOTP_screen) # booking OTP
         self.stack.addWidget(self.resetpass_screen) # reset pass
         self.stack.addWidget(self.resetsuccess_screen) # reset success
         self.stack.addWidget(self.adminhome_screen) # admin home
@@ -122,7 +126,7 @@ class MainWindow(QMainWindow):
         self.startup2_screen.back_button.connect(self.show_startupui)
 
         self.clientreg_screen.back_button.connect(self.handle_startup2)
-        self.clientreg_screen.register_button.connect(self.handle_login)
+        self.clientreg_screen.register_button.connect(self.handle_bookingOTP)
 
         self.userdetails_screen.back_button.connect(self.handle_login)
         self.userdetails_screen.save_button.connect(self.handle_coachselect)
@@ -136,6 +140,9 @@ class MainWindow(QMainWindow):
         self.enterOTP_screen.back_button.connect(self.handle_forgotpass)
         self.enterOTP_screen.verifyOTP_button.connect(self.handle_resetpass)
         #self.enterOTP_screen.resend_button.connect()
+
+        self.bookingOTP_screen.back_button.connect(self.handle_clientreg)
+        self.bookingOTP_screen.verifyOTP_button.connect(self.handle_login)
 
         self.resetpass_screen.back_button.connect(self.handle_login)
         self.resetpass_screen.reset_button.connect(self.handle_resetsuccess)
@@ -221,6 +228,10 @@ class MainWindow(QMainWindow):
 
         self.packageselection_screen.back_button.connect(self.handle_coachselect)
 
+    #experiment
+    def handle_OTPnavigator(self, context):
+        self.context = context
+
     def show_startupui(self):
         self.stack.setCurrentWidget(self.startup_screen)
     def handle_login(self):
@@ -240,6 +251,11 @@ class MainWindow(QMainWindow):
         self.email = email
         self.enterOTP_screen.set_otp(otp)
         self.stack.setCurrentWidget(self.enterOTP_screen)
+    def handle_bookingOTP(self, otp, data_tuple):
+        self.email = data_tuple[5]
+        self.bookingOTP_screen.set_otp(otp)
+        self.bookingOTP_screen.set_data_tuple(data_tuple)
+        self.stack.setCurrentWidget(self.bookingOTP_screen)
     def handle_resetpass(self):
         self.resetpass_screen.set_email(self.email)
         self.stack.setCurrentWidget(self.resetpass_screen)
@@ -284,7 +300,6 @@ class MainWindow(QMainWindow):
     def handle_packageselect(self):
         self.packageselection_screen.refresh_data()
         self.stack.setCurrentWidget(self.packageselection_screen)
-
     def handle_clientlogin(self, client_data):
         client_details = {
             'Last_Name': client_data['Last_Name'],
