@@ -131,3 +131,15 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
                 QMessageBox.warning(self, "Input Error", "Email is already registered.")
         else:
             QMessageBox.warning(self, "Input Error", "Invalid email format.")
+
+    def clear_fields(self):
+        self.lname.clear()
+        self.fname.clear()
+        self.address.clear()
+        self.contact_number.clear()
+        self.emailaddress.clear()
+        self.username.clear()
+        self.password.clear()
+        self.programplan.setCurrentIndex(0)
+        self.medical_conditions.clear()
+        self.dateEdit.setDate(QtCore.QDate.currentDate())

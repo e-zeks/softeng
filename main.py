@@ -16,6 +16,7 @@ from screens.registeremp_func import RegisterWindow
 from screens.startup2_func import startup2_win
 from screens.enterOTP_func import OTPWindow
 from screens.bookingOTP_func import BookingOTPWindow
+from screens.registerOTP_func import RegisterOTPWindow
 from screens.coachhome_func import CoachHomeWindow
 from screens.auditorhome_func import AuditorHomeWindow
 from screens.userdetails_func import UserDetailsWindow
@@ -58,6 +59,7 @@ class MainWindow(QMainWindow):
         self.forgotpass_screen = ForgotPassWindow(conn)
         self.enterOTP_screen = OTPWindow()
         self.bookingOTP_screen = BookingOTPWindow(conn)
+        self.registerOTP_screen = RegisterOTPWindow(conn)
         self.manageemp_screen = ManageEmpWindow(conn)
         self.manageclient_screen = ManageClientWindow(conn)
         self.maintenance_screen = MaintenanceWindow()
@@ -87,6 +89,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.forgotpass_screen)  # forgot password
         self.stack.addWidget(self.enterOTP_screen) # enter OTP
         self.stack.addWidget(self.bookingOTP_screen) # booking OTP
+        self.stack.addWidget(self.registerOTP_screen) # register OTP
         self.stack.addWidget(self.resetpass_screen) # reset pass
         self.stack.addWidget(self.resetsuccess_screen) # reset success
         self.stack.addWidget(self.adminhome_screen) # admin home
@@ -120,6 +123,7 @@ class MainWindow(QMainWindow):
         self.login_screen.loginclient_button.connect(self.handle_clientlogin)
 
         self.register_screen.back_button.connect(self.handle_startup2)
+        self.register_screen.register_button.connect(self.handle_registerOTP)
 
         self.startup2_screen.client_signal_btn.connect(self.handle_clientreg)
         self.startup2_screen.employee_signal_btn.connect(self.handle_register)
@@ -143,6 +147,9 @@ class MainWindow(QMainWindow):
 
         self.bookingOTP_screen.back_button.connect(self.handle_clientreg)
         self.bookingOTP_screen.verifyOTP_button.connect(self.handle_login)
+
+        self.registerOTP_screen.back_button.connect(self.handle_register)
+        self.registerOTP_screen.verifyOTP_button.connect(self.handle_login)
 
         self.resetpass_screen.back_button.connect(self.handle_login)
         self.resetpass_screen.reset_button.connect(self.handle_resetsuccess)
@@ -239,10 +246,12 @@ class MainWindow(QMainWindow):
     def handle_forgotpass(self):
         self.stack.setCurrentWidget(self.forgotpass_screen)
     def handle_register(self):
+        self.register_screen.clear_fields()
         self.stack.setCurrentWidget(self.register_screen)
     def handle_startup2(self):
         self.stack.setCurrentWidget(self.startup2_screen)
     def handle_clientreg(self):
+        self.clientreg_screen.clear_fields()
         self.stack.setCurrentWidget(self.clientreg_screen)
     def handle_coachselect(self):
         self.coachselection_screen.refresh_data()
@@ -256,6 +265,11 @@ class MainWindow(QMainWindow):
         self.bookingOTP_screen.set_otp(otp)
         self.bookingOTP_screen.set_data_tuple(data_tuple)
         self.stack.setCurrentWidget(self.bookingOTP_screen)
+    def handle_registerOTP(self, otp, data_tuple):
+        self.email = data_tuple[2]
+        self.registerOTP_screen.set_otp(otp)
+        self.registerOTP_screen.set_data_tuple(data_tuple)
+        self.stack.setCurrentWidget(self.registerOTP_screen)
     def handle_resetpass(self):
         self.resetpass_screen.set_email(self.email)
         self.stack.setCurrentWidget(self.resetpass_screen)
