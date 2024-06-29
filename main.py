@@ -68,9 +68,9 @@ class MainWindow(QMainWindow):
         self.editpackage_screen = EditPackageWindow(conn)
         self.userlogs_screen = UserLogsWindow(conn)
         self.adminhome_screen = AdminHomeWindow()
-        self.coachhome_screen = CoachHomeWindow()
+        self.coachhome_screen = CoachHomeWindow(conn)
         self.calendar_screen = CalendarWindow()
-        self.auditorhome_screen = AuditorHomeWindow()
+        self.auditorhome_screen = AuditorHomeWindow(conn)
         self.clientreport_screen = ClientReportWindow(conn)
         self.resetpass_screen = ResetPassWindow(conn)
         self.resetsuccess_screen = ResetSuccessWindow()
@@ -334,6 +334,9 @@ class MainWindow(QMainWindow):
 def connect_to_db():
     try:
         conn = mysql.connector.connect(
+            #host="25.48.148.190",
+            #user="softengprogram",
+            # passwd="pass123",
             host="localhost",
             user="root",
             passwd="12345",

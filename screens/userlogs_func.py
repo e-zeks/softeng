@@ -6,7 +6,7 @@ from screens.userlogsUI import Ui_MainWindow
 class UserLogsWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
 
-    #nav bar buttons
+    # nav bar buttons
     employeemanage_button = QtCore.pyqtSignal()
     clientmanage_button = QtCore.pyqtSignal()
     payments_button = QtCore.pyqtSignal()
@@ -18,6 +18,7 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, conn):
         super(UserLogsWindow, self).__init__()
         self.conn = conn
+        self.log_ids = []  # List to store LogIDs
         self.setupUi(self)
 
         self.set_table_elements()
@@ -25,14 +26,14 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
 
         self.back.clicked.connect(self.handle_back)
 
-        #nav bar button
+        # nav bar button
         self.employees.clicked.connect(self.handle_employees)
         self.clients.clicked.connect(self.handle_clients)
         self.payments.clicked.connect(self.handle_payments)
         self.report.clicked.connect(self.handle_reports)
         self.maintenance.clicked.connect(self.handle_maintenance)
         self.help.clicked.connect(self.handle_help)
-        self.logout.clicked.connect(self.button_clicked)
+        self.logout.clicked.connect(self.handle_logout)
 
     def refresh_data(self):
         self.table.clearContents()
@@ -40,45 +41,64 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
         self.disable_editing()
 
     def log_user_login(self, user_id, user_type, last_name, first_name):
-        print("user logs data")
+        print("Logging user login data")
         try:
             cursor = self.conn.cursor()
             query = """
-                INSERT INTO user_logs (UserID, UserType, Last_Name, First_Name, Login_Time)
-                VALUES (%s, %s, %s, %s, NOW())
+                INSERT INTO user_logs (EmployeeID, ClientID, UserType, Last_Name, First_Name, Login_Time)
+                VALUES (%s, %s, %s, %s, %s, NOW())
             """
-            cursor.execute(query, (user_id, user_type, last_name, first_name))
+            if user_type == 'Employee':
+                cursor.execute(query, (user_id, None, user_type, last_name, first_name))
+            elif user_type == 'Client':
+                cursor.execute(query, (None, user_id, user_type, last_name, first_name))
             self.conn.commit()
+            log_id = cursor.lastrowid  # Get the last inserted LogID
+            self.log_ids.append(log_id)  # Add the new LogID to the list
+            print(f"User logged in with LogID: {log_id}")  # Debug print
+            print(f"Current log_ids: {self.log_ids}")  # Debug print
         except Error as e:
             print(f"Error logging user login: {e}")
+        finally:
+            cursor.close()
 
-    def log_user_logout(self, user_id):
-        print("user logs data")
+    def log_user_logout(self):
+        cursor = self.conn.cursor()
+        print('helo')
+        print(f"Logging out users with LogIDs: {self.log_ids}")  # Debug print
+
+        sql = " SELECT COUNT(*) FROM user_logs"
+        cursor.execute(sql)
+        lastrow = cursor.fetchone()[0]
+        print(lastrow)
+        if not self.log_ids:
+            print("No log IDs to log out")  # Debug print
         try:
-            cursor = self.conn.cursor()
+            print("ttest")
+            # this gets the last row and adds date
             query = """
-                UPDATE user_logs
-                SET Logout_Time = NOW()
-                WHERE UserID = %s AND Logout_Time IS NULL
-            """
-            cursor.execute(query, (user_id,))
+                    UPDATE user_logs
+                    SET Logout_Time = NOW()
+                    WHERE LogID = %s AND Logout_Time IS NULL
+                """
+            cursor.execute(query, (lastrow,))
             self.conn.commit()
+            print("Logout times updated successfully")  # Debug print
         except Error as e:
             print(f"Error logging user logout: {e}")
+        finally:
+            cursor.close()
+            self.log_ids.clear()  # Clear the list of LogIDs after logging out
 
     def load_data(self):
         print("load_data method called")  # Debug print
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM user_logs")  # Use 'clients' table
+        cursor.execute("SELECT * FROM user_logs")
         results = cursor.fetchall()
         column_names = [i[0] for i in cursor.description]
         cursor.close()
         return results, column_names
 
-    # def show_logs(self):
-    #     print("show_logs method called")  # Debug print
-    #     self.set_table_elements()
-    #     self.show()
     def set_table_elements(self):
         results, column_names = self.load_data()
         print(f"Column Names: {column_names}")  # Debug print
@@ -118,7 +138,7 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
     def handle_back(self):
         self.back_button.emit()
 
-    #nav bar
+    # nav bar
     def handle_employees(self):
         self.employeemanage_button.emit()
 
@@ -140,6 +160,7 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
     def handle_help(self):
         self.help_button.emit()
 
-    def button_clicked(self):
-        print("Logging Out")
+    def handle_logout(self):
+        print("done edit db") # Log the logout time
+        self.log_user_logout()
         self.logout_button.emit()
