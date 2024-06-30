@@ -22,7 +22,7 @@ from screens.auditorhome_func import AuditorHomeWindow
 from screens.userdetails_func import UserDetailsWindow
 from screens.calender_func import CalendarWindow
 from screens.empdetails_func import EmployeeDetailsWindow
-from screens.coachselection_func import CoachSelectionWindow
+from screens.coachselection2_func import CoachSelectionWindow
 from screens.packageselection_func import PackageSelectionWindow
 from screens.maintenance_func import MaintenanceWindow
 from screens.userlogs_func import UserLogsWindow
@@ -136,7 +136,7 @@ class MainWindow(QMainWindow):
         self.userdetails_screen.save_button.connect(self.handle_coachselect)
 
         self.coachselection_screen.back_button.connect(self.handle_login) #back button parameter problem for details
-        self.coachselection_screen.book_button1.connect(self.handle_packageselect)
+        #self.coachselection_screen.book_button1.connect(self.handle_packageselect)
 
         self.forgotpass_screen.back_button.connect(self.handle_login)
         self.forgotpass_screen.sendOTP_button.connect(self.handle_enterOTP)
@@ -254,7 +254,7 @@ class MainWindow(QMainWindow):
         self.clientreg_screen.clear_fields()
         self.stack.setCurrentWidget(self.clientreg_screen)
     def handle_coachselect(self):
-        self.coachselection_screen.refresh_data()
+        self.coachselection_screen.add_initial_coach_widgets()
         self.stack.setCurrentWidget(self.coachselection_screen)
     def handle_enterOTP(self, otp, email):
         self.email = email
