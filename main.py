@@ -22,7 +22,7 @@ from screens.auditorhome_func import AuditorHomeWindow
 from screens.userdetails_func import UserDetailsWindow
 from screens.calender_func import CalendarWindow
 from screens.empdetails_func import EmployeeDetailsWindow
-from screens.coachselection2_func import CoachSelectionWindow
+from screens.coachselection_func import CoachSelectionWindow
 from screens.packageselection_func import PackageSelectionWindow
 from screens.maintenance_func import MaintenanceWindow
 from screens.userlogs_func import UserLogsWindow
@@ -136,7 +136,9 @@ class MainWindow(QMainWindow):
         self.userdetails_screen.save_button.connect(self.handle_coachselect)
 
         self.coachselection_screen.back_button.connect(self.handle_login) #back button parameter problem for details
-        #self.coachselection_screen.book_button1.connect(self.handle_packageselect)
+        self.coachselection_screen.help_button.connect(self.handle_packageselect) #fix, this is only a tester
+
+        self.packageselection_screen.back_button.connect(self.handle_coachselect)
 
         self.forgotpass_screen.back_button.connect(self.handle_login)
         self.forgotpass_screen.sendOTP_button.connect(self.handle_enterOTP)
@@ -233,8 +235,6 @@ class MainWindow(QMainWindow):
         self.clientreport_screen.logout_button.connect(self.handle_login)
         self.clientreport_screen.back_button.connect(self.handle_auditorlogin)
 
-        self.packageselection_screen.back_button.connect(self.handle_coachselect)
-
     #experiment
     def handle_OTPnavigator(self, context):
         self.context = context
@@ -312,7 +312,7 @@ class MainWindow(QMainWindow):
     def handle_clientreport(self):
         self.stack.setCurrentWidget(self.clientreport_screen)
     def handle_packageselect(self):
-        self.packageselection_screen.refresh_data()
+        self.packageselection_screen.add_initial_packages_widgets()
         self.stack.setCurrentWidget(self.packageselection_screen)
     def handle_clientlogin(self, client_data):
         client_details = {

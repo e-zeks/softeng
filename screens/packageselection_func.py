@@ -1,107 +1,74 @@
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, QSpacerItem, QMessageBox
+from PyQt5 import QtGui, QtWidgets, QtCore
 from screens.packageselectionUI import Ui_MainWindow
 import mysql.connector
 
 class PackageSelectionWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
-    select_button1 = QtCore.pyqtSignal(str)
-    select_button2 = QtCore.pyqtSignal(str)
-    select_button3 = QtCore.pyqtSignal(str)
 
     def __init__(self, conn):
         super(PackageSelectionWindow, self).__init__()
         self.setupUi(self)
-        self.conn = conn  # Store the database connection
-        self.current_package_index = 0  # Track current package index
+        self.conn = conn
 
         self.back.clicked.connect(self.button_clicked)
-        self.selectpackage1.clicked.connect(self.select_button1_clicked)
-        self.selectpackage2.clicked.connect(self.select_button2_clicked)
-        self.selectpackage3.clicked.connect(self.select_button3_clicked)
 
-        self.package1_name = None
-        self.package2_name = None
-        self.package3_name = None
-
-    def display_package_data(self):
-        try:
-            cursor = self.conn.cursor()
-
-            # Fetch all packages from the database
-            cursor.execute("SELECT Package_Name, Package_Price, Package_Details FROM packages")
-            packages = cursor.fetchall()
-
-            if packages:
-                if self.current_package_index < len(packages):
-                    # Display the first set of labels
-                    package_name, package_price, package_details = packages[self.current_package_index]
-                    price_with_peso = f"₱ {package_price} per session."
-                    self.package1.setText(package_name)
-                    self.price1.setText(price_with_peso)
-                    self.label_3.setText(package_details)
-                    self.package1_name = package_name
-
-                    # Display the second set of labels if available
-                    next_index = self.current_package_index + 1
-                    if next_index < len(packages):
-                        package_name, package_price, package_details = packages[next_index]
-                        price_with_peso = f"₱ {package_price} per session."  # Calculate for package2
-                        self.package2.setText(package_name)
-                        self.price2.setText(price_with_peso)
-                        self.label_6.setText(package_details)
-                        self.package2_name = package_name
-                    else:
-                        self.package2.setText("")
-                        self.price2.setText("")
-                        self.label_6.setText("")
-                        self.package2_name = None
-
-                    # Display the third set of labels if available
-                    third_index = self.current_package_index + 2
-                    if third_index < len(packages):
-                        package_name, package_price, package_details = packages[third_index]
-                        price_with_peso = f"₱ {package_price} per session."  # Calculate for package3
-                        self.package3.setText(package_name)
-                        self.price3.setText(price_with_peso)
-                        self.label_9.setText(package_details)
-                        self.package3_name = package_name
-                    else:
-                        self.package3.setText("")
-                        self.price3.setText("")
-                        self.label_9.setText("")
-                        self.package3_name = None
-
-                    self.current_package_index = next_index
-
-                else:
-                    QtWidgets.QMessageBox.warning(self, "Warning", "No more packages to display.")
-            else:
-                QtWidgets.QMessageBox.warning(self, "Warning", "No package data found.")
-
-            cursor.close()
-
-        except mysql.connector.Error as err:
-            QtWidgets.QMessageBox.critical(self, "Error", f"Error fetching package data: {err}")
-
-    def refresh_data(self):
-        self.current_package_index = 0  # Reset the index
-        self.display_package_data()
+        # Fetch packages from the database
+        self.packages = self.fetch_packages_from_database()
 
     def button_clicked(self):
         self.back_button.emit()
 
-    def select_button1_clicked(self):
-        if self.package1_name:
-            print(f"Selected Package 1 Name: {self.package1_name}")
-            self.select_button1.emit(self.package1_name)
+    def fetch_packages_from_database(self):
+        try:
+            cursor = self.conn.cursor(dictionary=True)
+            cursor.execute("SELECT Package_Name, Package_Price, Package_Details, `Minimum_Sessions` FROM packages")
+            packages = cursor.fetchall()
+            return packages
+        except mysql.connector.Error as e:
+            print(f"Error retrieving packages: {e}")
+            QMessageBox.critical(self, "Database Error", f"Error retrieving packages: {e}")
+            return []
 
-    def select_button2_clicked(self):
-        if self.package2_name:
-            print(f"Selected Package 2 Name: {self.package2_name}")
-            self.select_button2.emit(self.package2_name)
+    def add_initial_packages_widgets(self):
+        for package in self.packages:
+            package_name = package["Package_Name"]
+            package_price = package["Package_Price"]
+            package_details = package["Package_Details"]
+            min_sessions = package["Minimum_Sessions"]
+            self.add_package_widget(package_name, package_price, package_details, min_sessions)
 
-    def select_button3_clicked(self):
-        if self.package3_name:
-            print(f"Selected Package 3 Name: {self.package3_name}")
-            self.select_button3.emit(self.package3_name)
+    def add_package_widget(self, package_name, package_price, package_details, min_sessions):
+        new_widget = QtWidgets.QWidget()
+        new_widget.setStyleSheet("QWidget\n"
+                                 "{\n"
+                                 "background-color: #5e3b96;\n"
+                                 "border-radius:20px;\n"
+                                 "}")
+        new_layout = QtWidgets.QVBoxLayout(new_widget)
+
+        # Package Name
+        package_name_label = QtWidgets.QLabel(package_name)
+        package_name_label.setFont(QtGui.QFont("Arial Black", 20, weight=QtGui.QFont.Bold))  # Larger font size
+        package_name_label.setStyleSheet("QLabel { color: white; }")
+        new_layout.addWidget(package_name_label)
+
+        # Package Price
+        package_price_label = QtWidgets.QLabel(f"Price: {package_price}")
+        package_price_label.setFont(QtGui.QFont("Arial Black", 12))
+        package_price_label.setStyleSheet("QLabel { color: white; }")
+        new_layout.addWidget(package_price_label)
+
+        # Package Details
+        package_details_label = QtWidgets.QLabel(package_details)
+        package_details_label.setFont(QtGui.QFont("Arial Black", 12))
+        package_details_label.setStyleSheet("QLabel { color: white; }")
+        new_layout.addWidget(package_details_label)
+
+        # Minimum Sessions
+        min_sessions_label = QtWidgets.QLabel(f"Minimum Sessions: {min_sessions}")
+        min_sessions_label.setFont(QtGui.QFont("Arial Black", 12))
+        min_sessions_label.setStyleSheet("QLabel { color: white; }")
+        new_layout.addWidget(min_sessions_label)
+
+        self.horizontalLayout_6.addWidget(new_widget)
