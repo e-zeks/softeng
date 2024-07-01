@@ -45,16 +45,17 @@ class AddPackageWindow(QMainWindow, Ui_MainWindow):
             package_name = self.packagename.text()
             package_price = self.packageprice.text()
             package_details = self.textEdit.toPlainText()
+            minimum_sessions = self.minimumsessions.text()  # Get the value from minimumsessions field
 
-            if not package_name or not package_price or not package_details:
+            if not package_name or not package_price or not package_details or not minimum_sessions:
                 QtWidgets.QMessageBox.warning(self, "Warning", "Please fill in all fields.")
                 return
 
             cursor = self.conn.cursor()
 
             # Insert data into 'packages' table
-            insert_query = "INSERT INTO packages (Package_Name, Package_Price, Package_Details) VALUES (%s, %s, %s)"
-            cursor.execute(insert_query, (package_name, package_price, package_details))
+            insert_query = "INSERT INTO packages (Package_Name, Package_Price, Package_Details, Minimum_Sessions) VALUES (%s, %s, %s, %s)"
+            cursor.execute(insert_query, (package_name, package_price, package_details, minimum_sessions))
             self.conn.commit()
 
             cursor.close()

@@ -1,4 +1,3 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -260,6 +259,28 @@ class Ui_MainWindow(object):
         self.packagename.setReadOnly(False)
         self.packagename.setObjectName("packagename")
         self.verticalLayout_5.addWidget(self.packagename)
+        self.label_2 = QtWidgets.QLabel(self.widget_6)
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(18)
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet("QLabel{\n"
+"color:white;\n"
+"}")
+        self.label_2.setObjectName("label_2")
+        self.verticalLayout_5.addWidget(self.label_2)
+        self.lineEdit = QtWidgets.QLineEdit(self.widget_6)
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(16)
+        self.lineEdit.setFont(font)
+        self.lineEdit.setStyleSheet("QLineEdit{\n"
+"background-color:white;\n"
+"color:#5e3b96;\n"
+"border-radius:20px;\n"
+"}")
+        self.lineEdit.setObjectName("lineEdit")
+        self.verticalLayout_5.addWidget(self.lineEdit)
         self.label_6 = QtWidgets.QLabel(self.widget_6)
         font = QtGui.QFont()
         font.setFamily("Arial Black")
@@ -374,6 +395,7 @@ class Ui_MainWindow(object):
         self.logout.setText(_translate("MainWindow", "Log Out"))
         self.label_8.setText(_translate("MainWindow", "Add Package"))
         self.label_3.setText(_translate("MainWindow", "Package Name:"))
+        self.label_2.setText(_translate("MainWindow", "Minimum number of Sessions:"))
         self.label_6.setText(_translate("MainWindow", "Package Price:"))
         self.label_5.setText(_translate("MainWindow", "Package Details:"))
         self.cancel.setText(_translate("MainWindow", "Cancel"))

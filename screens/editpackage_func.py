@@ -53,6 +53,7 @@ class EditPackageWindow(QMainWindow, Ui_MainWindow):
             cursor.close()
 
             self.comboBox.clear()
+            self.comboBox.addItem("")  # Add a blank choice as the first item
             for package_id in package_ids:
                 self.comboBox.addItem(str(package_id[0]))
 
@@ -66,7 +67,7 @@ class EditPackageWindow(QMainWindow, Ui_MainWindow):
             package_id = self.comboBox.currentText()
             if package_id:
                 cursor = self.conn.cursor()
-                cursor.execute("SELECT Package_Name, Package_Price, Package_Details FROM packages WHERE Package_ID = %s", (package_id,))
+                cursor.execute("SELECT Package_Name, Package_Price, Package_Details, Minimum_Sessions FROM packages WHERE Package_ID = %s", (package_id,))
                 package = cursor.fetchone()
                 cursor.close()
 
@@ -74,10 +75,26 @@ class EditPackageWindow(QMainWindow, Ui_MainWindow):
                     self.packagename.setText(package[0])
                     self.packageprice.setText(str(package[1]))
                     self.packagedetails.setPlainText(package[2])
+                    self.minimumsessions.setText(str(package[3]))  # Update minimumsessions field
+                else:
+                    self.packagename.clear()
+                    self.packageprice.clear()
+                    self.packagedetails.clear()
+                    self.minimumsessions.clear()
+            else:
+                self.packagename.clear()
+                self.packageprice.clear()
+                self.packagedetails.clear()
+                self.minimumsessions.clear()
+
         except mysql.connector.Error as err:
             QtWidgets.QMessageBox.critical(self, "Error", f"Error loading package details: {err}")
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"Unexpected error: {e}")
+
+    def refresh_data(self):
+        self.populate_comboBox()
+        self.load_package_details()
 
     def handle_cancel(self):
         self.cancel_button.emit()
@@ -87,21 +104,23 @@ class EditPackageWindow(QMainWindow, Ui_MainWindow):
             package_id = self.comboBox.currentText()
             package_price = self.packageprice.text()
             package_details = self.packagedetails.toPlainText()
+            minimum_sessions = self.minimumsessions.text()  # Get the value from minimumsessions field
 
-            if not package_id or not package_price or not package_details:
+            if not package_id or not package_price or not package_details or not minimum_sessions:
                 QtWidgets.QMessageBox.warning(self, "Warning", "Please fill in all fields.")
                 return
 
             cursor = self.conn.cursor()
 
             # Update data in 'packages' table
-            update_query = "UPDATE packages SET Package_Price = %s, Package_Details = %s WHERE Package_ID = %s"
-            cursor.execute(update_query, (package_price, package_details, package_id))
+            update_query = "UPDATE packages SET Package_Price = %s, Package_Details = %s, Minimum_Sessions = %s WHERE Package_ID = %s"
+            cursor.execute(update_query, (package_price, package_details, minimum_sessions, package_id))
             self.conn.commit()
 
             cursor.close()
             QtWidgets.QMessageBox.information(self, "Success", "Data updated successfully.")
             self.save_button.emit()
+            self.refresh_data()  # Refresh data after saving
 
         except mysql.connector.Error as err:
             QtWidgets.QMessageBox.critical(self, "Error", f"Error updating data: {err}")
@@ -133,33 +152,3 @@ class EditPackageWindow(QMainWindow, Ui_MainWindow):
     def button_clicked(self):
         print("Logging Out")
         self.logout_button.emit()
-
-    # saving in case of error
-
-    # # self.save_button.connect(self.save_to_database)
-    # @QtCore.pyqtSlot()
-    # def save_to_database(self):
-    #     try:
-    #         package_id = self.comboBox.currentText()
-    #         package_price = self.packageprice.text()
-    #         package_details = self.packagedetails.toPlainText()
-    #
-    #         if not package_id or not package_price or not package_details:
-    #             QtWidgets.QMessageBox.warning(self, "Warning", "Please fill in all fields.")
-    #             return
-    #
-    #         cursor = self.conn.cursor()
-    #
-    #         # Update data in 'packages' table
-    #         update_query = "UPDATE packages SET Package_Price = %s, Package_Details = %s WHERE Package_ID = %s"
-    #         cursor.execute(update_query, (package_price, package_details, package_id))
-    #         self.conn.commit()
-    #
-    #         cursor.close()
-    #         QtWidgets.QMessageBox.information(self, "Success", "Data updated successfully.")
-    #         self.save_button.emit()
-    #
-    #     except mysql.connector.Error as err:
-    #         QtWidgets.QMessageBox.critical(self, "Error", f"Error updating data: {err}")
-    #     except Exception as e:
-    #         QtWidgets.QMessageBox.critical(self, "Error", f"Unexpected error: {e}")

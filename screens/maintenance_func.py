@@ -1,5 +1,7 @@
+import subprocess
+
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog
 from screens.maintenanceUI import Ui_MainWindow
 
 class MaintenanceWindow(QMainWindow, Ui_MainWindow):
@@ -8,6 +10,9 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
     addcoach_button = QtCore.pyqtSignal()
     addpackage_button = QtCore.pyqtSignal()
     editpackage_button = QtCore.pyqtSignal()
+
+    backup_button = QtCore.pyqtSignal()
+    restore_button = QtCore.pyqtSignal()
 
     #nav bar buttons
     employeemanage_button = QtCore.pyqtSignal()
@@ -27,6 +32,9 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
         self.addcoach.clicked.connect(self.handle_addcoach)
         self.addpackage.clicked.connect(self.handle_addpackage)
         self.editpackage.clicked.connect(self.handle_editpackage)
+
+        self.backup.clicked.connect(self.handle_backup)
+        self.restore.clicked.connect(self.handle_restore)
 
         #nav bar buttons
         self.employees.clicked.connect(self.handle_employees)
@@ -74,3 +82,54 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
     def button_clicked(self):
         print("Logging Out")
         self.logout_button.emit()
+
+
+    def handle_backup(self):
+        try:
+            subprocess.run([
+                'mysqldump',
+                '--host=localhost',
+                '--user=root',
+                '--password=12345',
+                'softeng',
+                'employees',
+                'coaches',
+                'packages',
+                'clients',
+                'user_logs',
+                '--result-file=C:\\Users\\JC\\Desktop\\SQL backups\\softeng_backup.sql'
+            ], check=True)
+            print("Backup successful.")
+            QMessageBox.information(self, "Backup", "Backup successful.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error during backup: {e}")
+            QMessageBox.warning(self, "Backup Error", f"Error during backup: {e}")
+
+    def handle_restore(self):
+        # Replace with your actual MySQL username, password, and database name
+        username = "root"
+        password = "12345"
+        database_name = "softeng"
+
+        # Prompt user to select the SQL backup file
+        file_dialog = QFileDialog()
+        dump_file_path, _ = file_dialog.getOpenFileName(self, "Select Backup File", "", "SQL Files (*.sql)")
+
+        if dump_file_path:
+            try:
+                # Formulate the MySQL restore command
+                restore_command = [
+                    'mysql',
+                    '--host=localhost',
+                    '--user=' + username,
+                    '--password=' + password,
+                    database_name,
+                    '-e',
+                    'source ' + dump_file_path
+                ]
+
+                # Execute the MySQL restore command using subprocess
+                subprocess.run(restore_command, check=True)
+                QMessageBox.information(self, "Restore Successful", "Database restore completed successfully.")
+            except subprocess.CalledProcessError as e:
+                QMessageBox.critical(self, "Restore Error", f"Failed to restore database:\n{str(e)}")
