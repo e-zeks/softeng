@@ -55,7 +55,7 @@ class PackageSelectionWindow(QMainWindow, Ui_MainWindow):
 
         # Package Price
         package_price_label = QtWidgets.QLabel(f"Price: {package_price}")
-        package_price_label.setFont(QtGui.QFont("Arial Black", 12))
+        package_price_label.setFont(QtGui.QFont("Arial Black", 14))
         package_price_label.setStyleSheet("QLabel { color: white; }")
         new_layout.addWidget(package_price_label)
 
@@ -70,5 +70,18 @@ class PackageSelectionWindow(QMainWindow, Ui_MainWindow):
         min_sessions_label.setFont(QtGui.QFont("Arial Black", 12))
         min_sessions_label.setStyleSheet("QLabel { color: white; }")
         new_layout.addWidget(min_sessions_label)
+
+        # Add spacer between details and book button
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum,
+                                            QtWidgets.QSizePolicy.Fixed)
+        new_layout.addItem(spacerItem2)
+
+        # Book button
+        book = QtWidgets.QPushButton("Book Now")
+        book.setFont(QtGui.QFont("Arial Black", 12))
+        book.setStyleSheet("QPushButton { color: #5e3b96; background-color: white; border-radius: 20px; }")
+        book.setMinimumSize(100, 40)
+        book.setFocusPolicy(QtCore.Qt.StrongFocus)  # Ensure the button can receive focus
+        new_layout.addWidget(book)
 
         self.horizontalLayout_6.addWidget(new_widget)
