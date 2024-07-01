@@ -5,24 +5,21 @@ import mysql.connector
 
 class CoachSelectionWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
-    help_button = QtCore.pyqtSignal()
+    book_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
         super(CoachSelectionWindow, self).__init__()
         self.setupUi(self)
         self.conn = conn
+        self.coachdetails = ""
 
         self.back.clicked.connect(self.button_clicked)
-        self.help.clicked.connect(self.handle_help)
 
         # Fetch coaches from the database
         self.coaches = self.fetch_coaches_from_database()
 
     def button_clicked(self):
         self.back_button.emit()
-
-    def handle_help(self):
-        self.help_button.emit()
 
     def fetch_coaches_from_database(self):
         try:
@@ -36,12 +33,23 @@ class CoachSelectionWindow(QMainWindow, Ui_MainWindow):
             return []
 
     def add_initial_coach_widgets(self):
+        # Clear existing widgets first
+        self.clear_coach_widgets()
+
         for coach in self.coaches:
             coach_name = coach["Coach_Name"]
             full_name = f"{coach['First_Name']} {coach['Last_Name']}"
             experiences = coach["Experiences"]
             specialties = coach["Specialties"]
             self.add_coach_widget(coach_name, full_name, experiences, specialties)
+
+    def clear_coach_widgets(self):
+        # Remove all existing widgets in the layout
+        while self.horizontalLayout_6.count():
+            item = self.horizontalLayout_6.takeAt(0)
+            widget = item.widget()
+            if widget:
+                widget.deleteLater()
 
     def add_coach_widget(self, coach_name, full_name, experiences, specialties):
         new_widget = QtWidgets.QWidget()
@@ -99,4 +107,13 @@ class CoachSelectionWindow(QMainWindow, Ui_MainWindow):
         book.setFocusPolicy(QtCore.Qt.StrongFocus)  # Ensure the button can receive focus
         new_layout.addWidget(book)
 
+        book.clicked.connect(lambda: self.handle_book(full_name, coach_name))
+
         self.horizontalLayout_6.addWidget(new_widget)
+
+    def handle_book(self, full_name, coach_name):
+        self.coachdetails = {
+            'full_name': full_name,
+            'coach_name': coach_name
+        }
+        self.book_button.emit()

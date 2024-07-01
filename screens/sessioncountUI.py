@@ -209,7 +209,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.back.setText(_translate("MainWindow", "Back"))
         self.select.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Select the Number<br/>of Sessions</p></body></html>"))
-        self.label_13.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">- Adding more sessions would require another booking transaction.</span></p></body></html>"))
+        self.label_13.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">- Adding more sessions would have additional costs of ₱500 per session.</span></p></body></html>"))
         self.proceed.setText(_translate("MainWindow", "Proceed"))
 
 

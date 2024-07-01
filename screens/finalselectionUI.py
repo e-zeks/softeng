@@ -36,7 +36,7 @@ class Ui_MainWindow(object):
         self.label_13 = QtWidgets.QLabel(self.widget_2)
         self.label_13.setMaximumSize(QtCore.QSize(421, 121))
         self.label_13.setText("")
-        self.label_13.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\DYNAMIC UI\\../SOFT ENG/assets/logog.jpg"))
+        self.label_13.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/logog.jpg"))
         self.label_13.setScaledContents(True)
         self.label_13.setObjectName("label_13")
         self.horizontalLayout_2.addWidget(self.label_13)

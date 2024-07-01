@@ -32,7 +32,8 @@ from screens.editpackage_func import EditPackageWindow
 from screens.clientreport_func import ClientReportWindow
 from screens.clientdetails_func import ClientDetailsWindow
 from screens.payments_func import PaymentWindow
-#from screens.adminhelp_func import AdminHelpWindow
+from screens.sessioncount_func import SessionCountWindow
+from screens.finalselection_func import FinalSelectionWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, conn):
@@ -45,7 +46,12 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.stack)
 
         self.email = None # OTP parameter
-        self.context = None # navigator helper
+
+        # data retrievers for client booking
+        self.clientdetails = {}
+        self.selectedcoach = {}
+        self.selectedpackage = {}
+        self.sessioncount = ""
 
         # Full Screen on start
         self.showMaximized()
@@ -79,8 +85,9 @@ class MainWindow(QMainWindow):
         self.userdetails_screen = UserDetailsWindow(conn)
         self.clientdetails_screen = ClientDetailsWindow({}, conn)
         self.empdetails_screen = EmployeeDetailsWindow({}, conn)
-        #self.adminhelp_screen = AdminHelpWindow()
         self.payments_screen = PaymentWindow(conn)
+        self.sessioncount_screen = SessionCountWindow()
+        self.finalselection_screen = FinalSelectionWindow()
 
         # Adding Screens to Stack
         self.stack.addWidget(self.startup_screen)  # startup
@@ -111,8 +118,9 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.addpackage_screen) # add package screen
         self.stack.addWidget(self.editpackage_screen) # edit package screen
         self.stack.addWidget(self.clientreport_screen) # clients report screen
-        #self.stack.addWidget(self.adminhelp_screen) # admin help screen
         self.stack.addWidget(self.payments_screen) # payment screen
+        self.stack.addWidget(self.sessioncount_screen) # session count screen
+        self.stack.addWidget(self.finalselection_screen) # final selection screen
 
         # Startup
         self.stack.setCurrentWidget(self.startup_screen)
@@ -141,10 +149,16 @@ class MainWindow(QMainWindow):
         self.userdetails_screen.back_button.connect(self.handle_login)
         self.userdetails_screen.save_button.connect(self.handle_coachselect)
 
-        self.coachselection_screen.back_button.connect(self.handle_login) #back button parameter problem for details
-        self.coachselection_screen.help_button.connect(self.handle_packageselect) #fix, this is only a tester
+        self.coachselection_screen.back_button.connect(self.handle_login) #back button parameter problem if clientdetails
+        self.coachselection_screen.book_button.connect(self.handle_packageselect)
 
         self.packageselection_screen.back_button.connect(self.handle_coachselect)
+        self.packageselection_screen.book_button.connect(self.handle_sessioncount)
+
+        self.sessioncount_screen.back_button.connect(self.handle_packageselect)
+        self.sessioncount_screen.proceed_button.connect(self.handle_finalselection)
+
+        self.finalselection_screen.back_button.connect(self.handle_sessioncount)
 
         self.forgotpass_screen.back_button.connect(self.handle_login)
         self.forgotpass_screen.sendOTP_button.connect(self.handle_enterOTP)
@@ -266,10 +280,6 @@ class MainWindow(QMainWindow):
 
         #self.adminhelp_screen.back_button.connect(self.handle_adminlogin)
 
-    #experiment
-    def handle_OTPnavigator(self, context):
-        self.context = context
-
     def show_startupui(self):
         self.stack.setCurrentWidget(self.startup_screen)
     def handle_login(self):
@@ -284,9 +294,6 @@ class MainWindow(QMainWindow):
     def handle_clientreg(self):
         self.clientreg_screen.clear_fields()
         self.stack.setCurrentWidget(self.clientreg_screen)
-    def handle_coachselect(self):
-        self.coachselection_screen.add_initial_coach_widgets()
-        self.stack.setCurrentWidget(self.coachselection_screen)
     def handle_enterOTP(self, otp, email):
         self.email = email
         self.enterOTP_screen.set_otp(otp)
@@ -318,10 +325,6 @@ class MainWindow(QMainWindow):
     def handle_manageclient(self):
         self.manageclient_screen.refresh_data()
         self.stack.setCurrentWidget(self.manageclient_screen)
-    def handle_clientdetails(self, client_details):
-        self.clientdetails_screen.set_clientdetails(client_details)
-        self.clientdetails_screen.client_details = client_details
-        self.stack.setCurrentWidget(self.clientdetails_screen)
     def handle_userlogs(self):
         self.userlogs_screen.refresh_data()
         self.stack.setCurrentWidget(self.userlogs_screen)
@@ -347,9 +350,6 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.auditorhome_screen)
     def handle_clientreport(self):
         self.stack.setCurrentWidget(self.clientreport_screen)
-    def handle_packageselect(self):
-        self.packageselection_screen.add_initial_packages_widgets()
-        self.stack.setCurrentWidget(self.packageselection_screen)
     def handle_clientlogin(self, client_data):
         client_details = {
             'Last_Name': client_data['Last_Name'],
@@ -363,8 +363,33 @@ class MainWindow(QMainWindow):
             'Program_Plan': client_data['Program_Plan'],
             'Conditions': client_data['Conditions']
         }
+        self.clientdetails = self.userdetails_screen.get_bookingdetails(client_details)
         self.userdetails_screen.set_clientdetails(client_details)
         self.stack.setCurrentWidget(self.userdetails_screen)
+    def handle_clientdetails(self, client_details):
+        self.clientdetails_screen.set_clientdetails(client_details)
+        self.clientdetails_screen.client_details = client_details
+        self.stack.setCurrentWidget(self.clientdetails_screen)
+    def handle_coachselect(self):
+        self.coachselection_screen.add_initial_coach_widgets()
+        self.stack.setCurrentWidget(self.coachselection_screen)
+    def handle_packageselect(self):
+        self.selectedcoach = self.coachselection_screen.coachdetails
+        print(self.selectedcoach)
+
+        self.packageselection_screen.add_initial_packages_widgets()
+        self.stack.setCurrentWidget(self.packageselection_screen)
+    def handle_sessioncount(self):
+        self.selectedpackage = self.packageselection_screen.packagedetails
+        print(self.selectedpackage)
+
+        self.sessioncount_screen.set_spinbox_value(self.selectedpackage['min_sessions'])
+        self.stack.setCurrentWidget(self.sessioncount_screen)
+    def handle_finalselection(self):
+        self.sessioncount = self.sessioncount_screen.get_spinbox_value()
+        print("Yes")
+        self.finalselection_screen.set_details(self.clientdetails, self.selectedcoach, self.selectedpackage, self.sessioncount)
+        self.stack.setCurrentWidget(self.finalselection_screen)
 
 # Read and write from DB
 def connect_to_db():

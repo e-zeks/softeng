@@ -27,6 +27,18 @@ class UserDetailsWindow(QMainWindow, Ui_MainWindow):
     def button_clicked(self):
         self.back_button.emit()
 
+    #data retrieved for booking
+    def get_bookingdetails(self, client_details):
+        bookingdetails = {
+            client_details.get('Last_Name'),
+            client_details.get('First_Name'),
+            client_details.get('Username'),
+            client_details.get('Contact_Number'),
+            client_details.get('Program_Plan')
+        }
+        return bookingdetails
+
+
     def set_clientdetails(self, client_details):
         self.client_details = client_details
         self.lname.setText(client_details.get('Last_Name', ''))

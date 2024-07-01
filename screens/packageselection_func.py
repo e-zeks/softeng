@@ -5,11 +5,13 @@ import mysql.connector
 
 class PackageSelectionWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
+    book_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
         super(PackageSelectionWindow, self).__init__()
         self.setupUi(self)
         self.conn = conn
+        self.packagedetails = ""
 
         self.back.clicked.connect(self.button_clicked)
 
@@ -31,12 +33,23 @@ class PackageSelectionWindow(QMainWindow, Ui_MainWindow):
             return []
 
     def add_initial_packages_widgets(self):
+        # Clear existing widgets first
+        self.clear_package_widgets()
+
         for package in self.packages:
             package_name = package["Package_Name"]
             package_price = package["Package_Price"]
             package_details = package["Package_Details"]
             min_sessions = package["Minimum_Sessions"]
             self.add_package_widget(package_name, package_price, package_details, min_sessions)
+
+    def clear_package_widgets(self):
+        # Remove all existing widgets in the layout
+        while self.horizontalLayout_6.count():
+            item = self.horizontalLayout_6.takeAt(0)
+            widget = item.widget()
+            if widget:
+                widget.deleteLater()
 
     def add_package_widget(self, package_name, package_price, package_details, min_sessions):
         new_widget = QtWidgets.QWidget()
@@ -84,4 +97,14 @@ class PackageSelectionWindow(QMainWindow, Ui_MainWindow):
         book.setFocusPolicy(QtCore.Qt.StrongFocus)  # Ensure the button can receive focus
         new_layout.addWidget(book)
 
+        book.clicked.connect(lambda: self.handle_book(package_name, package_price, min_sessions))
+
         self.horizontalLayout_6.addWidget(new_widget)
+
+    def handle_book(self, package_name, package_price, min_sessions):
+        self.packagedetails = {
+            'package_name': package_name,
+            'package_price': package_price,
+            'min_sessions': int(min_sessions)
+        }
+        self.book_button.emit()
