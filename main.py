@@ -42,6 +42,10 @@ from screens.coachesreport_func import CoachReportWindow
 from screens.transactionreport_func import TransactionReportWindow
 from screens.transactionsuccessful_func import TransactionSuccessfulWindow
 
+#from screens.sms_func import SMSWindow
+#from screens.coachmanageclient_func import CoachManageEmpWindow
+from screens.coachclientedit_func import CoachClientEditWindow
+
 class MainWindow(QMainWindow):
     def __init__(self, conn):
         super(MainWindow, self).__init__()
@@ -104,6 +108,9 @@ class MainWindow(QMainWindow):
         self.transactionreport_screen = TransactionReportWindow(conn)
         self.transactionsuccessful_screen = TransactionSuccessfulWindow(conn)
 
+        #self.coachmanageemp_screen = CoachManageEmpWindow(conn)
+        self.coachclientedit_screen = CoachClientEditWindow({}, conn)
+
         # Adding Screens to Stack
         self.stack.addWidget(self.startup_screen)  # startup
         self.stack.addWidget(self.login_screen)  # login
@@ -143,6 +150,9 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.coachesreport_screen) # coach report screen
         self.stack.addWidget(self.transactionreport_screen) # transaction report screen
         self.stack.addWidget(self.transactionsuccessful_screen) # transaction successful screen
+
+        #self.stack.addWidget(self.coachmanageemp_screen) # coach manage mep screen
+        self.stack.addWidget(self.coachclientedit_screen) # coach edit client screen
 
         # Startup
         self.stack.setCurrentWidget(self.startup_screen)
@@ -331,7 +341,15 @@ class MainWindow(QMainWindow):
         self.transactionreport_screen.clientreport_button.connect(self.handle_clientreport)
         self.transactionreport_screen.coachesreport_button.connect(self.handle_coachesreport)
 
+        self.help_screen.back_button.connect(self.handle_adminlogin)
+        self.help_screen.about_button.connect(self.handle_about)
+
         self.about_screen.back_button.connect(self.handle_help)
+
+        #self.coachmanageemp_screen.back_button.connect(self.handle_coachlogin)
+        #self.coachmanageemp_screen.edit_button.connect(self.handle_coachclientedit)
+
+        self.coachclientedit_screen.back_button.connect(self.handle_coachmanageclient)
 
     def show_startupui(self):
         self.stack.setCurrentWidget(self.startup_screen)
@@ -458,6 +476,15 @@ class MainWindow(QMainWindow):
         self.selectedsched = self.finalizesched_screen.get_sched_details()
         self.transactionsuccessful_screen.populate_fields(self.clientdetails, self.selectedcoach, self.selectedpackage, self.sessioncount, self.selectedsched)
         self.stack.setCurrentWidget(self.transactionsuccessful_screen)
+
+    def handle_sms(self):
+        self.stack.setCurrentWidget(self.sms_screen)
+
+    def handle_coachmanageclient(self):
+        self.stack.setCurrentWidget(self.coachmanageemp_screen)
+
+    def handle_coachclientedit(self):
+        self.stack.setCurrentWidget(self.coachclientedit_screen)
 
 # Read and write from DB
 def connect_to_db():

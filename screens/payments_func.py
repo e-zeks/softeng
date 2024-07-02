@@ -34,6 +34,15 @@ class PaymentWindow(QMainWindow, Ui_MainWindow):
         self.help.clicked.connect(self.handle_help)
         self.logout.clicked.connect(self.button_clicked)
 
+        # self.receiptno
+        # self.amttotal
+        # self.amtpaid
+        # self.paymentdate
+        # self.customerlname
+        # self.customerfname
+        # self.transactionhandler
+
+
     def backbutton_clicked(self):
         self.back_button.emit()
 
