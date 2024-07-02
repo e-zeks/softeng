@@ -1,4 +1,6 @@
 from PyQt5 import QtCore
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QMainWindow
 from screens.adminhomeUI import Ui_MainWindow
 
@@ -47,6 +49,8 @@ class AdminHomeWindow(QMainWindow, Ui_MainWindow):
         self.maintenance_button.emit()
 
     def handle_help(self):
+        pdf_path = "D:\zek\3rd yr comsci\summer\CS 304\soft eng\github\Anytime Fitness User Manual.pdf"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
         self.help_button.emit()
 
     def button_clicked(self):

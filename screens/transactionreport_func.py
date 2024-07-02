@@ -1,11 +1,11 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox
-from screens.clientreportUI import Ui_MainWindow
+from screens.transactionreportUI import Ui_MainWindow
 import mysql.connector
 import csv
 from datetime import datetime
 
-class ClientReportWindow(QMainWindow, Ui_MainWindow):
+class TransactionReportWindow(QMainWindow, Ui_MainWindow):
     # Signals for button actions
     save_button = QtCore.pyqtSignal()
     back_button = QtCore.pyqtSignal()
@@ -13,7 +13,7 @@ class ClientReportWindow(QMainWindow, Ui_MainWindow):
     help_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
-        super(ClientReportWindow, self).__init__()
+        super(TransactionReportWindow, self).__init__()
         self.setupUi(self)
         self.conn = conn  # Store the database connection
 
@@ -29,7 +29,7 @@ class ClientReportWindow(QMainWindow, Ui_MainWindow):
 
     def load_data(self):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM client_report")
+        cursor.execute("SELECT * FROM transactions_report")
         results = cursor.fetchall()
         column_names = [i[0] for i in cursor.description]
         cursor.close()

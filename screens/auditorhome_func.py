@@ -6,6 +6,8 @@ from mysql.connector import Error
 class AuditorHomeWindow(QMainWindow, Ui_MainWindow):
     logout_button = QtCore.pyqtSignal()
     clientreport_button = QtCore.pyqtSignal()
+    coachesreport_button = QtCore.pyqtSignal()
+    transactionreport_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
         super(AuditorHomeWindow, self).__init__()
@@ -15,6 +17,8 @@ class AuditorHomeWindow(QMainWindow, Ui_MainWindow):
 
         self.clients.clicked.connect(self.handle_clientreport)
         self.logout.clicked.connect(self.handle_logout)
+        self.coaches.clicked.connect(self.handle_coachesreport)
+        self.transactions.clicked.connect(self.handle_transactionreport)
 
     def log_user_logout(self):
         cursor = self.conn.cursor()
@@ -48,3 +52,9 @@ class AuditorHomeWindow(QMainWindow, Ui_MainWindow):
     def handle_logout(self):
         self.log_user_logout()
         self.logout_button.emit()
+
+    def handle_coachesreport(self):
+        self.coachesreport_button.emit()
+
+    def handle_transactionreport(self):
+        self.transactionreport_button.emit()

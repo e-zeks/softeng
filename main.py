@@ -34,6 +34,12 @@ from screens.clientdetails_func import ClientDetailsWindow
 from screens.payments_func import PaymentWindow
 from screens.sessioncount_func import SessionCountWindow
 from screens.finalselection_func import FinalSelectionWindow
+from screens.finalizeschedule_func import FinalizeSchedWindow
+from screens.help_func import HelpWindow
+from screens.about_func import AboutWindow
+from screens.coachesreport_func import CoachReportWindow
+from screens.transactionreport_func import TransactionReportWindow
+from screens.transactionsuccessful_func import TransactionSuccessfulWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, conn):
@@ -52,6 +58,7 @@ class MainWindow(QMainWindow):
         self.selectedcoach = {}
         self.selectedpackage = {}
         self.sessioncount = ""
+        self.selectedsched = {}
 
         # Full Screen on start
         self.showMaximized()
@@ -88,6 +95,12 @@ class MainWindow(QMainWindow):
         self.payments_screen = PaymentWindow(conn)
         self.sessioncount_screen = SessionCountWindow()
         self.finalselection_screen = FinalSelectionWindow()
+        self.finalizesched_screen = FinalizeSchedWindow()
+        self.help_screen = HelpWindow()
+        self.about_screen = AboutWindow()
+        self.coachesreport_screen = CoachReportWindow(conn)
+        self.transactionreport_screen = TransactionReportWindow(conn)
+        self.transactionsuccessful_screen = TransactionSuccessfulWindow()
 
         # Adding Screens to Stack
         self.stack.addWidget(self.startup_screen)  # startup
@@ -121,6 +134,12 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.payments_screen) # payment screen
         self.stack.addWidget(self.sessioncount_screen) # session count screen
         self.stack.addWidget(self.finalselection_screen) # final selection screen
+        self.stack.addWidget(self.finalizesched_screen) # finalize schedule screen
+        self.stack.addWidget(self.help_screen) # help screen
+        self.stack.addWidget(self.about_screen) # about screen
+        self.stack.addWidget(self.coachesreport_screen) # coach report screen
+        self.stack.addWidget(self.transactionreport_screen) # transaction report screen
+        self.stack.addWidget(self.transactionsuccessful_screen) # transaction successful screen
 
         # Startup
         self.stack.setCurrentWidget(self.startup_screen)
@@ -159,6 +178,12 @@ class MainWindow(QMainWindow):
         self.sessioncount_screen.proceed_button.connect(self.handle_finalselection)
 
         self.finalselection_screen.back_button.connect(self.handle_sessioncount)
+        self.finalselection_screen.proceed_button.connect(self.handle_finalizesched)
+
+        self.finalizesched_screen.back_button.connect(self.handle_finalselection)
+        self.finalizesched_screen.confirm_button.connect(self.handle_transactionsuccessful)
+
+        self.transactionsuccessful_screen.confirm_button.connect(self.handle_login)
 
         self.forgotpass_screen.back_button.connect(self.handle_login)
         self.forgotpass_screen.sendOTP_button.connect(self.handle_enterOTP)
@@ -183,7 +208,7 @@ class MainWindow(QMainWindow):
         self.adminhome_screen.clientmanage_button.connect(self.handle_manageclient)
         self.adminhome_screen.userlogs_button.connect(self.handle_userlogs)
         self.adminhome_screen.maintenance_button.connect(self.handle_maintenance)
-        self.adminhome_screen.help_button.connect(self.handle_adminhelp)
+        self.adminhome_screen.help_button.connect(self.handle_help)
         self.adminhome_screen.payments_button.connect(self.handle_payments)
 
         self.manageemp_screen.logout_button.connect(self.handle_login)
@@ -192,7 +217,7 @@ class MainWindow(QMainWindow):
         self.manageemp_screen.clientmanage_button.connect(self.handle_manageclient)
         self.manageemp_screen.userlogs_button.connect(self.handle_userlogs)
         self.manageemp_screen.maintenance_button.connect(self.handle_maintenance)
-        self.manageemp_screen.help_button.connect(self.handle_adminhelp)
+        self.manageemp_screen.help_button.connect(self.handle_help)
         self.manageemp_screen.payments_button.connect(self.handle_payments)
 
         self.empdetails_screen.cancel_button.connect(self.handle_manageemp)
@@ -204,7 +229,7 @@ class MainWindow(QMainWindow):
         self.manageclient_screen.employeemanage_button.connect(self.handle_manageemp)
         self.manageclient_screen.userlogs_button.connect(self.handle_userlogs)
         self.manageclient_screen.maintenance_button.connect(self.handle_maintenance)
-        self.manageclient_screen.help_button.connect(self.handle_adminhelp)
+        self.manageclient_screen.help_button.connect(self.handle_help)
         self.manageclient_screen.payments_button.connect(self.handle_payments)
 
         self.clientdetails_screen.cancel_button.connect(self.handle_manageclient)
@@ -215,7 +240,7 @@ class MainWindow(QMainWindow):
         self.userlogs_screen.employeemanage_button.connect(self.handle_manageemp)
         self.userlogs_screen.clientmanage_button.connect(self.handle_manageclient)
         self.userlogs_screen.maintenance_button.connect(self.handle_maintenance)
-        self.userlogs_screen.help_button.connect(self.handle_adminhelp)
+        self.userlogs_screen.help_button.connect(self.handle_help)
         self.userlogs_screen.payments_button.connect(self.handle_payments)
 
         self.maintenance_screen.addcoach_button.connect(self.handle_addcoach)
@@ -226,7 +251,7 @@ class MainWindow(QMainWindow):
         self.maintenance_screen.clientmanage_button.connect(self.handle_manageclient)
         self.maintenance_screen.userlogs_button.connect(self.handle_userlogs)
         self.maintenance_screen.logout_button.connect(self.handle_login)
-        self.maintenance_screen.help_button.connect(self.handle_adminhelp)
+        self.maintenance_screen.help_button.connect(self.handle_help)
         self.maintenance_screen.payments_button.connect(self.handle_payments)
 
         self.addcoach_screen.cancel_button.connect(self.handle_maintenance)
@@ -236,7 +261,7 @@ class MainWindow(QMainWindow):
         self.addcoach_screen.clientmanage_button.connect(self.handle_manageclient)
         self.addcoach_screen.userlogs_button.connect(self.handle_userlogs)
         self.addcoach_screen.maintenance_button.connect(self.handle_maintenance)
-        self.addcoach_screen.help_button.connect(self.handle_adminhelp)
+        self.addcoach_screen.help_button.connect(self.handle_help)
         self.addcoach_screen.payments_button.connect(self.handle_payments)
 
         self.addpackage_screen.cancel_button.connect(self.handle_maintenance)
@@ -246,7 +271,7 @@ class MainWindow(QMainWindow):
         self.addpackage_screen.clientmanage_button.connect(self.handle_manageclient)
         self.addpackage_screen.userlogs_button.connect(self.handle_userlogs)
         self.addpackage_screen.maintenance_button.connect(self.handle_maintenance)
-        self.addpackage_screen.help_button.connect(self.handle_adminhelp)
+        self.addpackage_screen.help_button.connect(self.handle_help)
         self.addpackage_screen.payments_button.connect(self.handle_payments)
 
         self.editpackage_screen.cancel_button.connect(self.handle_maintenance)
@@ -256,7 +281,7 @@ class MainWindow(QMainWindow):
         self.editpackage_screen.clientmanage_button.connect(self.handle_manageclient)
         self.editpackage_screen.userlogs_button.connect(self.handle_userlogs)
         self.editpackage_screen.maintenance_button.connect(self.handle_maintenance)
-        self.editpackage_screen.help_button.connect(self.handle_adminhelp)
+        self.editpackage_screen.help_button.connect(self.handle_help)
         self.editpackage_screen.payments_button.connect(self.handle_payments)
 
         self.payments_screen.back_button.connect(self.handle_adminlogin)
@@ -274,11 +299,19 @@ class MainWindow(QMainWindow):
 
         self.auditorhome_screen.logout_button.connect(self.handle_login)
         self.auditorhome_screen.clientreport_button.connect(self.handle_clientreport)
+        self.auditorhome_screen.transactionreport_button.connect(self.handle_transactionreport)
+        self.auditorhome_screen.coachesreport_button.connect(self.handle_coachesreport)
 
         self.clientreport_screen.logout_button.connect(self.handle_login)
         self.clientreport_screen.back_button.connect(self.handle_auditorlogin)
 
-        #self.adminhelp_screen.back_button.connect(self.handle_adminlogin)
+        self.coachesreport_screen.logout_button.connect(self.handle_login)
+        self.coachesreport_screen.back_button.connect(self.handle_auditorlogin)
+
+        self.transactionreport_screen.logout_button.connect(self.handle_login)
+        self.transactionreport_screen.back_button.connect(self.handle_auditorlogin)
+
+        self.about_screen.back_button.connect(self.handle_help)
 
     def show_startupui(self):
         self.stack.setCurrentWidget(self.startup_screen)
@@ -328,8 +361,6 @@ class MainWindow(QMainWindow):
     def handle_userlogs(self):
         self.userlogs_screen.refresh_data()
         self.stack.setCurrentWidget(self.userlogs_screen)
-    def handle_adminhelp(self):
-        self.stack.setCurrentWidget(self.adminhelp_screen)
     def handle_payments(self):
         self.stack.setCurrentWidget(self.payments_screen)
     def handle_maintenance(self):
@@ -342,6 +373,10 @@ class MainWindow(QMainWindow):
     def handle_editpackage(self):
         self.editpackage_screen.refresh_data()
         self.stack.setCurrentWidget(self.editpackage_screen)
+    def handle_help(self):
+        self.stack.setCurrentWidget(self.help_screen)
+    def handle_about(self):
+        self.stack.setCurrentWidget(self.about_screen)
     def handle_coachlogin(self):
         self.stack.setCurrentWidget(self.coachhome_screen)
     def handle_schedule(self):
@@ -350,6 +385,10 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.auditorhome_screen)
     def handle_clientreport(self):
         self.stack.setCurrentWidget(self.clientreport_screen)
+    def handle_coachesreport(self):
+        self.stack.setCurrentWidget(self.coachesreport_screen)
+    def handle_transactionreport(self):
+        self.stack.setCurrentWidget(self.transactionreport_screen)
     def handle_clientlogin(self, client_data):
         client_details = {
             'Last_Name': client_data['Last_Name'],
@@ -387,9 +426,14 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.sessioncount_screen)
     def handle_finalselection(self):
         self.sessioncount = self.sessioncount_screen.get_spinbox_value()
-        print("Yes")
         self.finalselection_screen.set_details(self.clientdetails, self.selectedcoach, self.selectedpackage, self.sessioncount)
         self.stack.setCurrentWidget(self.finalselection_screen)
+    def handle_finalizesched(self):
+        self.stack.setCurrentWidget(self.finalizesched_screen)
+    def handle_transactionsuccessful(self):
+        self.selectedsched = self.finalizesched_screen.get_sched_details()
+        self.transactionsuccessful_screen.populate_fields(self.clientdetails, self.selectedcoach, self.selectedpackage, self.sessioncount, self.selectedsched)
+        self.stack.setCurrentWidget(self.transactionsuccessful_screen)
 
 # Read and write from DB
 def connect_to_db():
