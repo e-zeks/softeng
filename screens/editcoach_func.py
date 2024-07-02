@@ -1,14 +1,14 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
-from screens.addcoachUI import Ui_MainWindow
+from screens.editcoachUI import Ui_MainWindow
 from mysql.connector import Error
 
-class AddCoachWindow(QMainWindow, Ui_MainWindow):
-    #screen buttons
+class EditCoachWindow(QMainWindow, Ui_MainWindow):
+    # Screen buttons
     cancel_button = QtCore.pyqtSignal()
     save_button = QtCore.pyqtSignal()
 
-    #nav bar buttons
+    # Nav bar buttons
     employeemanage_button = QtCore.pyqtSignal()
     clientmanage_button = QtCore.pyqtSignal()
     payments_button = QtCore.pyqtSignal()
@@ -19,20 +19,21 @@ class AddCoachWindow(QMainWindow, Ui_MainWindow):
     logout_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
-        super(AddCoachWindow, self).__init__()
+        super(EditCoachWindow, self).__init__()
         self.setupUi(self)
         self.conn = conn
-
-        self.comboBox.addItem("")
 
         # Retrieve data from the database and populate the combobox
         self.populate_combobox()
 
-        #screen buttons
+        # Screen buttons
         self.cancel.clicked.connect(self.handle_cancel)
         self.save.clicked.connect(self.handle_save)
 
-        #nav bar button
+        # Combobox selection changed
+        self.comboBox.currentIndexChanged.connect(self.load_coach_details)
+
+        # Nav bar buttons
         self.employees.clicked.connect(self.handle_employees)
         self.clients.clicked.connect(self.handle_clients)
         self.payments.clicked.connect(self.handle_payments)
@@ -51,7 +52,7 @@ class AddCoachWindow(QMainWindow, Ui_MainWindow):
         field.setStyleSheet("background-color: #f0f0f0; color: #808080; border: 1px solid #c0c0c0;")
 
     def refresh_fields(self):
-        self.comboBox.setCurrentIndex(0)
+        self.comboBox.clear()
         self.experience.clear()
         self.specialties.clear()
         self.fullname.clear()
@@ -61,25 +62,43 @@ class AddCoachWindow(QMainWindow, Ui_MainWindow):
         try:
             cursor = self.conn.cursor()
 
-            # Query to get the names of coaches already added
+            # Query to get the names of coaches
             cursor.execute("SELECT Last_Name, First_Name FROM coaches")
-            added_coaches = cursor.fetchall()
-            added_coach_names = {f"{last_name}, {first_name}" for last_name, first_name in added_coaches}
-
-            # Query to get the names of all coaches from employees table
-            cursor.execute("SELECT Last_Name, First_Name FROM employees WHERE LOA = 'Coach'")
             results = cursor.fetchall()
 
-            # Add names to comboBox only if they are not already added
             for row in results:
                 last_name, first_name = row
                 full_name = f"{last_name}, {first_name}"
-                if full_name not in added_coach_names:
-                    self.comboBox.addItem(full_name)
+                self.comboBox.addItem(full_name)
 
             cursor.close()
         except Error as e:
             QMessageBox.critical(self, 'Error', f"Error retrieving coach data: {e}")
+
+    def load_coach_details(self):
+        try:
+            if self.comboBox.currentIndex() == 0:
+                self.experience.clear()
+                self.specialties.clear()
+                self.fullname.clear()
+                return
+
+            last_name, first_name = self.comboBox.currentText().split(", ")
+            cursor = self.conn.cursor()
+            sql = """SELECT Experiences, Specialties, Coach_Name FROM coaches
+                     WHERE Last_Name = %s AND First_Name = %s"""
+            cursor.execute(sql, (last_name, first_name))
+            result = cursor.fetchone()
+
+            if result:
+                experience, specialties, coach_name = result
+                self.experience.setPlainText(experience)
+                self.specialties.setPlainText(specialties)
+                self.fullname.setText(coach_name)
+
+            cursor.close()
+        except Error as e:
+            QMessageBox.critical(self, 'Error', f"Error loading coach details: {e}")
 
     def handle_save(self):
         try:
@@ -97,10 +116,10 @@ class AddCoachWindow(QMainWindow, Ui_MainWindow):
             print("saving 2")
 
             cursor = self.conn.cursor()
-            sql = """INSERT INTO coaches (Last_Name, First_Name, Experiences, Specialties, Coach_Name)
-                     VALUES (%s, %s, %s, %s, %s)
-                     ON DUPLICATE KEY UPDATE Experiences=%s, Specialties=%s, Coach_Name=%s"""
-            data = (last_name, first_name, experience, specialties, coach_name, experience, specialties, coach_name)
+            sql = """UPDATE coaches 
+                     SET Experiences=%s, Specialties=%s, Coach_Name=%s 
+                     WHERE Last_Name=%s AND First_Name=%s"""
+            data = (experience, specialties, coach_name, last_name, first_name)
 
             cursor.execute(sql, data)
             self.conn.commit()
@@ -110,14 +129,7 @@ class AddCoachWindow(QMainWindow, Ui_MainWindow):
 
             cursor.close()
             QMessageBox.information(self, 'Success', 'Coach details updated successfully.')
-            self.comboBox.clear()
-            self.experience.clear()
-            self.specialties.clear()
-            self.fullname.clear()
             self.save_button.emit()
-
-            # Remove the added coach from the combobox
-            self.comboBox.removeItem(self.comboBox.currentIndex())
 
         except Error as e:
             QMessageBox.critical(self, 'Error', f"Error updating coach details: {e}")
@@ -127,7 +139,7 @@ class AddCoachWindow(QMainWindow, Ui_MainWindow):
             QMessageBox.critical(self, 'Error', f"Unexpected error: {ex}")
             print(f"Unexpected error: {ex}")
 
-    #nav bar buttons
+    # Nav bar buttons
     def handle_employees(self):
         self.employeemanage_button.emit()
 

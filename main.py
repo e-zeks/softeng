@@ -27,6 +27,7 @@ from screens.packageselection_func import PackageSelectionWindow
 from screens.maintenance_func import MaintenanceWindow
 from screens.userlogs_func import UserLogsWindow
 from screens.addcoach_func import AddCoachWindow
+from screens.editcoach_func import EditCoachWindow
 from screens.addpackage_func import AddPackageWindow
 from screens.editpackage_func import EditPackageWindow
 from screens.clientreport_func import ClientReportWindow
@@ -79,6 +80,7 @@ class MainWindow(QMainWindow):
         self.manageclient_screen = ManageClientWindow(conn)
         self.maintenance_screen = MaintenanceWindow()
         self.addcoach_screen = AddCoachWindow(conn)
+        self.editcoach_screen = EditCoachWindow(conn)
         self.addpackage_screen = AddPackageWindow(conn)
         self.editpackage_screen = EditPackageWindow(conn)
         self.userlogs_screen = UserLogsWindow(conn)
@@ -128,6 +130,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.maintenance_screen) # maintenance screen
         self.stack.addWidget(self.userlogs_screen) # user logs screen
         self.stack.addWidget(self.addcoach_screen) # add coach screen
+        self.stack.addWidget(self.editcoach_screen) # edit coach screen
         self.stack.addWidget(self.addpackage_screen) # add package screen
         self.stack.addWidget(self.editpackage_screen) # edit package screen
         self.stack.addWidget(self.clientreport_screen) # clients report screen
@@ -244,6 +247,7 @@ class MainWindow(QMainWindow):
         self.userlogs_screen.payments_button.connect(self.handle_payments)
 
         self.maintenance_screen.addcoach_button.connect(self.handle_addcoach)
+        self.maintenance_screen.editcoach_button.connect(self.handle_editcoach)
         self.maintenance_screen.addpackage_button.connect(self.handle_addpackage)
         self.maintenance_screen.editpackage_button.connect(self.handle_editpackage)
         self.maintenance_screen.back_button.connect(self.handle_adminlogin)
@@ -263,6 +267,16 @@ class MainWindow(QMainWindow):
         self.addcoach_screen.maintenance_button.connect(self.handle_maintenance)
         self.addcoach_screen.help_button.connect(self.handle_help)
         self.addcoach_screen.payments_button.connect(self.handle_payments)
+
+        self.editcoach_screen.cancel_button.connect(self.handle_maintenance)
+        self.editcoach_screen.save_button.connect(self.handle_maintenance)
+        self.editcoach_screen.logout_button.connect(self.show_startupui)
+        self.editcoach_screen.employeemanage_button.connect(self.handle_manageemp)
+        self.editcoach_screen.clientmanage_button.connect(self.handle_manageclient)
+        self.editcoach_screen.userlogs_button.connect(self.handle_userlogs)
+        self.editcoach_screen.maintenance_button.connect(self.handle_maintenance)
+        self.editcoach_screen.help_button.connect(self.handle_help)
+        self.editcoach_screen.payments_button.connect(self.handle_payments)
 
         self.addpackage_screen.cancel_button.connect(self.handle_maintenance)
         self.addpackage_screen.save_button.connect(self.handle_maintenance)
@@ -304,12 +318,18 @@ class MainWindow(QMainWindow):
 
         self.clientreport_screen.logout_button.connect(self.handle_login)
         self.clientreport_screen.back_button.connect(self.handle_auditorlogin)
+        self.clientreport_screen.transactionreport_button.connect(self.handle_transactionreport)
+        self.clientreport_screen.coachesreport_button.connect(self.handle_coachesreport)
 
         self.coachesreport_screen.logout_button.connect(self.handle_login)
         self.coachesreport_screen.back_button.connect(self.handle_auditorlogin)
+        self.coachesreport_screen.transactionreport_button.connect(self.handle_transactionreport)
+        self.coachesreport_screen.clientreport_button.connect(self.handle_clientreport)
 
         self.transactionreport_screen.logout_button.connect(self.handle_login)
         self.transactionreport_screen.back_button.connect(self.handle_auditorlogin)
+        self.transactionreport_screen.clientreport_button.connect(self.handle_clientreport)
+        self.transactionreport_screen.coachesreport_button.connect(self.handle_coachesreport)
 
         self.about_screen.back_button.connect(self.handle_help)
 
@@ -368,6 +388,9 @@ class MainWindow(QMainWindow):
     def handle_addcoach(self):
         self.addcoach_screen.refresh_fields()
         self.stack.setCurrentWidget(self.addcoach_screen)
+    def handle_editcoach(self):
+        #self.editcoach_screen.refresh_fields()
+        self.stack.setCurrentWidget(self.editcoach_screen)
     def handle_addpackage(self):
         self.stack.setCurrentWidget(self.addpackage_screen)
     def handle_editpackage(self):

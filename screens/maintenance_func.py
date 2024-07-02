@@ -8,6 +8,7 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
     #screen buttons
     back_button = QtCore.pyqtSignal()
     addcoach_button = QtCore.pyqtSignal()
+    editcoach_button = QtCore.pyqtSignal()
     addpackage_button = QtCore.pyqtSignal()
     editpackage_button = QtCore.pyqtSignal()
 
@@ -30,6 +31,7 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
         #screen buttons
         self.back.clicked.connect(self.handle_back)
         self.addcoach.clicked.connect(self.handle_addcoach)
+        self.editcoach.clicked.connect(self.handle_editcoach)
         self.addpackage.clicked.connect(self.handle_addpackage)
         self.editpackage.clicked.connect(self.handle_editpackage)
 
@@ -50,6 +52,9 @@ class MaintenanceWindow(QMainWindow, Ui_MainWindow):
 
     def handle_addcoach(self):
         self.addcoach_button.emit()
+
+    def handle_editcoach(self):
+        self.editcoach_button.emit()
 
     def handle_addpackage(self):
         self.addpackage_button.emit()

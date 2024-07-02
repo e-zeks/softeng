@@ -5,12 +5,15 @@ import mysql.connector
 import csv
 from datetime import datetime
 
+
 class TransactionReportWindow(QMainWindow, Ui_MainWindow):
     # Signals for button actions
     save_button = QtCore.pyqtSignal()
     back_button = QtCore.pyqtSignal()
     logout_button = QtCore.pyqtSignal()
     help_button = QtCore.pyqtSignal()
+    clientreport_button = QtCore.pyqtSignal()
+    coachesreport_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
         super(TransactionReportWindow, self).__init__()
@@ -20,12 +23,15 @@ class TransactionReportWindow(QMainWindow, Ui_MainWindow):
         # Connect UI signals to methods
         self.savetodesktop.clicked.connect(self.generate_report)
         self.back.clicked.connect(self.backbutton_clicked)
-        self.logout.clicked.connect(self.logoutbutton_clicked)
+        self.clients.clicked.connect(self.handle_clientreport)
+        self.logout.clicked.connect(self.handle_logout)
+        self.coaches.clicked.connect(self.handle_coachesreport)
         self.help.clicked.connect(self.handle_help)
 
         # Initialize table
         self.set_tableElements()
         self.disable_editing()
+        self.calculate_total_amount()
 
     def load_data(self):
         cursor = self.conn.cursor()
@@ -62,81 +68,32 @@ class TransactionReportWindow(QMainWindow, Ui_MainWindow):
                 if item:
                     item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
 
-    def generate_report(self):
-        # Get report name and current month
-        report_name = self.reportname.toPlainText().strip()
-        current_month = self.currentmonth.currentText()
+    def calculate_total_amount(self):
+        total_amount = 0.0
 
-        if not report_name:
-            QMessageBox.warning(self, "Warning", "Please enter a report name.")
+        # Find the index of the 'Total_Amount' column
+        column_index = -1
+        for i in range(self.tableWidget.columnCount()):
+            if self.tableWidget.horizontalHeaderItem(i).text() == "Total_Amount":
+                column_index = i
+                break
+
+        if column_index == -1:
+            QMessageBox.critical(self, "Error", "Total_Amount column not found.")
             return
 
-        # Get additional metadata
-        company_name = "Anytime Fitness - The Garden Walk"  # Replace with actual company name
-        address = "105 Felix Ave, Santo Domingo, Cainta, 1900 Rizal"  # Replace with actual address
-        contact_details = "0926 679 1189"  # Replace with actual contact details
-        report_title = self.reportname.toPlainText().strip()  # Use the reportname QTextEdit for the report title
-        created_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        report_creator = "Report Creator"  # Replace with actual report creator
+        # Calculate the total amount from the 'Total_Amount' column
+        for row in range(self.tableWidget.rowCount()):
+            item = self.tableWidget.item(row, column_index)
+            if item is not None and item.text().strip() != "":
+                total_amount += float(item.text().strip())
 
-        # Generate filename with current date, selected month, and report name
-        current_date = datetime.now().strftime('%Y-%m-%d')
-        filename = f"{current_date}_{current_month}_{report_name}.csv"
-
-        # Open file dialog to save the report
-        file_path, _ = QFileDialog.getSaveFileName(self, "Save Report", "", "CSV Files (*.csv)")
-
-        if file_path:
-            try:
-                with open(file_path, mode='w', newline='') as file:
-                    writer = csv.writer(file)
-
-                    # Write metadata or header with date and report name
-                    writer.writerow(["Name of Company:", company_name])
-                    writer.writerow(["Address:", address])
-                    writer.writerow(["Contact Details:", contact_details])
-                    writer.writerow(["Title of Report:", report_title])
-                    writer.writerow(["Date and Time Created:", created_datetime])
-                    writer.writerow(["Report Creator:", report_creator])
-                    writer.writerow(["Month:", current_month])
-                    writer.writerow([])  # Empty line for separation
-
-                    # Write table headers
-                    headers = [self.tableWidget.horizontalHeaderItem(i).text() for i in range(self.tableWidget.columnCount())]
-                    writer.writerow(headers)
-
-                    # Write table data
-                    for row in range(self.tableWidget.rowCount()):
-                        row_data = []
-                        for column in range(self.tableWidget.columnCount()):
-                            item = self.tableWidget.item(row, column)
-                            if item is not None:
-                                row_data.append(item.text())
-                            else:
-                                row_data.append("")
-                        writer.writerow(row_data)
-
-                QMessageBox.information(self, "Success", f"Report saved successfully as {filename}")
-                self.save_button.emit()
-
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"Error saving report: {str(e)}")
-
-    def backbutton_clicked(self):
-        print("Back")
-        self.back_button.emit()
-
-    def logoutbutton_clicked(self):
-        print("Logging Out")
-        self.logout_button.emit()
-
-    def handle_help(self):
-        self.help_button.emit()
+        self.totalamount_2.setText(str(total_amount))
 
     def generate_report(self):
         # Get report name and current month
         report_name = self.reportname.toPlainText().strip()
-        current_month = self.currentmonth.currentText()
+        current_month = self.currentmonth.toPlainText().strip()  # Fetch text from QTextEdit
 
         if not report_name:
             QMessageBox.warning(self, "Warning", "Please enter a report name.")
@@ -190,6 +147,10 @@ class TransactionReportWindow(QMainWindow, Ui_MainWindow):
                                 row_data.append("")
                         writer.writerow(row_data)
 
+                    # Add totals as new rows
+                    writer.writerow([])  # Empty line for separation
+                    writer.writerow(['Total Amount', self.totalamount_2.text()])
+
                 QMessageBox.information(self, "Success", f"Report saved successfully as {filename}")
                 self.save_button.emit()
 
@@ -209,3 +170,20 @@ class TransactionReportWindow(QMainWindow, Ui_MainWindow):
             return f"{first_name} {last_name}"
         else:
             return "Unknown User"  # Handle if no user found or default value
+
+    def backbutton_clicked(self):
+        print("Back")
+        self.back_button.emit()
+
+    def handle_clientreport(self):
+        self.clientreport_button.emit()
+
+    def handle_logout(self):
+        #self.log_user_logout()
+        self.logout_button.emit()
+
+    def handle_coachesreport(self):
+        self.coachesreport_button.emit()
+
+    def handle_help(self):
+        self.help_button.emit()
