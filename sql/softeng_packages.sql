@@ -27,6 +27,7 @@ CREATE TABLE `packages` (
   `Package_Name` varchar(45) NOT NULL,
   `Package_Price` float NOT NULL,
   `Package_Details` text,
+  `Minimum_Sessions` int NOT NULL,
   PRIMARY KEY (`Package_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,7 +38,7 @@ CREATE TABLE `packages` (
 
 LOCK TABLES `packages` WRITE;
 /*!40000 ALTER TABLE `packages` DISABLE KEYS */;
-INSERT INTO `packages` VALUES (1,'Private Package',2500,'Training sessions conducted with the coach is done one-on-one.\n'),(2,'Public Package',2000,'Training sessions conducted with the coach are shared with other members on the same time slot. ');
+INSERT INTO `packages` VALUES (1,'Private Package',2500,'Training sessions conducted with the coach is done one-on-one.\n',6),(2,'Public Package',2000,'Training sessions conducted with the coach are shared with other members on the same time slot. ',6);
 /*!40000 ALTER TABLE `packages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-28  4:06:23
+-- Dump completed on 2024-07-03  7:00:05

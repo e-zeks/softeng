@@ -36,7 +36,7 @@ CREATE TABLE `clients` (
   `Conditions` varchar(45) DEFAULT NULL,
   `LOA` varchar(15) DEFAULT 'Client',
   PRIMARY KEY (`ClientID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (1,'Cruz','Myek Jego','1234 Mango Street, Barangay San Antonio, Pasig City','2000-05-16','09845527624','myek@gmail.com','myek','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Body Building','','Client');
+INSERT INTO `clients` VALUES (1,'Cruz','Myek Jego','1234 Mango Street, Barangay San Antonio, Pasig City','2000-05-16','09845527624','myek@gmail.com','myek','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Body Building','','Client'),(2,'Tate','Andrew','567 Mahogany Street, Barangay Santo Tomas, Quezon City','2002-12-10','09845776145','lootboxorloottraps@gmail.com','king','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Calisthenics','','Client'),(3,'Reyes','Mark','432 Sunflower Drive, Barangay Bagong Pag-asa, Mandaluyong City','2000-01-01','09845627536','markshjasf@gmail.com','markreyes','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Weight Loss','','Client');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-28  4:06:23
+-- Dump completed on 2024-07-03  7:00:04

@@ -16,33 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `coaches`
+-- Table structure for table `coaches_report`
 --
 
-DROP TABLE IF EXISTS `coaches`;
+DROP TABLE IF EXISTS `coaches_report`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `coaches` (
-  `CoachID` int NOT NULL AUTO_INCREMENT,
-  `Last_Name` varchar(45) NOT NULL,
-  `First_Name` varchar(45) NOT NULL,
+CREATE TABLE `coaches_report` (
   `Coach_Name` varchar(45) NOT NULL,
-  `Experiences` text,
-  `Specialties` text,
-  PRIMARY KEY (`CoachID`),
-  UNIQUE KEY `Last_Name_UNIQUE` (`Last_Name`),
-  UNIQUE KEY `First_Name_UNIQUE` (`First_Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `Conducted_Sessions` int NOT NULL,
+  `Cancelled_Sessions` int NOT NULL,
+  `Enrollments` int NOT NULL,
+  PRIMARY KEY (`Coach_Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `coaches`
+-- Dumping data for table `coaches_report`
 --
 
-LOCK TABLES `coaches` WRITE;
-/*!40000 ALTER TABLE `coaches` DISABLE KEYS */;
-INSERT INTO `coaches` VALUES (1,'Stonks','Jeffrey','Jeff','Personal Training 2014-2024\nSports Conditioning 2019-2024','Weight Loss\nBody Transformation\nStrength Training'),(2,'Gebala','Ezekiel','Kiel','Powerlifting 2021-2024\nPersonal Training 2023-2024','Strength Training\nWeight Loss');
-/*!40000 ALTER TABLE `coaches` ENABLE KEYS */;
+LOCK TABLES `coaches_report` WRITE;
+/*!40000 ALTER TABLE `coaches_report` DISABLE KEYS */;
+INSERT INTO `coaches_report` VALUES ('Emily Davis',15,2,40),('Jenny Smith',18,3,45),('Johnny Smith',20,5,50),('Michael Johnson',22,7,55),('Robert Brown',25,4,60);
+/*!40000 ALTER TABLE `coaches_report` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

@@ -16,33 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `coaches`
+-- Table structure for table `sessions`
 --
 
-DROP TABLE IF EXISTS `coaches`;
+DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `coaches` (
-  `CoachID` int NOT NULL AUTO_INCREMENT,
-  `Last_Name` varchar(45) NOT NULL,
-  `First_Name` varchar(45) NOT NULL,
-  `Coach_Name` varchar(45) NOT NULL,
-  `Experiences` text,
-  `Specialties` text,
-  PRIMARY KEY (`CoachID`),
-  UNIQUE KEY `Last_Name_UNIQUE` (`Last_Name`),
-  UNIQUE KEY `First_Name_UNIQUE` (`First_Name`)
+CREATE TABLE `sessions` (
+  `SessionID` int NOT NULL AUTO_INCREMENT,
+  `BookingID` int DEFAULT NULL,
+  `Day` varchar(50) DEFAULT NULL,
+  `StartTime` varchar(45) DEFAULT NULL,
+  `EndTime` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`SessionID`),
+  KEY `BookingID` (`BookingID`),
+  CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`BookingID`) REFERENCES `booking` (`BookingID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `coaches`
+-- Dumping data for table `sessions`
 --
 
-LOCK TABLES `coaches` WRITE;
-/*!40000 ALTER TABLE `coaches` DISABLE KEYS */;
-INSERT INTO `coaches` VALUES (1,'Stonks','Jeffrey','Jeff','Personal Training 2014-2024\nSports Conditioning 2019-2024','Weight Loss\nBody Transformation\nStrength Training'),(2,'Gebala','Ezekiel','Kiel','Powerlifting 2021-2024\nPersonal Training 2023-2024','Strength Training\nWeight Loss');
-/*!40000 ALTER TABLE `coaches` ENABLE KEYS */;
+LOCK TABLES `sessions` WRITE;
+/*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
+INSERT INTO `sessions` VALUES (1,1,'Sunday','8:00 AM','9:00 AM'),(2,1,'Monday','9:00 AM','10:00 AM');
+/*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
