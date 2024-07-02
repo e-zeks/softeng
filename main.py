@@ -100,7 +100,7 @@ class MainWindow(QMainWindow):
         self.about_screen = AboutWindow()
         self.coachesreport_screen = CoachReportWindow(conn)
         self.transactionreport_screen = TransactionReportWindow(conn)
-        self.transactionsuccessful_screen = TransactionSuccessfulWindow()
+        self.transactionsuccessful_screen = TransactionSuccessfulWindow(conn)
 
         # Adding Screens to Stack
         self.stack.addWidget(self.startup_screen)  # startup
@@ -429,6 +429,7 @@ class MainWindow(QMainWindow):
         self.finalselection_screen.set_details(self.clientdetails, self.selectedcoach, self.selectedpackage, self.sessioncount)
         self.stack.setCurrentWidget(self.finalselection_screen)
     def handle_finalizesched(self):
+        self.finalizesched_screen.clearSelections()
         self.stack.setCurrentWidget(self.finalizesched_screen)
     def handle_transactionsuccessful(self):
         self.selectedsched = self.finalizesched_screen.get_sched_details()

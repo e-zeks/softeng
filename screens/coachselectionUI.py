@@ -154,7 +154,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.back.setText(_translate("MainWindow", "Back"))
+        self.back.setText(_translate("MainWindow", "Log Out"))
         self.help.setText(_translate("MainWindow", "Help"))
 
 

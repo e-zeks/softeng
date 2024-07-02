@@ -1,6 +1,6 @@
-from PyQt5.QtCore import QTime, Qt, pyqtSignal
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow
 from screens.finalizescheduleUI import Ui_MainWindow
 
 class FinalizeSchedWindow(QMainWindow, Ui_MainWindow):
@@ -14,91 +14,165 @@ class FinalizeSchedWindow(QMainWindow, Ui_MainWindow):
         self.back.clicked.connect(self.button_clicked)
         self.confirm.clicked.connect(self.handle_confirm)
 
-        # Set the time constraints
-        min_time = QTime(7, 0)  # 7:00 AM
-        max_time = QTime(18, 0)  # 6:00 PM
+        # Connect signals for updating end time comboboxes
 
-        self.sunstart.setMinimumTime(min_time)
-        self.sunstart.setMaximumTime(max_time)
-        self.monstart.setMinimumTime(min_time)
-        self.monstart.setMaximumTime(max_time)
-        self.tuesstart.setMinimumTime(min_time)
-        self.tuesstart.setMaximumTime(max_time)
-        self.wedstart.setMinimumTime(min_time)
-        self.wedstart.setMaximumTime(max_time)
-        self.thursstart.setMinimumTime(min_time)
-        self.thursstart.setMaximumTime(max_time)
-        self.fristart.setMinimumTime(min_time)
-        self.fristart.setMaximumTime(max_time)
-        self.satstart.setMinimumTime(min_time)
-        self.satstart.setMaximumTime(max_time)
+        self.sunstart.currentIndexChanged.connect(self.updateEndTime)
+        self.monstart.currentIndexChanged.connect(self.updateEndTime)
+        self.tuesstart.currentIndexChanged.connect(self.updateEndTime)
+        self.wedstart.currentIndexChanged.connect(self.updateEndTime)
+        self.thursstart.currentIndexChanged.connect(self.updateEndTime)
+        self.fristart.currentIndexChanged.connect(self.updateEndTime)
+        self.satstart.currentIndexChanged.connect(self.updateEndTime)
 
-        self.sunend.setTime(self.sunstart.time().addSecs(3600))
-        self.monend.setTime(self.monstart.time().addSecs(3600))
-        self.tuesend.setTime(self.tuesstart.time().addSecs(3600))
-        self.wedend.setTime(self.wedstart.time().addSecs(3600))
-        self.thursend.setTime(self.thursstart.time().addSecs(3600))
-        self.fridayend.setTime(self.fristart.time().addSecs(3600))
-        self.satend.setTime(self.satstart.time().addSecs(3600))
 
-        self.sunstart.timeChanged.connect(lambda time: self.updateEndTime(self.sunstart, self.sunend))
-        self.monstart.timeChanged.connect(lambda time: self.updateEndTime(self.monstart, self.monend))
-        self.tuesstart.timeChanged.connect(lambda time: self.updateEndTime(self.tuesstart, self.tuesend))
-        self.wedstart.timeChanged.connect(lambda time: self.updateEndTime(self.wedstart, self.wedend))
-        self.thursstart.timeChanged.connect(lambda time: self.updateEndTime(self.thursstart, self.thursend))
-        self.fristart.timeChanged.connect(lambda time: self.updateEndTime(self.fristart, self.fridayend))
-        self.satstart.timeChanged.connect(lambda time: self.updateEndTime(self.satstart, self.satend))
+        self.sunend.setDisabled(True)
+        self.monend.setDisabled(True)
+        self.tuesend.setDisabled(True)
+        self.wedend.setDisabled(True)
+        self.thursend.setDisabled(True)
+        self.fridayend.setDisabled(True)
+        self.satend.setDisabled(True)
 
+    def updateEndTime(self):
+        sender = self.sender()
+
+        # Depending on the sender, update the corresponding end time combo box
+        if sender == self.sunstart:
+            current_index = self.sunstart.currentIndex()
+            self.sunend.setCurrentIndex(current_index + 1)
+        elif sender == self.monstart:
+            current_index = self.monstart.currentIndex()
+            self.monend.setCurrentIndex(current_index + 1)
+        elif sender == self.tuesstart:
+            current_index = self.tuesstart.currentIndex()
+            self.tuesend.setCurrentIndex(current_index + 1)
+        elif sender == self.wedstart:
+            current_index = self.wedstart.currentIndex()
+            self.wedend.setCurrentIndex(current_index + 1)
+        elif sender == self.thursstart:
+            current_index = self.thursstart.currentIndex()
+            self.thursend.setCurrentIndex(current_index + 1)
+        elif sender == self.fristart:
+            current_index = self.fristart.currentIndex()
+            self.fridayend.setCurrentIndex(current_index + 1)
+        elif sender == self.satstart:
+            current_index = self.satstart.currentIndex()
+            self.satend.setCurrentIndex(current_index + 1)
     def button_clicked(self):
         self.back_button.emit()
 
     def handle_confirm(self):
         schedule_details = self.get_sched_details()
-        print("Finalized Schedule:", schedule_details)
-        self.confirm_button.emit(schedule_details)
-
-    def updateEndTime(self, start_widget, end_widget):
-        new_end_time = start_widget.time().addSecs(3600)
-        end_widget.setTime(new_end_time)
-        end_widget.setEnabled(False)
+        if schedule_details is not None:  # Check if schedule_details is not None
+            print("Finalized Schedule:", schedule_details)
+            self.confirm_button.emit(schedule_details)
 
     def get_sched_details(self):
         schedule = {}
 
         if self.sunday.isChecked():
+            start_time = self.sunstart.currentText()
+            end_time = self.sunend.currentText()
+            if not start_time or not end_time:
+                self.showTimeSelectionError('Sunday')
+                return None
             schedule['Sunday'] = {
-                'start': self.sunstart.time().toString(Qt.DefaultLocaleShortDate),
-                'end': self.sunend.time().toString(Qt.DefaultLocaleShortDate)
+                'start': start_time,
+                'end': end_time
             }
         if self.monday.isChecked():
+            start_time = self.monstart.currentText()
+            end_time = self.monend.currentText()
+            if not start_time or not end_time:
+                self.showTimeSelectionError('Monday')
+                return None
             schedule['Monday'] = {
-                'start': self.monstart.time().toString(Qt.DefaultLocaleShortDate),
-                'end': self.monend.time().toString(Qt.DefaultLocaleShortDate)
+                'start': start_time,
+                'end': end_time
             }
         if self.tuesday.isChecked():
+            start_time = self.tuesstart.currentText()
+            end_time = self.tuesend.currentText()
+            if not start_time or not end_time:
+                self.showTimeSelectionError('Tuesday')
+                return None
             schedule['Tuesday'] = {
-                'start': self.tuesstart.time().toString(Qt.DefaultLocaleShortDate),
-                'end': self.tuesend.time().toString(Qt.DefaultLocaleShortDate)
+                'start': start_time,
+                'end': end_time
             }
         if self.wednesday.isChecked():
+            start_time = self.wedstart.currentText()
+            end_time = self.wedend.currentText()
+            if not start_time or not end_time:
+                self.showTimeSelectionError('Wednesday')
+                return None
             schedule['Wednesday'] = {
-                'start': self.wedstart.time().toString(Qt.DefaultLocaleShortDate),
-                'end': self.wedend.time().toString(Qt.DefaultLocaleShortDate)
+                'start': start_time,
+                'end': end_time
             }
         if self.thursday.isChecked():
+            start_time = self.thursstart.currentText()
+            end_time = self.thursend.currentText()
+            if not start_time or not end_time:
+                self.showTimeSelectionError('Thursday')
+                return None
             schedule['Thursday'] = {
-                'start': self.thursstart.time().toString(Qt.DefaultLocaleShortDate),
-                'end': self.thursend.time().toString(Qt.DefaultLocaleShortDate)
+                'start': start_time,
+                'end': end_time
             }
         if self.friday.isChecked():
+            start_time = self.fristart.currentText()
+            end_time = self.fridayend.currentText()
+            if not start_time or not end_time:
+                self.showTimeSelectionError('Friday')
+                return None
             schedule['Friday'] = {
-                'start': self.fristart.time().toString(Qt.DefaultLocaleShortDate),
-                'end': self.fridayend.time().toString(Qt.DefaultLocaleShortDate)
+                'start': start_time,
+                'end': end_time
             }
         if self.saturday.isChecked():
+            start_time = self.satstart.currentText()
+            end_time = self.satend.currentText()
+            if not start_time or not end_time:
+                self.showTimeSelectionError('Saturday')
+                return None
             schedule['Saturday'] = {
-                'start': self.satstart.time().toString(Qt.DefaultLocaleShortDate),
-                'end': self.satend.time().toString(Qt.DefaultLocaleShortDate)
+                'start': start_time,
+                'end': end_time
             }
 
         return schedule
+
+    def showTimeSelectionError(self, day):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText(f"Please select start and end times for {day}.")
+        msg.setWindowTitle("Time Selection Error")
+        msg.setStandardButtons(QMessageBox.Ok)  # Set standard button(s)
+        msg.exec_()
+
+    def clearSelections(self):
+        # Clear all checkbox selections
+        self.sunday.setChecked(False)
+        self.monday.setChecked(False)
+        self.tuesday.setChecked(False)
+        self.wednesday.setChecked(False)
+        self.thursday.setChecked(False)
+        self.friday.setChecked(False)
+        self.saturday.setChecked(False)
+
+        # Reset all combobox selections
+        self.sunstart.setCurrentIndex(0)
+        self.sunend.setCurrentIndex(0)
+        self.monstart.setCurrentIndex(0)
+        self.monend.setCurrentIndex(0)
+        self.tuesstart.setCurrentIndex(0)
+        self.tuesend.setCurrentIndex(0)
+        self.wedstart.setCurrentIndex(0)
+        self.wedend.setCurrentIndex(0)
+        self.thursstart.setCurrentIndex(0)
+        self.thursend.setCurrentIndex(0)
+        self.fristart.setCurrentIndex(0)
+        self.fridayend.setCurrentIndex(0)
+        self.satstart.setCurrentIndex(0)
+        self.satend.setCurrentIndex(0)
