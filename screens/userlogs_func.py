@@ -18,7 +18,8 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, conn):
         super(UserLogsWindow, self).__init__()
         self.conn = conn
-        self.log_ids = []  # List to store LogIDs
+        self.current_user_id = 1  # Store the current user's ID
+        self.current_user_type = 'Admin'  # Store the current user's type as a string
         self.setupUi(self)
 
         self.set_table_elements()
@@ -53,47 +54,47 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
             elif user_type == 'Client':
                 cursor.execute(query, (None, user_id, user_type, last_name, first_name))
             self.conn.commit()
-            log_id = cursor.lastrowid  # Get the last inserted LogID
-            self.log_ids.append(log_id)  # Add the new LogID to the list
-            print(f"User logged in with LogID: {log_id}")  # Debug print
-            print(f"Current log_ids: {self.log_ids}")  # Debug print
+            self.current_user_id = user_id
+            self.current_user_type = user_type
+            print(f"User logged in with UserID: {user_id}, UserType: {user_type}")  # Debug print
         except Error as e:
             print(f"Error logging user login: {e}")
         finally:
             cursor.close()
 
     def log_user_logout(self):
-        cursor = self.conn.cursor()
-        print('helo')
-        print(f"Logging out users with LogIDs: {self.log_ids}")  # Debug print
+        if self.current_user_id is None:
+            print("No current user logged in")  # Debug print
+            return
 
-        sql = " SELECT COUNT(*) FROM user_logs"
-        cursor.execute(sql)
-        lastrow = cursor.fetchone()[0]
-        print(lastrow)
-        if not self.log_ids:
-            print("No log IDs to log out")  # Debug print
         try:
-            print("ttest")
-            # this gets the last row and adds date
-            query = """
+            cursor = self.conn.cursor()
+            # Retrieve the latest LogID
+            cursor.execute("SELECT MAX(LogID) FROM user_logs")
+            last_log_id = cursor.fetchone()[0]
+
+            if last_log_id is not None:
+                query = """
                     UPDATE user_logs
                     SET Logout_Time = NOW()
                     WHERE LogID = %s AND Logout_Time IS NULL
                 """
-            cursor.execute(query, (lastrow,))
-            self.conn.commit()
-            print("Logout times updated successfully")  # Debug print
+                cursor.execute(query, (last_log_id,))
+                self.conn.commit()
+                print(f"Logout time updated for LogID: {last_log_id}")  # Debug print
+            else:
+                print("No LogID found to update logout time")  # Debug print
+
         except Error as e:
             print(f"Error logging user logout: {e}")
         finally:
             cursor.close()
-            self.log_ids.clear()  # Clear the list of LogIDs after logging out
-
+            self.current_user_id = None  # Clear the current user ID after logging out
+            self.current_user_type = None  # Clear the current user type after logging out
     def load_data(self):
         print("load_data method called")  # Debug print
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM user_logs")
+        cursor.execute("SELECT * FROM user_logs ORDER BY Login_Time DESC")
         results = cursor.fetchall()
         column_names = [i[0] for i in cursor.description]
         cursor.close()
@@ -101,8 +102,6 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
 
     def set_table_elements(self):
         results, column_names = self.load_data()
-        print(f"Column Names: {column_names}")  # Debug print
-        print(f"Results: {results}")  # Debug print
         self.table.setColumnCount(len(column_names))
         self.table.setRowCount(len(results))
 
@@ -161,6 +160,6 @@ class UserLogsWindow(QMainWindow, Ui_MainWindow):
         self.help_button.emit()
 
     def handle_logout(self):
-        print("done edit db") # Log the logout time
+        print("Logging out user")  # Log the logout time
         self.log_user_logout()
         self.logout_button.emit()

@@ -36,10 +36,11 @@ class Ui_MainWindow(object):
         self.logo.setMaximumSize(QtCore.QSize(621, 171))
         self.logo.setStyleSheet("QLabel\n"
 "{\n"
-"D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/Anytime_Fitness_logo.png\";\n"
+
+"C:\\Users\\JC\\Desktop\\softeng-main\\logos\\Anytime_Fitness_logo.png"
 "}")
         self.logo.setText("")
-        self.logo.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/logog.jpg"))
+        self.logo.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\softeng-main\\logos\\logog.jpg"))
         self.logo.setScaledContents(True)
         self.logo.setObjectName("logo")
         self.horizontalLayout.addWidget(self.logo)

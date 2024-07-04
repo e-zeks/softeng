@@ -34,7 +34,7 @@ class ClientReportWindow(QMainWindow, Ui_MainWindow):
     def load_data(self):
         try:
             cursor = self.conn.cursor()
-            cursor.execute("SELECT * FROM client_report")
+            cursor.execute("SELECT * FROM clientsreport")
             results = cursor.fetchall()
             column_names = [i[0] for i in cursor.description]
             cursor.close()
@@ -42,6 +42,12 @@ class ClientReportWindow(QMainWindow, Ui_MainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Error loading data: {str(e)}")
             return [], []
+
+
+    def refresh_data(self):
+        self.tableWidget.clearContents()
+        self.set_tableElements()
+        self.disable_editing()
 
     def set_tableElements(self):
         results, column_names = self.load_data()

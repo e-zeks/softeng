@@ -1,3 +1,5 @@
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, QSpacerItem, QMessageBox
 from PyQt5 import QtGui, QtWidgets, QtCore
 from screens.coachselectionUI import Ui_MainWindow
@@ -14,12 +16,16 @@ class CoachSelectionWindow(QMainWindow, Ui_MainWindow):
         self.coachdetails = ""
 
         self.back.clicked.connect(self.button_clicked)
-
+        self.help.clicked.connect(self.handle_help)
         # Fetch coaches from the database
         self.coaches = self.fetch_coaches_from_database()
 
     def button_clicked(self):
         self.back_button.emit()
+
+    def handle_help(self):
+        pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
 
     def fetch_coaches_from_database(self):
         try:

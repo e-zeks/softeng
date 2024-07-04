@@ -1,4 +1,6 @@
 from PyQt5 import QtCore
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QMainWindow
 from screens.finalselectionUI import Ui_MainWindow
 
@@ -13,6 +15,11 @@ class FinalSelectionWindow(QMainWindow, Ui_MainWindow):
 
         self.back.clicked.connect(self.button_clicked)
         self.proceed.clicked.connect(self.handle_proceed)
+        self.help.clicked.connect(self.handle_help)
+
+    def handle_help(self):
+        pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
 
     def button_clicked(self):
         self.back_button.emit()
@@ -29,9 +36,7 @@ class FinalSelectionWindow(QMainWindow, Ui_MainWindow):
             print("Session Count:", session_count)
 
             self.coachline.setText(coach_details['full_name'])
-
-            client_details = list(client_details)
-            self.programplanline.setText(client_details[2])
+            self.programplanline.setText(client_details['Program_Plan'])
             self.packageline.setText(package_details['package_name'])
             self.numberofsessionsline.setText(str(session_count))
 

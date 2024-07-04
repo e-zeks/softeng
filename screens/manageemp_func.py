@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QMainWindow
 from screens.manageempUI import Ui_MainWindow
+from mysql.connector import Error
 from PyQt5 import QtCore, QtWidgets
 
 
@@ -23,6 +24,9 @@ class ManageEmpWindow(QMainWindow, Ui_MainWindow):
         self.conn = conn
         self.emp_details = {}
 
+        self.current_user_id = 1  # Store the current user's ID
+        self.current_user_type = 'Admin'  # Store the current user's type as a string
+
         #screen buttons
         self.back.clicked.connect(self.handle_back)
         self.edit.clicked.connect(self.handle_edit)
@@ -34,7 +38,7 @@ class ManageEmpWindow(QMainWindow, Ui_MainWindow):
         self.userlogs.clicked.connect(self.handle_userlogs)
         self.maintenance.clicked.connect(self.handle_maintenance)
         self.help.clicked.connect(self.handle_help)
-        self.logout.clicked.connect(self.button_clicked)
+        self.logout.clicked.connect(self.handle_logout)
 
         self.search_bar.textChanged.connect(self.search_table)  # search in table
         self.table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)  # Enable row selection
@@ -129,6 +133,38 @@ class ManageEmpWindow(QMainWindow, Ui_MainWindow):
     def handle_help(self):
         self.help_button.emit()
 
-    def button_clicked(self):
-        print("Logging Out")
+    def log_user_logout(self):
+        if self.current_user_id is None:
+            print("No current user logged in")  # Debug print
+            return
+
+        try:
+            cursor = self.conn.cursor()
+            # Retrieve the latest LogID
+            cursor.execute("SELECT MAX(LogID) FROM user_logs")
+            last_log_id = cursor.fetchone()[0]
+
+            if last_log_id is not None:
+                query = """
+                    UPDATE user_logs
+                    SET Logout_Time = NOW()
+                    WHERE LogID = %s AND Logout_Time IS NULL
+                """
+                cursor.execute(query, (last_log_id,))
+                self.conn.commit()
+                print(f"Logout time updated for LogID: {last_log_id}")  # Debug print
+            else:
+                print("No LogID found to update logout time")  # Debug print
+
+        except Error as e:
+            print(f"Error logging user logout: {e}")
+        finally:
+            cursor.close()
+            self.current_user_id = None  # Clear the current user ID after logging out
+            self.current_user_type = None  # Clear the current user type after logging out
+
+
+    def handle_logout(self):
+        print("Logging out user")
+        self.log_user_logout()
         self.logout_button.emit()

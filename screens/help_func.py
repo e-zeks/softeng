@@ -21,7 +21,7 @@ class HelpWindow(QMainWindow, Ui_MainWindow):
         self.back_button.emit()
 
     def handle_usermanual(self):
-        pdf_path = "D:\zek\3rd yr comsci\summer\CS 304\soft eng\github\Anytime Fitness User Manual.pdf"
+        pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
         QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
 
     def handle_about(self):

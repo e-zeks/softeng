@@ -5,6 +5,7 @@ from screens.calendarUI import Ui_MainWindow
 class CalendarWindow(QMainWindow, Ui_MainWindow):
     logout_button = QtCore.pyqtSignal()
     back_button = QtCore.pyqtSignal()
+    date_selected_signal = QtCore.pyqtSignal(str)  # Custom signal with a string argument
 
     def __init__(self):
         super(CalendarWindow, self).__init__()
@@ -24,8 +25,6 @@ class CalendarWindow(QMainWindow, Ui_MainWindow):
 
     def date_selected(self):
         selected_date = self.calendar.selectedDate()
-        #formatted_date = selected_date.toString("MMMM d, yyyy")
-        print("Date selected:", selected_date.toString())  # Debugging print statement
-
-        #self.date_display_window = DateDisplayWindow(formatted_date)
-        #self.date_display_window.show()
+        formatted_date = selected_date.toString("MMMM d, yyyy")
+        print("Date selected:", formatted_date)  # Debugging print statement
+        self.date_selected_signal.emit(formatted_date)  # Emit the signal with the formatted date

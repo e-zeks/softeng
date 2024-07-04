@@ -1,4 +1,7 @@
 import sys
+
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5 import QtCore
 from screens.finalizescheduleUI import Ui_MainWindow
@@ -13,7 +16,7 @@ class FinalizeSchedWindow(QMainWindow, Ui_MainWindow):
 
         self.back.clicked.connect(self.button_clicked)
         self.confirm.clicked.connect(self.handle_confirm)
-
+        self.help.clicked.connect(self.handle_help)
         # Connect signals for updating end time comboboxes
 
         self.sunstart.currentIndexChanged.connect(self.updateEndTime)
@@ -32,6 +35,11 @@ class FinalizeSchedWindow(QMainWindow, Ui_MainWindow):
         self.thursend.setDisabled(True)
         self.fridayend.setDisabled(True)
         self.satend.setDisabled(True)
+
+    def handle_help(self):
+        pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
+
 
     def updateEndTime(self):
         sender = self.sender()

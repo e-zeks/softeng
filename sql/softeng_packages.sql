@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: localhost    Database: softeng
 -- ------------------------------------------------------
--- Server version	8.0.31
+-- Server version	8.0.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `packages`;
 CREATE TABLE `packages` (
   `Package_ID` int NOT NULL AUTO_INCREMENT,
   `Package_Name` varchar(45) NOT NULL,
-  `Package_Price` float NOT NULL,
+  `Package_Price` decimal(10,2) NOT NULL,
   `Package_Details` text,
   `Minimum_Sessions` int NOT NULL,
   PRIMARY KEY (`Package_ID`)
@@ -38,7 +38,7 @@ CREATE TABLE `packages` (
 
 LOCK TABLES `packages` WRITE;
 /*!40000 ALTER TABLE `packages` DISABLE KEYS */;
-INSERT INTO `packages` VALUES (1,'Private Package',2500,'Training sessions conducted with the coach is done one-on-one.\n',6),(2,'Public Package',2000,'Training sessions conducted with the coach are shared with other members on the same time slot. ',6);
+INSERT INTO `packages` VALUES (1,'Private Package',2500.00,'Training sessions conducted with the coach is done one-on-one.\n',6),(2,'Public Package',2000.00,'Training sessions conducted with the coach are shared with other members on the same time slot. ',6);
 /*!40000 ALTER TABLE `packages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-03  7:00:05
+-- Dump completed on 2024-07-04 16:10:03

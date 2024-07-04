@@ -41,7 +41,7 @@ class Ui_MainWindow(object):
         self.label.setSizePolicy(sizePolicy)
         self.label.setMaximumSize(QtCore.QSize(121, 41))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/logog.jpg"))
+        self.label.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\softeng-main\\logos\\logog.jpg"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         self.verticalLayout_2.addWidget(self.label)
@@ -301,3 +301,21 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "1"))
         item = self.table.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "EmployeeID"))
+
+        # Add SMS button
+        self.sms = QtWidgets.QPushButton(self.widget_4)
+        self.sms.setMaximumSize(QtCore.QSize(16777215, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(13)
+        font.setBold(False)
+        self.sms.setFont(font)
+        self.sms.setStyleSheet("QPushButton\n"
+                               "{\n"
+                               "background-color: #5e3b96;\n"
+                               "color:white;\n"
+                               " border-radius:20px;\n"
+                               "}")
+        self.sms.setObjectName("sms")
+        self.sms.setText(_translate("MainWindow", "SMS"))
+        self.verticalLayout_3.addWidget(self.sms)

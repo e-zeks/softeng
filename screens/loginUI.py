@@ -52,7 +52,7 @@ class Ui_MainWindow(object):
         self.label_6.setSizePolicy(sizePolicy)
         self.label_6.setMaximumSize(QtCore.QSize(421, 121))
         self.label_6.setText("")
-        self.label_6.setPixmap(QtGui.QPixmap("D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/logog.jpg"))
+        self.label_6.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\softeng-main\\logos\\logog.jpg"))
         self.label_6.setScaledContents(True)
         self.label_6.setObjectName("label_6")
         self.horizontalLayout_2.addWidget(self.label_6)

@@ -24,17 +24,35 @@ class UserDetailsWindow(QMainWindow, Ui_MainWindow):
         self.disable_field(self.username)
         self.disable_field(self.password)
 
+    def log_client_logout(self):
+        try:
+            cursor = self.conn.cursor()
+            # Update the logout time for the current client
+            sql = """UPDATE user_logs
+                       SET Logout_Time = NOW()
+                       WHERE ClientID = (SELECT ClientID FROM clients WHERE Username = %s)
+                       AND Logout_Time IS NULL"""
+            cursor.execute(sql, (self.username.text(),))
+            self.conn.commit()
+            cursor.close()
+            print("Logout time updated for client")  # Debug print
+
+        except Error as e:
+            print(f"Error logging client logout: {e}")
+
     def button_clicked(self):
+        print("Logging out user")
+
         self.back_button.emit()
 
     #data retrieved for booking
     def get_bookingdetails(self, client_details):
         bookingdetails = {
-            client_details.get('Last_Name'),
-            client_details.get('First_Name'),
-            client_details.get('Username'),
-            client_details.get('Contact_Number'),
-            client_details.get('Program_Plan')
+            'Last_Name': client_details.get('Last_Name'),
+            'First_Name': client_details.get('First_Name'),
+            'Username': client_details.get('Username'),
+            'Contact_Number': client_details.get('Contact_Number'),
+            'Program_Plan': client_details.get('Program_Plan')
         }
         return bookingdetails
 

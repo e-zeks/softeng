@@ -44,7 +44,7 @@ class Ui_MainWindow(object):
                                 "}")
         self.logo.setText("")
         self.logo.setPixmap(QtGui.QPixmap(
-                "D:\\zek\\3rd yr comsci\\summer\\CS 304\\soft eng\\github\\qt\\../logos/logog.jpg"))
+                "C:\\Users\\JC\\Desktop\\softeng-main\\logos\\logog.jpg"))
         self.logo.setScaledContents(True)
         self.logo.setObjectName("logo")
         self.horizontalLayout.addWidget(self.logo)

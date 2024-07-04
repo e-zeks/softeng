@@ -1,7 +1,9 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox
 from screens.coachesreportUI import Ui_MainWindow
-import mysql.connector
+from mysql.connector import Error
 import csv
 from datetime import datetime
 
@@ -34,7 +36,7 @@ class CoachReportWindow(QMainWindow, Ui_MainWindow):
     def load_data(self):
         try:
             cursor = self.conn.cursor()
-            cursor.execute("SELECT * FROM coaches_report")
+            cursor.execute("SELECT * FROM coachreports")
             results = cursor.fetchall()
             column_names = [i[0] for i in cursor.description]
             cursor.close()
@@ -46,6 +48,11 @@ class CoachReportWindow(QMainWindow, Ui_MainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Error loading data: {str(e)}")
             return [], []
+
+    def refresh_data(self):
+        self.tableWidget.clearContents()
+        self.set_tableElements()
+        self.disable_editing()
 
     def set_tableElements(self):
         results, column_names = self.load_data()
@@ -163,15 +170,48 @@ class CoachReportWindow(QMainWindow, Ui_MainWindow):
     def handle_clientreport(self):
         self.clientreport_button.emit()
 
+    def log_user_logout(self):
+        if self.current_user_id is None:
+            print("No current user logged in")  # Debug print
+            return
+
+        try:
+            cursor = self.conn.cursor()
+            # Retrieve the latest LogID
+            cursor.execute("SELECT MAX(LogID) FROM user_logs")
+            last_log_id = cursor.fetchone()[0]
+
+            if last_log_id is not None:
+                query = """
+                    UPDATE user_logs
+                    SET Logout_Time = NOW()
+                    WHERE LogID = %s AND Logout_Time IS NULL
+                """
+                cursor.execute(query, (last_log_id,))
+                self.conn.commit()
+                print(f"Logout time updated for LogID: {last_log_id}")  # Debug print
+            else:
+                print("No LogID found to update logout time")  # Debug print
+
+        except Error as e:
+            print(f"Error logging user logout: {e}")
+        finally:
+            cursor.close()
+            self.current_user_id = None  # Clear the current user ID after logging out
+            self.current_user_type = None  # Clear the current user type after logging out
+
+
     def handle_logout(self):
-        #self.log_user_logout()
+        print("Logging out user")
+        self.log_user_logout()
         self.logout_button.emit()
 
     def handle_transactionreport(self):
         self.transactionreport_button.emit()
 
     def handle_help(self):
-        self.help_button.emit()
+        pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
 
     def fetch_report_creator(self):
         try:
