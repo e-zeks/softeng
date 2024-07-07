@@ -45,7 +45,7 @@ class AddPackageWindow(QMainWindow, Ui_MainWindow):
             package_name = self.packagename.text()
             package_price = self.packageprice.text()
             package_details = self.textEdit.toPlainText()
-            minimum_sessions = self.minimumsessions.text()  # Get the value from minimumsessions field
+            minimum_sessions = self.lineEdit.text()  # Get the value from minimumsessions field lineEdit = num sessions
 
             if not package_name or not package_price or not package_details or not minimum_sessions:
                 QtWidgets.QMessageBox.warning(self, "Warning", "Please fill in all fields.")

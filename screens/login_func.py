@@ -1,6 +1,6 @@
 from mysql.connector import Error
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLineEdit
 from screens.loginUI import Ui_MainWindow
 import hashlib
 
@@ -17,6 +17,8 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         self.conn = conn
         self.current_user = None
         self.setupUi(self)
+
+        self.passwordinput.setEchoMode(QLineEdit.Password)  # Set the password input to be hidden
 
         self.failed_attempts = {}  # Dictionary to store failed attempts
         self.login_disabled = False
@@ -182,6 +184,8 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
             self.login_timer.start(60000)  # 60000 milliseconds = 1 minute
             self.show_login_locked_message()
             print("Login failed. Too many attempts. Login temporarily locked.")
+        else:
+            self.show_incorrect_password_message()
 
         print("Login failed")
         return False
@@ -202,6 +206,13 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
 
     def hide_login_locked_message(self):
         self.login.setEnabled(True)
+
+    def show_incorrect_password_message(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Login Failed")
+        msg.setText("Incorrect username or password. Please try again.")
+        msg.setIcon(QMessageBox.Warning)
+        msg.exec_()
 
     def handle_logout(self):
         if self.current_user:

@@ -1,10 +1,11 @@
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1071, 840)
+        MainWindow.resize(1070, 896)
         MainWindow.setStyleSheet("QMainWindow\n"
 "{\n"
 "background:white;\n"
@@ -42,7 +43,7 @@ class Ui_MainWindow(object):
         self.label.setSizePolicy(sizePolicy)
         self.label.setMaximumSize(QtCore.QSize(121, 41))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\softeng-main\\logos\\logog.jpg"))
+        self.label.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\DYNAMIC UI\\../SOFT ENG/assets/logog.jpg"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         self.verticalLayout_2.addWidget(self.label)
@@ -230,26 +231,6 @@ class Ui_MainWindow(object):
 "}")
         self.back.setObjectName("back")
         self.verticalLayout_4.addWidget(self.back)
-        self.sms = QtWidgets.QPushButton(self.widget_11)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.sms.sizePolicy().hasHeightForWidth())
-        self.sms.setSizePolicy(sizePolicy)
-        self.sms.setMinimumSize(QtCore.QSize(60, 50))
-        self.sms.setMaximumSize(QtCore.QSize(16777215, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(13)
-        self.sms.setFont(font)
-        self.sms.setStyleSheet("QPushButton\n"
-"{\n"
-"background-color: #5e3b96;\n"
-"color:white;\n"
-" border-radius:20px;\n"
-"}")
-        self.sms.setObjectName("sms")
-        self.verticalLayout_4.addWidget(self.sms)
         spacerItem = QtWidgets.QSpacerItem(20, 730, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_4.addItem(spacerItem)
         self.horizontalLayout.addWidget(self.widget_11)
@@ -522,7 +503,6 @@ class Ui_MainWindow(object):
         self.help.setText(_translate("MainWindow", "Help"))
         self.logout.setText(_translate("MainWindow", "Log Out"))
         self.back.setText(_translate("MainWindow", "Back"))
-        self.sms.setText(_translate("MainWindow", "SMS"))
         self.databaselabel_3.setText(_translate("MainWindow", "Maintenance"))
         self.databaselabel.setText(_translate("MainWindow", "Database"))
         self.backup.setText(_translate("MainWindow", "Backup"))

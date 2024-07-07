@@ -6,6 +6,7 @@ import mysql.connector
 from mysql.connector import Error
 from PyQt5.QtGui import QGuiApplication, QPixmap, QDesktopServices
 
+from PyQt5.QtGui import QGuiApplication, QDesktopServices, QPixmap, QPdfWriter, QPainter
 
 class TransactionSuccessfulWindow(QMainWindow, Ui_MainWindow):
     confirm_button = QtCore.pyqtSignal()
@@ -23,13 +24,13 @@ class TransactionSuccessfulWindow(QMainWindow, Ui_MainWindow):
                                     self.lineEdit_6, self.lineEdit_7]
         self.disable_and_remove_borders()
 
-        self.save.clicked.connect(self.take_screenshot)
+        self.save.clicked.connect(self.save_screenshot_as_pdf)
 
     def handle_help(self):
         pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
         QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
 
-    def take_screenshot(self):
+    def save_screenshot_as_pdf(self):
         try:
             # Get the screen where the window is displayed
             screen = QGuiApplication.primaryScreen()
@@ -38,16 +39,28 @@ class TransactionSuccessfulWindow(QMainWindow, Ui_MainWindow):
             screenshot = screen.grabWindow(self.winId())
 
             # Define the file path and name
-            file_path, _ = QFileDialog.getSaveFileName(self, "Save Screenshot", "", "PNG Files (*.png)")
+            file_path, _ = QFileDialog.getSaveFileName(self, "Save Screenshot as PDF", "", "PDF Files (*.pdf)")
 
             if file_path:
-                # Save the screenshot
-                screenshot.save(file_path, 'png')
-                QMessageBox.information(self, "Success", "Screenshot saved successfully.")
+                # Create a QPdfWriter object
+                pdf_writer = QPdfWriter(file_path)
+                pdf_writer.setPageSize(QPdfWriter.A4)
+                pdf_writer.setResolution(300)  # Set resolution to 300 DPI
+
+                # Create a QPainter object
+                painter = QPainter(pdf_writer)
+
+                # Draw the screenshot onto the PDF
+                painter.drawPixmap(0, 0, screenshot)
+
+                # Finish painting
+                painter.end()
+
+                QMessageBox.information(self, "Success", "Screenshot saved as PDF successfully.")
             else:
-                QMessageBox.warning(self, "Warning", "Screenshot save canceled.")
+                QMessageBox.warning(self, "Warning", "PDF save canceled.")
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"Error taking screenshot: {e}")
+            QMessageBox.critical(self, "Error", f"Error saving screenshot as PDF: {e}")
 
     def handle_confirm(self):
         try:
@@ -148,16 +161,13 @@ class TransactionSuccessfulWindow(QMainWindow, Ui_MainWindow):
                 start_time = details.get('start', '')
                 end_time = details.get('end', '')
                 session_query = """
-                INSERT INTO Sessions (BookingID, Day, StartTime, EndTime, Session_Counter)
-                VALUES (%s, %s, %s, %s, %s);
+                INSERT INTO Sessions (BookingID, Day, StartTime, EndTime)
+                VALUES (%s, %s, %s, %s);
                 """
-                cursor.execute(session_query, (booking_id, day, start_time, end_time, sessioncount))
+                cursor.execute(session_query, (booking_id, day, start_time, end_time))
             self.conn.commit()
 
             cursor.close()
-
-            # Show confirmation message box
-            QMessageBox.information(self, "Transaction Successful", "Transaction has been successfully saved.")
 
         except mysql.connector.Error as err:
             print(f"Error: {err}")
