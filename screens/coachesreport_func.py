@@ -36,7 +36,7 @@ class CoachReportWindow(QMainWindow, Ui_MainWindow):
     def load_data(self):
         try:
             cursor = self.conn.cursor()
-            cursor.execute("SELECT * FROM coachreports")
+            cursor.execute("SELECT * FROM coach_reports_summary")
             results = cursor.fetchall()
             column_names = [i[0] for i in cursor.description]
             cursor.close()
@@ -82,18 +82,27 @@ class CoachReportWindow(QMainWindow, Ui_MainWindow):
                     item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
 
     def calculate_totals(self, results, column_names):
-        self.conducted_sessions_total = 0
+        self.completed_sessions_total = 0
         self.cancelled_sessions_total = 0
-        self.conducted_enrollments_total = 0
+        self.completed_enrollments_total = 0
 
         for row in results:
-            self.conducted_sessions_total += row[column_names.index('Conducted_Sessions')]
-            self.cancelled_sessions_total += row[column_names.index('Cancelled_Sessions')]
-            self.conducted_enrollments_total += row[column_names.index('Enrollments')]
+            completed_sessions = row[column_names.index('Completed_Sessions')]
+            cancelled_sessions = row[column_names.index('Cancelled_Sessions')]
+            enrollments = row[column_names.index('Enrollments')]
 
-        self.totalconductedsessions.setText(str(self.conducted_sessions_total))
+            # Check if any value is None and handle it
+            if completed_sessions is not None:
+                self.completed_sessions_total += completed_sessions
+            if cancelled_sessions is not None:
+                self.cancelled_sessions_total += cancelled_sessions
+            if enrollments is not None:
+                self.completed_enrollments_total += enrollments
+
+        # Update the QLabel or QLineEdit objects with the calculated totals
+        self.totalconductedsessions.setText(str(self.completed_sessions_total))
         self.totalcancelledsessions.setText(str(self.cancelled_sessions_total))
-        self.totalconductedenrollments.setText(str(self.conducted_enrollments_total))
+        self.totalconductedenrollments.setText(str(self.completed_enrollments_total))
 
     def generate_report(self):
         # Get report name and current month
@@ -153,9 +162,9 @@ class CoachReportWindow(QMainWindow, Ui_MainWindow):
 
                     # Add totals as new rows
                     writer.writerow([])  # Empty line for separation
-                    writer.writerow(['Total Conducted Sessions', self.conducted_sessions_total])
+                    writer.writerow(['Total completed Sessions', self.completed_sessions_total])
                     writer.writerow(['Total Cancelled Sessions', self.cancelled_sessions_total])
-                    writer.writerow(['Total Conducted Enrollments', self.conducted_enrollments_total])
+                    writer.writerow(['Total completed Enrollments', self.completed_enrollments_total])
 
                 QMessageBox.information(self, "Success", f"Report saved successfully as {filename}")
                 self.save_button.emit()

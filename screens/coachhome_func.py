@@ -7,8 +7,10 @@ from mysql.connector import Error
 
 class CoachHomeWindow(QMainWindow, Ui_MainWindow):
     logout_button = QtCore.pyqtSignal()
-    schedule_button = QtCore.pyqtSignal()
+    schedule_button = QtCore.pyqtSignal(dict)
     clients_button = QtCore.pyqtSignal()
+
+    screen_user = None
 
     def __init__(self, conn):
         super(CoachHomeWindow, self).__init__()
@@ -20,10 +22,13 @@ class CoachHomeWindow(QMainWindow, Ui_MainWindow):
         self.clients.clicked.connect(self.handle_clients)
         self.help.clicked.connect(self.handle_help)
 
+    def set_user(self, current_user):
+        self.screen_user = current_user
+        print(current_user)
+
     def handle_help(self):
         pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
         QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
-
 
     def log_user_logout(self):
         cursor = self.conn.cursor()
@@ -36,7 +41,6 @@ class CoachHomeWindow(QMainWindow, Ui_MainWindow):
         if not self.log_ids:
             print("No log IDs to log out")  # Debug print
         try:
-            print("ttest")
             # this gets the last row and adds date
             query = """
                        UPDATE user_logs
@@ -57,7 +61,7 @@ class CoachHomeWindow(QMainWindow, Ui_MainWindow):
         self.logout_button.emit()
 
     def handle_schedule(self):
-        self.schedule_button.emit()
+        self.schedule_button.emit(self.screen_user)
 
     def handle_clients(self):
         self.clients_button.emit()

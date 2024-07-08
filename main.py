@@ -370,7 +370,7 @@ class MainWindow(QMainWindow):
 
         #COACH SCREENS
         self.coachhome_screen.logout_button.connect(self.handle_login)
-        self.coachhome_screen.schedule_button.connect(self.handle_schedule)
+        self.coachhome_screen.schedule_button.connect(self.handle_calendar)
         self.coachhome_screen.clients_button.connect(self.handle_coachmanageclient)
 
         self.calendar_screen.logout_button.connect(self.handle_login)
@@ -418,40 +418,38 @@ class MainWindow(QMainWindow):
         self.help_screen.about_button.connect(self.handle_about)
         self.about_screen.back_button.connect(self.handle_help)
 
-
+# GENERAL SCREENS
     def show_startupui(self):
         self.stack.setCurrentWidget(self.startup_screen)
     def handle_login(self):
         self.stack.setCurrentWidget(self.login_screen)
-    def handle_forgotpass(self):
-        self.stack.setCurrentWidget(self.forgotpass_screen)
+    def handle_startup2(self):
+        self.stack.setCurrentWidget(self.startup2_screen)
     def handle_register(self):
         self.register_screen.clear_fields()
         self.stack.setCurrentWidget(self.register_screen)
-    def handle_startup2(self):
-        self.stack.setCurrentWidget(self.startup2_screen)
-    def handle_clientreg(self):
-        self.clientreg_screen.clear_fields()
-        self.stack.setCurrentWidget(self.clientreg_screen)
-    def handle_enterOTP(self, otp, email):
-        self.email = email
-        self.enterOTP_screen.set_otp(otp)
-        self.stack.setCurrentWidget(self.enterOTP_screen)
-    def handle_bookingOTP(self, otp, data_tuple):
-        self.email = data_tuple[5]
-        self.bookingOTP_screen.set_otp(otp)
-        self.bookingOTP_screen.set_data_tuple(data_tuple)
-        self.stack.setCurrentWidget(self.bookingOTP_screen)
     def handle_registerOTP(self, otp, data_tuple):
         self.email = data_tuple[2]
         self.registerOTP_screen.set_otp(otp)
         self.registerOTP_screen.set_data_tuple(data_tuple)
         self.stack.setCurrentWidget(self.registerOTP_screen)
+    def handle_forgotpass(self):
+        self.stack.setCurrentWidget(self.forgotpass_screen)
+    def handle_enterOTP(self, otp, email):
+        self.email = email
+        self.enterOTP_screen.set_otp(otp)
+        self.stack.setCurrentWidget(self.enterOTP_screen)
     def handle_resetpass(self):
         self.resetpass_screen.set_email(self.email)
         self.stack.setCurrentWidget(self.resetpass_screen)
     def handle_resetsuccess(self):
         self.stack.setCurrentWidget(self.resetsuccess_screen)
+    def handle_help(self):
+        self.stack.setCurrentWidget(self.help_screen)
+    def handle_about(self):
+        self.stack.setCurrentWidget(self.about_screen)
+
+# ADMIN SCREENS
     def handle_adminlogin(self):
         self.stack.setCurrentWidget(self.adminhome_screen)
     def handle_manageemp(self):
@@ -482,28 +480,43 @@ class MainWindow(QMainWindow):
     def handle_editpackage(self):
         self.editpackage_screen.refresh_data()
         self.stack.setCurrentWidget(self.editpackage_screen)
-    def handle_help(self):
-        self.stack.setCurrentWidget(self.help_screen)
-    def handle_about(self):
-        self.stack.setCurrentWidget(self.about_screen)
-    def handle_coachlogin(self):
-        #add current_user to parameter (for user tracking, but back buttons still errorr)
-        #self.current_user = current_user
-        #self.coachhome_screen.set_user(current_user)
+    def handle_adminreports(self):
+        self.stack.setCurrentWidget(self.adminreport_screen)
+
+# COACH SCREENS
+    def handle_coachlogin(self, current_user):
+        self.current_user = current_user
+        self.coachhome_screen.set_user(current_user)
         self.stack.setCurrentWidget(self.coachhome_screen)
-    def handle_schedule(self):
+    def handle_calendar(self, current_user):
+        self.calendar_screen.set_user(current_user)
         self.stack.setCurrentWidget(self.calendar_screen)
-    def handle_auditorlogin(self):
-        self.stack.setCurrentWidget(self.auditorhome_screen)
-    def handle_clientreport(self):
-        self.clientreport_screen.refresh_data()
-        self.stack.setCurrentWidget(self.clientreport_screen)
-    def handle_coachesreport(self):
-        self.coachesreport_screen.refresh_data()
-        self.stack.setCurrentWidget(self.coachesreport_screen)
-    def handle_transactionreport(self):
-        self.transactionreport_screen.refresh_data()
-        self.stack.setCurrentWidget(self.transactionreport_screen)
+    def handle_coachschedule(self,formatted_date, current_user):
+        self.coachschedule_screen.update_date(formatted_date)
+        self.coachschedule_screen.set_user(current_user)
+        self.stack.setCurrentWidget(self.coachschedule_screen)
+    def handle_specifictime(self, formatted_date, details, current_user):
+        data = self.coachschedule_screen.get_sessions_data()
+        self.specifictime_screen.update_date(formatted_date, data, details)
+        self.specifictime_screen.set_user(current_user)
+        self.stack.setCurrentWidget(self.specifictime_screen)
+    def handle_coachmanageclient(self):
+        self.stack.setCurrentWidget(self.coachmanageemp_screen)
+    def handle_coachclientedit(self, client_details):
+        self.coachclientedit_screen.set_clientdetails(client_details)
+        self.stack.setCurrentWidget(self.coachclientedit_screen)
+    def handle_sms(self):
+        self.stack.setCurrentWidget(self.sms_screen)
+
+# CLIENT SCREENS
+    def handle_clientreg(self):
+        self.clientreg_screen.clear_fields()
+        self.stack.setCurrentWidget(self.clientreg_screen)
+    def handle_bookingOTP(self, otp, data_tuple):
+        self.email = data_tuple[5]
+        self.bookingOTP_screen.set_otp(otp)
+        self.bookingOTP_screen.set_data_tuple(data_tuple)
+        self.stack.setCurrentWidget(self.bookingOTP_screen)
     def handle_clientlogin(self, client_data):
         client_details = {
             'Last_Name': client_data['Last_Name'],
@@ -528,7 +541,6 @@ class MainWindow(QMainWindow):
         self.coachselection_screen.add_initial_coach_widgets()
         self.stack.setCurrentWidget(self.coachselection_screen)
     def handle_packageselect(self):
-
         self.selectedcoach = self.coachselection_screen.coachdetails
         print(self.selectedcoach)
         self.packageselection_screen.add_initial_packages_widgets()
@@ -546,39 +558,27 @@ class MainWindow(QMainWindow):
     def handle_finalizesched(self):
         self.finalizesched_screen.clearSelections()
         self.stack.setCurrentWidget(self.finalizesched_screen)
+    def handle_billing(self):
+        self.billing_screen.load_data(self.clientdetails, self.selectedcoach, self.selectedpackage, self.sessioncount, self.selectedsched)
+        self.stack.setCurrentWidget(self.billing_screen)
     def handle_transactionsuccessful(self):
         self.selectedsched = self.finalizesched_screen.get_sched_details()
         self.transactionsuccessful_screen.populate_fields(self.clientdetails, self.selectedcoach, self.selectedpackage, self.sessioncount, self.selectedsched)
         self.stack.setCurrentWidget(self.transactionsuccessful_screen)
 
-    def handle_coachmanageclient(self):
-        self.stack.setCurrentWidget(self.coachmanageemp_screen)
+# AUDITOR SCREENS
+    def handle_auditorlogin(self):
+        self.stack.setCurrentWidget(self.auditorhome_screen)
+    def handle_clientreport(self):
+        self.clientreport_screen.refresh_data()
+        self.stack.setCurrentWidget(self.clientreport_screen)
+    def handle_coachesreport(self):
+        self.coachesreport_screen.refresh_data()
+        self.stack.setCurrentWidget(self.coachesreport_screen)
+    def handle_transactionreport(self):
+        self.transactionreport_screen.refresh_data()
+        self.stack.setCurrentWidget(self.transactionreport_screen)
 
-    def handle_coachclientedit(self, client_details):
-        self.coachclientedit_screen.set_clientdetails(client_details)
-        self.stack.setCurrentWidget(self.coachclientedit_screen)
-
-    def handle_sms(self):
-        self.stack.setCurrentWidget(self.sms_screen)
-
-    def handle_calendar(self):
-        self.stack.setCurrentWidget(self.calendar_screen)
-
-    def handle_coachschedule(self,formatted_date):
-        self.coachschedule_screen.update_date(formatted_date)
-        self.stack.setCurrentWidget(self.coachschedule_screen)
-
-    def handle_billing(self):
-        self.billing_screen.load_data(self.clientdetails, self.selectedcoach, self.selectedpackage, self.sessioncount, self.selectedsched)
-        self.stack.setCurrentWidget(self.billing_screen)
-
-    def handle_specifictime(self, formatted_date, details):
-        data = self.coachschedule_screen.get_sessions_data()
-        self.specifictime_screen.update_date(formatted_date, data, details)
-        self.stack.setCurrentWidget(self.specifictime_screen)
-
-    def handle_adminreports(self):
-        self.stack.setCurrentWidget(self.adminreport_screen)
 
 # Read and write from DB
 def connect_to_db():

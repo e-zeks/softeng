@@ -38,7 +38,7 @@ CREATE TABLE `packages` (
 
 LOCK TABLES `packages` WRITE;
 /*!40000 ALTER TABLE `packages` DISABLE KEYS */;
-INSERT INTO `packages` VALUES (1,'Private Package',2500.00,'Training sessions conducted with the coach is done one-on-one.\n',6),(2,'Public Package',2000.00,'Training sessions conducted with the coach are shared with other members on the same time slot. ',6);
+INSERT INTO `packages` VALUES (1,'Private Package',3500.00,'Training sessions conducted with the coach is done one-on-one. testing testing\n',6),(2,'Public Package',2000.00,'Training sessions conducted with the coach are shared with other members on the same time slot. ',6);
 /*!40000 ALTER TABLE `packages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-04 16:10:03
+-- Dump completed on 2024-07-09  1:29:02

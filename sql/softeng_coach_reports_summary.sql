@@ -16,29 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `coachreports`
+-- Table structure for table `coach_reports_summary`
 --
 
-DROP TABLE IF EXISTS `coachreports`;
+DROP TABLE IF EXISTS `coach_reports_summary`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `coachreports` (
+CREATE TABLE `coach_reports_summary` (
   `Coach_Name` varchar(100) NOT NULL,
-  `Conducted_Sessions` int NOT NULL DEFAULT '0',
-  `Cancelled_Sessions` int NOT NULL DEFAULT '0',
-  `Enrollments` int NOT NULL DEFAULT '0',
+  `Enrollments` int DEFAULT '0',
+  `Completed_Sessions` int DEFAULT '0',
+  `Cancelled_Sessions` int unsigned DEFAULT '0',
   PRIMARY KEY (`Coach_Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `coachreports`
+-- Dumping data for table `coach_reports_summary`
 --
 
-LOCK TABLES `coachreports` WRITE;
-/*!40000 ALTER TABLE `coachreports` DISABLE KEYS */;
-INSERT INTO `coachreports` VALUES ('Ezekiel Gebala',0,0,7),('Jeffrey Stonks',0,0,18);
-/*!40000 ALTER TABLE `coachreports` ENABLE KEYS */;
+LOCK TABLES `coach_reports_summary` WRITE;
+/*!40000 ALTER TABLE `coach_reports_summary` DISABLE KEYS */;
+INSERT INTO `coach_reports_summary` VALUES ('Ezekiel Gebala',5,12,NULL),('Jeffrey Stonks',6,0,NULL);
+/*!40000 ALTER TABLE `coach_reports_summary` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-04 16:10:05
+-- Dump completed on 2024-07-09  1:29:01

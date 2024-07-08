@@ -32,7 +32,7 @@ CREATE TABLE `employees` (
   `Password` varchar(64) NOT NULL,
   `LOA` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`EmployeeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'Account','Admin','admin@gmail.com','00000000000','Admin','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2','Admin'),(2,'Stonks','Jeffrey','jstonks@gmail.com','09662110125','jstonks','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Coach'),(3,'Follosco','Zion Karl','zionfollosco@gmail.com','09215863434','Kalos','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Auditor'),(7,'Gebala','Ezekiel','ezekielgebala123@gmail.com','09662110125','zeks','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Coach');
+INSERT INTO `employees` VALUES (1,'Account','Admin','admin@gmail.com','00000000000','Admin','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2','Admin'),(2,'Stonks','Jeffrey','jstonks@gmail.com','09662110125','jstonks','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Coach'),(3,'Follosco','Zion Karl','zionfollosco@gmail.com','09215863434','Kalos','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Auditor'),(7,'Gebala','Ezekiel','ezekielgebala123@gmail.com','09662110125','zeks','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Coach'),(8,'Matthew','Mark','markmathh@gmail.com','09052728643','marka','134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3','Coach');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-04 16:10:05
+-- Dump completed on 2024-07-09  1:29:02

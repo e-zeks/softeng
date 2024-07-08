@@ -161,13 +161,19 @@ class TransactionSuccessfulWindow(QMainWindow, Ui_MainWindow):
                 start_time = details.get('start', '')
                 end_time = details.get('end', '')
                 session_query = """
-                INSERT INTO Sessions (BookingID, Day, StartTime, EndTime)
-                VALUES (%s, %s, %s, %s);
+                INSERT INTO Sessions (BookingID, Day, StartTime, EndTime, Session_Counter)
+                VALUES (%s, %s, %s, %s, %s);
                 """
-                cursor.execute(session_query, (booking_id, day, start_time, end_time))
+                cursor.execute(session_query, (booking_id, day, start_time, end_time, sessioncount))
             self.conn.commit()
-
             cursor.close()
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Transaction Successful")
+            msg.setInformativeText("The transaction has been completed successfully. Logging Out Now.")
+            msg.setWindowTitle("Success")
+            msg.setStandardButtons(QMessageBox.Ok)
+            retval = msg.exec_()
 
         except mysql.connector.Error as err:
             print(f"Error: {err}")

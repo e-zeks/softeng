@@ -32,7 +32,7 @@ CREATE TABLE `coaches` (
   PRIMARY KEY (`CoachID`),
   UNIQUE KEY `Last_Name_UNIQUE` (`Last_Name`),
   UNIQUE KEY `First_Name_UNIQUE` (`First_Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `coaches` (
 
 LOCK TABLES `coaches` WRITE;
 /*!40000 ALTER TABLE `coaches` DISABLE KEYS */;
-INSERT INTO `coaches` VALUES (1,'Stonks','Jeffrey','Jeff','Personal Training 2014-2024\nSports Conditioning 2019-2024','Weight Loss\nBody Transformation\nStrength Training'),(2,'Gebala','Ezekiel','Kiel','Powerlifting 2021-2024\nPersonal Training 2023-2024','Strength Training\nWeight Loss');
+INSERT INTO `coaches` VALUES (1,'Stonks','Jeffrey','Jeff','Personal Training 2014-2024\nSports Conditioning 2019-2024','Weight Loss\nBody Transformation\nStrength Training'),(2,'Gebala','Ezekiel','Ezekiel','Powerlifting 2021-2024\nPersonal Training 2023-2024','Strength Training\nWeight Loss'),(3,'Matthew','Mark','Mark','etstt','testtt');
 /*!40000 ALTER TABLE `coaches` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-04 16:10:04
+-- Dump completed on 2024-07-09  1:29:01

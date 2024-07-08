@@ -1,7 +1,7 @@
 from mysql.connector import Error
 
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from screens.adminreportsUI import Ui_MainWindow
 
 class AdminReportsWindow(QMainWindow, Ui_MainWindow):
@@ -16,6 +16,8 @@ class AdminReportsWindow(QMainWindow, Ui_MainWindow):
     userlogs_button = QtCore.pyqtSignal()
     help_button = QtCore.pyqtSignal()
     logout_button = QtCore.pyqtSignal()
+
+
 
     def __init__(self, conn):
         super(AdminReportsWindow, self).__init__()
@@ -34,6 +36,20 @@ class AdminReportsWindow(QMainWindow, Ui_MainWindow):
         self.maintenance.clicked.connect(self.handle_maintenance)
         self.help.clicked.connect(self.handle_help)
         self.logout.clicked.connect(self.handle_logout)
+
+        #function buttons
+        self.clientreport.clicked.connect(self.open_file_dialog)
+        self.coachreport.clicked.connect(self.open_file_dialog)
+        self.transactionreport.clicked.connect(self.open_file_dialog)
+
+
+    def open_file_dialog(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.ReadOnly
+        file_name, _ = QFileDialog.getOpenFileName(self, "Open Report File", "", "All Files (*);;CSV Files (*.csv);;Excel Files (*.xlsx);;Text Files (*.txt)", options=options)
+        if file_name:
+            print(f"Selected file: {file_name}")
+
     def handle_backbutton(self):
         self.back_button.emit()
 

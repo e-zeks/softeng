@@ -7,8 +7,11 @@ import datetime
 
 class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
     logout_button = QtCore.pyqtSignal()
-    back_button = QtCore.pyqtSignal()
-    next_button = QtCore.pyqtSignal(str, list)
+    back_button = QtCore.pyqtSignal(dict)
+    next_button = QtCore.pyqtSignal(str, list, dict)
+
+    screen_user = None
+    coach_name = None
 
     def __init__(self, conn):
         super(CoachScheduleWindow, self).__init__()
@@ -20,15 +23,20 @@ class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
         self.logout.clicked.connect(self.handle_logout)
         self.next.clicked.connect(self.handle_next)
 
+    def set_user(self, current_user):
+        self.screen_user = current_user
+        self.coach_name = f"{current_user['First_Name']} {current_user['Last_Name']}"
+        self.set_sessions()
+
     def button_clicked(self):
-        self.back_button.emit()
+        self.back_button.emit(self.screen_user)
 
     def handle_logout(self):
         self.logout_button.emit()
         print("Logging out")
 
     def handle_next(self):
-        self.next_button.emit(self.formatted_date, self.details)
+        self.next_button.emit(self.formatted_date, self.details, self.screen_user)
 
     def update_date(self, formatted_date):
         self.formatted_date = formatted_date
@@ -41,6 +49,7 @@ class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
 
     def set_sessions(self):
         if self.selected_day is None:
+            print("Selected day is None")
             return
 
         try:
@@ -50,15 +59,16 @@ class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
                 FROM sessions s
                 JOIN booking b ON s.BookingID = b.BookingID
                 JOIN clients c ON b.Client_Name = c.Username
-                WHERE s.Day = %s AND s.Status IN ('Not Done', 'Cancelled') AND s.Session_Counter > 0
+                WHERE s.Day = %s AND b.Coach_Name = %s AND s.Status IN ('Not Done', 'Cancelled') AND s.Session_Counter > 0
                 ORDER BY s.StartTime, s.BookingID ASC
                 """
-                cursor.execute(sql, (self.selected_day,))
+                print(f"Executing SQL with selected_day: {self.selected_day} and coach_name: {self.coach_name}")
+                cursor.execute(sql, (self.selected_day, self.coach_name,))
                 sessions = cursor.fetchall()
 
                 if not sessions:
                     self.clear_textedits()
-                    print(f"No sessions found for {self.selected_day}")
+                    print(f"No sessions found for {self.selected_day} and coach {self.coach_name}")
                     return
 
                 self.clear_textedits()
@@ -76,7 +86,8 @@ class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
                     end_time = session['EndTime']
                     program_plan = session['Program_Plan']
 
-                    print(f"SessionID: {session_id}, BookingID: {booking_id}, Client: {client_first_name} {client_last_name}, Time: {start_time}-{end_time}, Program Plan: {program_plan}")
+                    print(
+                        f"SessionID: {session_id}, BookingID: {booking_id}, Client: {client_first_name} {client_last_name}, Time: {start_time}-{end_time}, Program Plan: {program_plan}")
 
                     clients.append(f"{client_first_name} {client_last_name}")
                     times.append(f"{start_time}-{end_time}")

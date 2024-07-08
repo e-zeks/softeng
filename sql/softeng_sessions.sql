@@ -33,7 +33,7 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`SessionID`),
   KEY `BookingID` (`BookingID`),
   CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`BookingID`) REFERENCES `booking` (`BookingID`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (1,1,'Sunday','8:00 AM','9:00 AM','',0),(2,1,'Monday','9:00 AM','10:00 AM','',0),(3,2,'Monday','7:00 AM','8:00 AM','',0),(4,2,'Wednesday','7:00 AM','8:00 AM','',0),(5,2,'Friday','7:00 AM','8:00 AM','',0),(6,3,'Monday','7:00 AM','8:00 AM','',0),(7,3,'Wednesday','7:00 AM','8:00 AM','',0),(8,3,'Friday','7:00 AM','8:00 AM','',0),(9,4,'Monday','7:00 AM','8:00 AM','',0),(10,4,'Wednesday','7:00 AM','8:00 AM','',0),(11,4,'Friday','7:00 AM','8:00 AM','',0),(12,6,'Monday','8:00 AM','9:00 AM','',0),(13,7,'Wednesday','7:00 AM','8:00 AM','',0),(14,8,'Monday','7:00 AM','8:00 AM','',0),(15,8,'Wednesday','8:00 AM','9:00 AM','',0),(16,9,'Wednesday','8:00 AM','9:00 AM','',0),(17,10,'Monday','8:00 AM','9:00 AM','',0),(18,10,'Wednesday','8:00 AM','9:00 AM','',0),(19,11,'Monday','10:00 AM','11:00 AM','Not Done',6),(20,11,'Tuesday','10:00 AM','11:00 AM','Not Done',6),(21,12,'Monday','10:00 AM','11:00 AM','Not Done',0),(22,12,'Tuesday','10:00 AM','11:00 AM','Not Done',0),(23,13,'Monday','10:00 AM','11:00 AM','Not Done',6),(24,13,'Tuesday','10:00 AM','11:00 AM','Not Done',6),(25,14,'Monday','7:00 AM','8:00 AM','Not Done',0),(26,15,'Wednesday','9:00 AM','10:00 AM','Not Done',0),(27,16,'Wednesday','8:00 AM','9:00 AM','Not Done',0);
+INSERT INTO `sessions` VALUES (1,1,'Sunday','8:00 AM','9:00 AM','',0),(2,1,'Monday','9:00 AM','10:00 AM','',0),(3,2,'Monday','7:00 AM','8:00 AM','',0),(4,2,'Wednesday','7:00 AM','8:00 AM','',0),(5,2,'Friday','7:00 AM','8:00 AM','',0),(6,3,'Monday','7:00 AM','8:00 AM','',0),(7,3,'Wednesday','7:00 AM','8:00 AM','',0),(8,3,'Friday','7:00 AM','8:00 AM','',0),(9,4,'Monday','7:00 AM','8:00 AM','',0),(10,4,'Wednesday','7:00 AM','8:00 AM','',0),(11,4,'Friday','7:00 AM','8:00 AM','',0),(12,6,'Monday','8:00 AM','9:00 AM','',0),(13,7,'Wednesday','7:00 AM','8:00 AM','',0),(14,8,'Monday','7:00 AM','8:00 AM','',0),(15,8,'Wednesday','8:00 AM','9:00 AM','',0),(16,9,'Wednesday','8:00 AM','9:00 AM','',0),(17,10,'Monday','8:00 AM','9:00 AM','',0),(18,10,'Wednesday','8:00 AM','9:00 AM','',0),(19,11,'Monday','10:00 AM','11:00 AM','Not Done',3),(20,11,'Tuesday','10:00 AM','11:00 AM','Not Done',3),(21,12,'Monday','10:00 AM','11:00 AM','Not Done',0),(22,12,'Tuesday','10:00 AM','11:00 AM','Not Done',0),(23,13,'Monday','10:00 AM','11:00 AM','Not Done',3),(24,13,'Tuesday','10:00 AM','11:00 AM','Not Done',3),(25,14,'Monday','7:00 AM','8:00 AM','Not Done',0),(26,15,'Wednesday','9:00 AM','10:00 AM','Not Done',0),(27,16,'Wednesday','8:00 AM','9:00 AM','Not Done',0),(28,17,'Thursday','8:00 AM','9:00 AM','Not Done',0),(29,18,'Monday','1:00 PM','2:00 PM','Not Done',0),(30,18,'Wednesday','12:00 PM','1:00 PM','Not Done',0),(31,18,'Friday','6:00 PM','7:00 PM','Not Done',0),(32,18,'Saturday','3:00 PM','4:00 PM','Not Done',0),(33,19,'Wednesday','8:00 AM','9:00 AM','Not Done',0),(34,21,'Tuesday','8:00 AM','9:00 AM','Not Done',8);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-04 16:10:04
+-- Dump completed on 2024-07-09  1:29:02

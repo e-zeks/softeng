@@ -8,7 +8,7 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
     forgot_button = QtCore.pyqtSignal()
     loginadmin_button = QtCore.pyqtSignal()
-    logincoach_button = QtCore.pyqtSignal()
+    logincoach_button = QtCore.pyqtSignal(dict)
     loginauditor_button = QtCore.pyqtSignal()
     loginclient_button = QtCore.pyqtSignal(dict)
 
@@ -105,6 +105,8 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
 
         # Hash the entered password using SHA-256
         hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        print("Original password: ", password)
+        print("Encrypted password: ", hashed_password)
 
         # Fetch login data from employees table
         employee_login_data = self.fetch_employee_login_data()
@@ -124,7 +126,7 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
                     self.loginadmin_button.emit()
                     print("Admin Screen")
                 elif db_loa == 'Coach':
-                    self.logincoach_button.emit()
+                    self.logincoach_button.emit(self.current_user)
                     print("Coach Screen")
                 elif db_loa == 'Auditor':
                     self.loginauditor_button.emit()

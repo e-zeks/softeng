@@ -5,23 +5,31 @@ from screens.specifictimeUI import Ui_MainWindow
 
 class SpecificTimeWindow(QMainWindow, Ui_MainWindow):
     logout_button = QtCore.pyqtSignal()
-    back_button = QtCore.pyqtSignal()
-    save_button = QtCore.pyqtSignal()
+    back_button = QtCore.pyqtSignal(dict)
+    save_button = QtCore.pyqtSignal(dict)
+
+    screen_user = None
 
     def __init__(self, conn):
         super(SpecificTimeWindow, self).__init__()
         self.setupUi(self)
         self.conn = conn
 
-        self.back.clicked.connect(self.button_clicked)
+        self.back.clicked.connect(self.handle_back)
         self.logout.clicked.connect(self.handle_logout)
         self.save.clicked.connect(self.handle_save)
         self.comboBox.currentIndexChanged.connect(self.filter_sessions)
 
         self.sessions = []
 
-    def button_clicked(self):
+    def set_user(self, current_user):
+        self.screen_user = current_user
+        print(current_user)
+
+    def handle_back(self):
         print(self.details)
+        #self.back_button.emit(self.details)
+        self.back_button.emit(self.screen_user)
 
     def handle_logout(self):
         self.logout_button.emit()
@@ -32,17 +40,24 @@ class SpecificTimeWindow(QMainWindow, Ui_MainWindow):
         msg_box = QMessageBox()
         msg_box.setIcon(QMessageBox.Information)
         msg_box.setWindowTitle("Session Status")
+
+        if not self.completed.isChecked() and not self.cancelled.isChecked():
+            msg_box.setText("Please select either 'Completed' or 'Cancelled' before saving.")
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec_()
+            return
+
         if self.completed.isChecked():
             self.decrease_session_counter()
             msg_box.setText("Session marked as completed.")
-            self.save_button.emit()
+            self.save_button.emit(self.screen_user)
         elif self.cancelled.isChecked():
             print("Cancelled")
             msg_box.setText("Session is marked as cancelled.")
-            self.save_button.emit()
+            self.save_button.emit(self.screen_user)
+
         msg_box.setStandardButtons(QMessageBox.Ok)
         msg_box.exec_()
-
 
     def decrease_session_counter(self):
         try:
@@ -67,12 +82,16 @@ class SpecificTimeWindow(QMainWindow, Ui_MainWindow):
     def filter_sessions(self):
         selected_time = self.comboBox.currentText()
         filtered_sessions = [session for session in self.sessions if session[1] == selected_time]
+        print(f"Filtered Sessions: {filtered_sessions}")  # Print filtered sessions for debugging
         self.add_textedits(filtered_sessions)
+        print(selected_time)
         print(self.sessions)
 
     def add_textedits(self, sessions):
         layout_clients = self.widget_12.layout()
         layout_programs = self.widget_13.layout()
+
+        print(f"Adding text edits for sessions: {sessions}")  # Print sessions for debugging
 
         self.clear_textedits()
 
@@ -88,6 +107,8 @@ class SpecificTimeWindow(QMainWindow, Ui_MainWindow):
 
             layout_clients.addWidget(client_edit)
             layout_programs.addWidget(program_edit)
+
+        print("Text edits added successfully.")  # Print success message
 
     def clear_textedits(self):
         layout_clients = self.widget_12.layout()
