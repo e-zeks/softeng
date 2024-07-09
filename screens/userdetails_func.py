@@ -24,6 +24,8 @@ class UserDetailsWindow(QMainWindow, Ui_MainWindow):
         self.disable_field(self.username)
         self.disable_field(self.password)
 
+        self.password.setEchoMode(True)
+
     def log_client_logout(self):
         try:
             cursor = self.conn.cursor()

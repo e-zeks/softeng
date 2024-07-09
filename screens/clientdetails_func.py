@@ -16,6 +16,8 @@ class ClientDetailsWindow(QMainWindow, Ui_MainWindow):
 
         # Populate UI with initial client details
         self.set_clientdetails(client_details)
+        self.password.setEchoMode(True)
+        self.password.setEnabled(False)
 
         self.back.clicked.connect(self.handle_cancel)
         self.save.clicked.connect(self.handle_save)
