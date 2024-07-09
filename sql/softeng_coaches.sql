@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: softeng
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,7 +41,7 @@ CREATE TABLE `coaches` (
 
 LOCK TABLES `coaches` WRITE;
 /*!40000 ALTER TABLE `coaches` DISABLE KEYS */;
-INSERT INTO `coaches` VALUES (1,'Stonks','Jeffrey','Jeff','Personal Training 2014-2024\nSports Conditioning 2019-2024','Weight Loss\nBody Transformation\nStrength Training'),(2,'Gebala','Ezekiel','Ezekiel','Powerlifting 2021-2024\nPersonal Training 2023-2024','Strength Training\nWeight Loss'),(3,'Matthew','Mark','Mark','etstt','testtt');
+INSERT INTO `coaches` VALUES (1,'Stonks','Jeffrey','Jeff','Personal Training 2014-2024\nSports Conditioning 2019-2024','Weight Loss\nBody Transformation\nStrength Training'),(2,'Gebala','Ezekiel','Ezekiel','Powerlifting 2021-2024\nPersonal Training 2023-2024','Strength Training\nWeight Loss'),(3,'Matthew','Mark','Mark','Test','testtt');
 /*!40000 ALTER TABLE `coaches` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-09  1:29:01
+-- Dump completed on 2024-07-09 19:29:53

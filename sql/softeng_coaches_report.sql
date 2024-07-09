@@ -16,33 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `coach_clients`
+-- Table structure for table `coaches_report`
 --
 
-DROP TABLE IF EXISTS `coach_clients`;
+DROP TABLE IF EXISTS `coaches_report`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `coach_clients` (
-  `Client_Name` varchar(45) NOT NULL,
-  `Client_ID` int NOT NULL,
-  `Email` varchar(45) NOT NULL,
-  `Completed_Sessions` int NOT NULL,
+CREATE TABLE `coaches_report` (
+  `Coach_Name` varchar(45) NOT NULL,
+  `Conducted_Sessions` int NOT NULL,
   `Cancelled_Sessions` int NOT NULL,
-  `Package` varchar(45) NOT NULL,
-  `Initial_Weight` int NOT NULL,
-  `Current_Weight` int NOT NULL,
-  PRIMARY KEY (`Client_Name`)
+  `Enrollments` int NOT NULL,
+  PRIMARY KEY (`Coach_Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `coach_clients`
+-- Dumping data for table `coaches_report`
 --
 
-LOCK TABLES `coach_clients` WRITE;
-/*!40000 ALTER TABLE `coach_clients` DISABLE KEYS */;
-INSERT INTO `coach_clients` VALUES ('Jane Smith',2,'jane.smith@example.com',15,1,'Package B',65,60),('John Doe',1,'john.doe@example.com',10,2,'Package A',80,75),('Michael Johnson',3,'michael.johnson@example.com',5,0,'Package C',90,85);
-/*!40000 ALTER TABLE `coach_clients` ENABLE KEYS */;
+LOCK TABLES `coaches_report` WRITE;
+/*!40000 ALTER TABLE `coaches_report` DISABLE KEYS */;
+INSERT INTO `coaches_report` VALUES ('Emily Davis',15,2,40),('Jenny Smith',18,3,45),('Johnny Smith',20,5,50),('Michael Johnson',22,7,55),('Robert Brown',25,4,60);
+/*!40000 ALTER TABLE `coaches_report` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-09 19:29:54
+-- Dump completed on 2024-07-09 19:29:53
