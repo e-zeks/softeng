@@ -8,9 +8,12 @@ from mysql.connector import Error
 from screens.coachmanageclientUI import Ui_MainWindow
 
 class CoachManageEmpWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    back_button = QtCore.pyqtSignal()
+    back_button = QtCore.pyqtSignal(dict)
     logout_button = QtCore.pyqtSignal()
-    edit_button = QtCore.pyqtSignal(dict)  # Signal to emit selected row data
+    schedule_button = QtCore.pyqtSignal(dict)
+    edit_button = QtCore.pyqtSignal(dict, dict)
+
+    screen_user = None
 
     def __init__(self, conn):
         super(CoachManageEmpWindow, self).__init__()
@@ -23,22 +26,28 @@ class CoachManageEmpWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.back.clicked.connect(self.handle_back)
         self.edit.clicked.connect(self.handle_edit)
         self.help.clicked.connect(self.handle_help)
+        self.schedule.clicked.connect(self.handle_schedule)
         self.search_bar.textChanged.connect(self.search_table)
 
         self.tableWidget.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
         self.tableWidget.itemSelectionChanged.connect(self.handle_row_selection)
 
-        self.refresh_data()  # Load data initially
+
+    def set_user(self, current_user):
+        self.screen_user = current_user
+        print(current_user)
 
     def handle_help(self):
         pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
         QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
 
+    def handle_schedule(self):
+        self.schedule_button.emit(self.screen_user)
 
     def refresh_data(self):
         try:
             cursor = self.conn.cursor()
-            cursor.execute("SELECT * FROM coach_clients")
+            cursor.execute("SELECT * FROM coachclientdetails")
             results = cursor.fetchall()
             column_names = [i[0] for i in cursor.description]
             cursor.close()
@@ -73,7 +82,7 @@ class CoachManageEmpWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         selected_items = self.tableWidget.selectedItems()
         if selected_items:
             row = selected_items[0].row()
-            column_names = ["Client_Name", "Client_ID", "Email", "Completed_Sessions", "Cancelled_Sessions", "Package", "Initial_Weight", "Current_Weight"]
+            column_names = ["Client_Name", "Contact_Number", "Package", "Email", "Completed_Sessions", "Cancelled_Sessions", "Package", "Initial_Weight", "Current_Weight"]
             client_details = {}
             for column_name in column_names:
                 item = self.tableWidget.item(row, column_names.index(column_name))
@@ -84,10 +93,10 @@ class CoachManageEmpWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def handle_edit(self):
         print(f"Selected Row Data: {self.client_details}")
-        self.edit_button.emit(self.client_details)
+        self.edit_button.emit(self.client_details, self.screen_user)
 
     def handle_back(self):
-        self.back_button.emit()
+        self.back_button.emit(self.screen_user)
 
     def log_user_logout(self):
         cursor = self.conn.cursor()

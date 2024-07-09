@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtWidgets
 from screens.SMSUI import Ui_MainWindow
 import mysql.connector
 from mysql.connector import Error as MySQLError
+import datetime
 
 class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
@@ -20,6 +21,14 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.populate_clients_combo()
         self.comboBox.currentIndexChanged.connect(self.populate_client_details)
+
+    # def set_combobox_value(self, value):
+    #     value_str = str(value)  # Convert value to string explicitly
+    #     index = self.comboBox.findText(value_str)
+    #     if index >= 0:
+    #         self.comboBox.setCurrentIndex(index)
+    #     else:
+    #         print(f"Value '{value_str}' not found in comboBox.")
 
     def populate_clients_combo(self):
         try:
@@ -81,31 +90,59 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.coach.setText(coach_name)
                 print(f"Coach name found from booking table: {coach_name}")
 
-                # Fetch Session_Counter for the BookingID
+                # Fetch Session_Counter and StartTime for the BookingID
                 query_sessions = """
-                    SELECT Session_Counter 
+                    SELECT Session_Counter, StartTime 
                     FROM sessions 
                     WHERE BookingID = %s
                 """
                 cursor.execute(query_sessions, (booking_id,))
-                print("booking id: ", booking_id)
-                session_counter = cursor.fetchone()
+                result = cursor.fetchone()
                 cursor.fetchall()  # Ensure all results are fetched
-                session_counter = session_counter[0] if session_counter else 0
-                print(f"Sessions left for BookingID {booking_id}: {session_counter}")
+                if result:
+                    session_counter, start_time = result
+                    print(f"Sessions left for BookingID {booking_id}: {session_counter}")
 
-                if session_counter > 0:
-                    self.coach.setText(coach_name)
-                    self.messagefield.setText("yes")
+                    if session_counter > 0:
+                        # Get current day index (0=Monday, 6=Sunday)
+                        current_day_index = datetime.datetime.today().weekday()
+
+                        # Calculate tomorrow's day index
+                        tomorrow_day_index = (current_day_index + 1) % 7
+
+                        # Determine tomorrow's day name based on index
+                        days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                        tomorrow_day = days_of_week[tomorrow_day_index]
+
+                        # Fetch StartTime for tomorrow's session
+                        query_start_time = """
+                            SELECT StartTime 
+                            FROM sessions 
+                            WHERE BookingID = %s AND Day = %s
+                        """
+                        cursor.execute(query_start_time, (booking_id, tomorrow_day))
+                        start_time = cursor.fetchone()
+                        cursor.fetchall()  # Ensure all results are fetched
+
+                        if start_time:
+                            start_time = start_time[0]
+                            self.messagefield.setText(f"Good day, Client {username}! Just a reminder that you have a coaching session scheduled for tomorrow at {start_time}. Looking forward to seeing you!")
+                        else:
+                            self.messagefield.setText("No session scheduled for tomorrow.")
+
+                        self.coach.setText(coach_name)
+                    else:
+                        self.coach.setText("No sessions left")
+                        self.messagefield.setText("Good day, Dear Client! You have used up all you sessions in your package. If you would like to book another package, let us know and we will help you set it up! ")
                 else:
-                    self.coach.setText("No sessions left")
-                    self.messagefield.setText("no")
+                    self.coach.setText("No sessions found")
+                    self.messagefield.setText("No sessions found")
 
             else:
-                self.coach.setText("No booking found")
-                print("No booking found for client.")
+                self.coach.setText("No Coach Assigned")
+                self.messagefield.setText("Good day, Dear Client! Would you like to book a session with one of our professional coaches? Let us know and we will set it up for you!")
 
-            print("session retrieving done: ", session_counter)
+            print("Session retrieving done.")
 
             # Fetch client details
             query_client = """
@@ -115,7 +152,6 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             """
             print(f"Executing query: {query_client} with username: {username}")
             cursor.execute(query_client, (username,))
-            print("yes")
             client_details = cursor.fetchone()
             cursor.fetchall()  # Ensure all results are fetched
             print("Client details fetched:", client_details)
@@ -126,8 +162,7 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.username.setText(username)
                 self.number.setText(contact_number)
                 self.contact_number = contact_number  # Store contact number for later use
-                print(
-                    f"Client details found: ClientID={client_id}, Username={username}, Contact_Number={contact_number}")
+                print(f"Client details found: ClientID={client_id}, Username={username}, Contact_Number={contact_number}")
             else:
                 self.clientid.setText("")
                 self.username.setText("")
@@ -146,11 +181,18 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             # Use the stored contact number for sending SMS
             contact_number = self.number.text()
 
-            # Get the message from the messageField
-            message = self.messagefield.toPlainText()
+            # Get the message from the messageField as a string
+            message = self.messagefield.toPlainText().strip()  # Ensure no leading/trailing whitespace
+            message = message.replace('\n', ' ')  # Replace newlines with spaces
+            message = ' '.join(message.split())  # Replace multiple spaces with single spaces
 
-            # Example: Directly send the message without altering send_coach_session_notification or send_no_coach_notification
             if message:
+                # Check message length (adjust max_length according to your SMS service limits)
+                max_length = 160  # Adjust based on SMS service provider limits
+                if len(message) > max_length:
+                    print(f"Message exceeds maximum length ({max_length} characters). Truncating...")
+                    message = message[:max_length]
+
                 ser = serial.Serial('COM7', 9600, timeout=10)  # Adjust COM port as necessary
                 time.sleep(3)  # Timer for initialization
 
@@ -160,15 +202,22 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     formatted_contact_number = contact_number.lstrip('0')
 
                     # Ensure the number starts with "+63"
-                    formatted_contact_number = f"{formatted_contact_number}"
+                    formatted_contact_number = f"+63{formatted_contact_number}"
 
-                    self.send_message_to_serial(ser, formatted_contact_number, message)
-                    print(f"Sending custom message to {formatted_contact_number}")
+                    # Split the message into chunks
+                    max_chunk_size = 50  # Each chunk will be 50 characters long
+                    for i in range(0, len(message), max_chunk_size):
+                        chunk = message[i:i + max_chunk_size]
+                        # Add "END" to the last chunk to indicate the end of the message
+                        if i + max_chunk_size >= len(message):
+                            chunk += "END"
+                        self.send_message_to_serial(ser, formatted_contact_number, chunk)
+                        time.sleep(1)  # Small delay to ensure the Arduino can process each chunk
+
+                    print(f"Sending message to {formatted_contact_number}")
                     print(f"Message: {message}")
 
-                    time.sleep(5)  # Delay to ensure message is sent
-                    print("Custom message sent successfully.")
-
+                    print("Message sent successfully.")
                 else:
                     print("No valid contact number found.")
             else:
@@ -198,6 +247,7 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         except Exception as ex:
             print(f"An unexpected error occurred: {ex}")
+
 
     def handle_back(self):
         self.back_button.emit()

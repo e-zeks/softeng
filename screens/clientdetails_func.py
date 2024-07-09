@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QDate
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
-from screens.userdetailsUI import Ui_MainWindow
+from screens.clientdetailsUI import Ui_MainWindow
 from mysql.connector import Error
 
 class ClientDetailsWindow(QMainWindow, Ui_MainWindow):

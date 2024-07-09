@@ -12,7 +12,7 @@ class OTPWindow(QMainWindow, Ui_MainWindow):
         super(OTPWindow, self).__init__()
         self.setupUi(self)
         self.back.clicked.connect(self.button_clicked)
-        #self.resendOTP.clicked.connect()
+        self.resendOTP.clicked.connect(self.handle_resend)
         self.verifyOTP.clicked.connect(self.handle_verifyOTP)
         self.sent_otp = ""
 
@@ -25,7 +25,8 @@ class OTPWindow(QMainWindow, Ui_MainWindow):
         self.sent_otp = otp
 
     def handle_resend(self):
-        self.resend_button.emit()
+        QMessageBox.information(None, "OTP Sent", "OTP has been sent to your email address.")
+        #self.resend_button.emit()
 
     def button_clicked(self):
         self.back_button.emit()

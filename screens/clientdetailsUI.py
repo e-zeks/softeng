@@ -456,8 +456,8 @@ class Ui_MainWindow(object):
         self.programplan.setItemText(3, _translate("MainWindow", "Strength Training"))
         self.programplan.setItemText(4, _translate("MainWindow", "Calisthenics"))
         self.label_8.setText(_translate("MainWindow", "Medical Conditions:"))
-        self.label_3.setText(_translate("MainWindow", "Welcome!"))
-        self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt;\">Please enter the details required and make sure your details are correct before you book.</span></p><p align=\"center\"><span style=\" font-size:28pt;\">Looking forward to our coaching sessions soon!</span></p></body></html>"))
+        self.label_3.setText(_translate("MainWindow", "Edit a Client"))
+        self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt;\">Please enter the details to be edited and make sure the details are correct before you press save.</span></p><p align=\"center\"></span></p></body></html>"))
         self.save.setText(_translate("MainWindow", "Save and Proceed"))
 
 

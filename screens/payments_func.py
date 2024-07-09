@@ -110,6 +110,9 @@ class PaymentWindow(QMainWindow, Ui_MainWindow):
         try:
             amt_total = float(self.amttotal.text()) if self.amttotal.text() else 0.0
             amt_paid = float(self.amtpaid.text()) if self.amtpaid.text() else 0.0
+            if amt_paid < 0:
+                QMessageBox.critical(self, "Error", "Amount paid cannot be negative.")
+                return
             change = amt_paid - amt_total
             self.code.setText(f"{change:.2f}")
         except ValueError as ve:
@@ -149,6 +152,10 @@ class PaymentWindow(QMainWindow, Ui_MainWindow):
             amount_total = float(self.amttotal.text()) if self.amttotal.text() else None
             amount_received = float(self.amtpaid.text()) if self.amtpaid.text() else None
             change = float(self.code.text()) if self.code.text() else None
+
+            if amount_received is not None and amount_received < 0:
+                QMessageBox.critical(self, "Error", "Amount paid cannot be negative.")
+                return
 
             values_payments = {
                 'receipt_number': receipt_number,
@@ -193,26 +200,21 @@ class PaymentWindow(QMainWindow, Ui_MainWindow):
 
     # Other button handlers and signals (e.g., handle_employees, handle_clients, etc.) should be defined here
 
-# Nav bar buttons
+    # Nav bar buttons
     def handle_employees(self):
         self.employeemanage_button.emit()
-
 
     def handle_clients(self):
         self.clientmanage_button.emit()
 
-
     def handle_reports(self):
         self.reports_button.emit()
-
 
     def handle_userlogs(self):
         self.userlogs_button.emit()
 
-
     def handle_maintenance(self):
         self.maintenance_button.emit()
-
 
     def handle_help(self):
         self.help_button.emit()
@@ -251,5 +253,3 @@ class PaymentWindow(QMainWindow, Ui_MainWindow):
             cursor.close()
             self.current_user_id = None  # Clear the current user ID after logging out
             self.current_user_type = None  # Clear the current user type after logging out
-
-

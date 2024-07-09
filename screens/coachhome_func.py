@@ -8,7 +8,7 @@ from mysql.connector import Error
 class CoachHomeWindow(QMainWindow, Ui_MainWindow):
     logout_button = QtCore.pyqtSignal()
     schedule_button = QtCore.pyqtSignal(dict)
-    clients_button = QtCore.pyqtSignal()
+    clients_button = QtCore.pyqtSignal(dict)
 
     screen_user = None
 
@@ -25,10 +25,6 @@ class CoachHomeWindow(QMainWindow, Ui_MainWindow):
     def set_user(self, current_user):
         self.screen_user = current_user
         print(current_user)
-
-    def handle_help(self):
-        pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
-        QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
 
     def log_user_logout(self):
         cursor = self.conn.cursor()
@@ -64,4 +60,8 @@ class CoachHomeWindow(QMainWindow, Ui_MainWindow):
         self.schedule_button.emit(self.screen_user)
 
     def handle_clients(self):
-        self.clients_button.emit()
+        self.clients_button.emit(self.screen_user)
+
+    def handle_help(self):
+        pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))

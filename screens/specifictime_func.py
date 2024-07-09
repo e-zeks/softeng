@@ -2,11 +2,14 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QLineEdit, QMessageBox
 from screens.specifictimeUI import Ui_MainWindow
+from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtCore import QUrl
 
 class SpecificTimeWindow(QMainWindow, Ui_MainWindow):
     logout_button = QtCore.pyqtSignal()
     back_button = QtCore.pyqtSignal(dict)
     save_button = QtCore.pyqtSignal(dict)
+    clients_button = QtCore.pyqtSignal(dict)
 
     screen_user = None
 
@@ -17,6 +20,8 @@ class SpecificTimeWindow(QMainWindow, Ui_MainWindow):
 
         self.back.clicked.connect(self.handle_back)
         self.logout.clicked.connect(self.handle_logout)
+        self.clients.clicked.connect(self.handle_clients)
+        self.help.clicked.connect(self.handle_help)
         self.save.clicked.connect(self.handle_save)
         self.comboBox.currentIndexChanged.connect(self.filter_sessions)
 
@@ -34,6 +39,13 @@ class SpecificTimeWindow(QMainWindow, Ui_MainWindow):
     def handle_logout(self):
         self.logout_button.emit()
         print("Logging out")
+
+    def handle_clients(self):
+        self.clients_button.emit(self.screen_user)
+
+    def handle_help(self):
+        pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
 
     def handle_save(self):
         print("Saving...")

@@ -227,7 +227,7 @@ class TransactionReportWindow(QMainWindow, Ui_MainWindow):
 
     def handle_logout(self):
         print("Logging out user")
-        self.log_user_logout()
+        #self.log_user_logout()
         self.logout_button.emit()
 
     def handle_coachesreport(self):

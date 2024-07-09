@@ -4,11 +4,14 @@ from PyQt5.QtWidgets import QMainWindow, QLineEdit
 from screens.coachscheduleUI import Ui_MainWindow
 from mysql.connector import Error
 import datetime
+from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtCore import QUrl
 
 class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
     logout_button = QtCore.pyqtSignal()
     back_button = QtCore.pyqtSignal(dict)
     next_button = QtCore.pyqtSignal(str, list, dict)
+    clients_button = QtCore.pyqtSignal(dict)
 
     screen_user = None
     coach_name = None
@@ -21,6 +24,8 @@ class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
 
         self.back.clicked.connect(self.button_clicked)
         self.logout.clicked.connect(self.handle_logout)
+        self.clients.clicked.connect(self.handle_clients)
+        self.help.clicked.connect(self.handle_help)
         self.next.clicked.connect(self.handle_next)
 
     def set_user(self, current_user):
@@ -34,6 +39,13 @@ class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
     def handle_logout(self):
         self.logout_button.emit()
         print("Logging out")
+
+    def handle_clients(self):
+        self.clients_button.emit(self.screen_user)
+
+    def handle_help(self):
+        pdf_path = "C:\\Users\\JC\\Desktop\\softeng-main\\Anytime Fitness User Manual.pdf"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(pdf_path))
 
     def handle_next(self):
         self.next_button.emit(self.formatted_date, self.details, self.screen_user)
@@ -68,6 +80,7 @@ class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
 
                 if not sessions:
                     self.clear_textedits()
+                    self.next.setDisabled(True)
                     print(f"No sessions found for {self.selected_day} and coach {self.coach_name}")
                     return
 
@@ -96,6 +109,7 @@ class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
                     self.details.append(program_plan)
 
                 self.add_textedits(clients, times)
+                self.next.setDisabled(False)
 
         except Error as e:
             print("Error querying database:", e)

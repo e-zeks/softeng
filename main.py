@@ -107,18 +107,17 @@ class MainWindow(QMainWindow):
         self.payments_screen = PaymentWindow(conn)
         self.sessioncount_screen = SessionCountWindow()
         self.finalselection_screen = FinalSelectionWindow()
-        self.finalizesched_screen = FinalizeSchedWindow()
+        self.finalizesched_screen = FinalizeSchedWindow(conn)
         self.help_screen = HelpWindow()
         self.about_screen = AboutWindow()
         self.coachesreport_screen = CoachReportWindow(conn)
         self.transactionreport_screen = TransactionReportWindow(conn)
         self.transactionsuccessful_screen = TransactionSuccessfulWindow(conn)
 
-        #self.coachmanageemp_screen = CoachManageEmpWindow(conn)
         self.coachclientedit_screen = CoachClientEditWindow({}, conn)
         self.sms_screen = SMSWindow(conn)  # new addition
 
-        self.coachmanageemp_screen = CoachManageEmpWindow(conn)
+        self.coachmanageclient_screen = CoachManageEmpWindow(conn)
         self.coachclientedit_screen = CoachClientEditWindow({}, conn)
         self.coachschedule_screen = CoachScheduleWindow(conn)
 
@@ -167,11 +166,10 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.transactionreport_screen) # transaction report screen
         self.stack.addWidget(self.transactionsuccessful_screen) # transaction successful screen
 
-        #self.stack.addWidget(self.coachmanageemp_screen) # coach manage mep screen
         self.stack.addWidget(self.coachclientedit_screen) # coach edit client screen
         self.stack.addWidget(self.sms_screen)  # new addition sms screen
 
-        self.stack.addWidget(self.coachmanageemp_screen) #coachmanagemepscreen
+        self.stack.addWidget(self.coachmanageclient_screen) #coachmanagemepscreen
         self.stack.addWidget(self.coachclientedit_screen) #Coacheditclientscreen
 
         self.stack.addWidget(self.coachschedule_screen) #coachschedscreen
@@ -376,18 +374,25 @@ class MainWindow(QMainWindow):
         self.calendar_screen.logout_button.connect(self.handle_login)
         self.calendar_screen.back_button.connect(self.handle_coachlogin)
         self.calendar_screen.date_selected_signal.connect(self.handle_coachschedule)
+        self.calendar_screen.clients_button.connect(self.handle_coachmanageclient)
 
+        self.coachschedule_screen.logout_button.connect(self.handle_login)
         self.coachschedule_screen.back_button.connect(self.handle_calendar)
         self.coachschedule_screen.next_button.connect(self.handle_specifictime)
+        self.coachschedule_screen.clients_button.connect(self.handle_coachmanageclient)
 
+        self.specifictime_screen.logout_button.connect(self.handle_login)
         self.specifictime_screen.back_button.connect(self.handle_calendar)
         self.specifictime_screen.save_button.connect(self.handle_calendar)
+        self.specifictime_screen.clients_button.connect(self.handle_coachmanageclient)
 
-        self.coachmanageemp_screen.back_button.connect(self.handle_coachlogin)
-        self.coachmanageemp_screen.edit_button.connect(self.handle_coachclientedit)
-        self.coachmanageemp_screen.logout_button.connect(self.handle_login)
+        self.coachmanageclient_screen.back_button.connect(self.handle_coachlogin)
+        self.coachmanageclient_screen.edit_button.connect(self.handle_coachclientedit)
+        self.coachmanageclient_screen.logout_button.connect(self.handle_login)
+        self.coachmanageclient_screen.schedule_button.connect(self.handle_calendar)
 
         self.coachclientedit_screen.back_button.connect(self.handle_coachmanageclient)
+        self.coachclientedit_screen.save_button.connect(self.handle_coachmanageclient)
 
         self.sms_screen.back_button.connect(self.handle_manageclient)
 
@@ -467,6 +472,7 @@ class MainWindow(QMainWindow):
         self.clientdetails_screen.client_details = client_details
         self.stack.setCurrentWidget(self.clientdetails_screen)
     def handle_sms(self):
+        #self.sms_screen.set_combobox_value(sms_details)
         self.stack.setCurrentWidget(self.sms_screen)
     def handle_userlogs(self):
         self.userlogs_screen.refresh_data()
@@ -507,9 +513,12 @@ class MainWindow(QMainWindow):
         self.specifictime_screen.set_user(current_user)
         self.specifictime_screen.update_status()
         self.stack.setCurrentWidget(self.specifictime_screen)
-    def handle_coachmanageclient(self):
-        self.stack.setCurrentWidget(self.coachmanageemp_screen)
-    def handle_coachclientedit(self, client_details):
+    def handle_coachmanageclient(self, current_user):
+        self.coachmanageclient_screen.set_user(current_user)
+        self.coachmanageclient_screen.refresh_data()
+        self.stack.setCurrentWidget(self.coachmanageclient_screen)
+    def handle_coachclientedit(self, client_details, current_user):
+        self.coachclientedit_screen.set_user(current_user)
         self.coachclientedit_screen.set_clientdetails(client_details)
         self.stack.setCurrentWidget(self.coachclientedit_screen)
 
@@ -558,6 +567,7 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.finalselection_screen)
     def handle_finalizesched(self):
         self.finalizesched_screen.clearSelections()
+        self.finalizesched_screen.set_selections(self.selectedcoach, self.selectedpackage)
         self.stack.setCurrentWidget(self.finalizesched_screen)
     def handle_billing(self):
         self.billing_screen.load_data(self.clientdetails, self.selectedcoach, self.selectedpackage, self.sessioncount, self.selectedsched)

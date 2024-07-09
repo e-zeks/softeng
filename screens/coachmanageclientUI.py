@@ -189,6 +189,25 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.addWidget(self.edit)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_5.addItem(spacerItem)
+        self.pushButton = QtWidgets.QPushButton(self.widget_6)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(sizePolicy)
+        self.pushButton.setMinimumSize(QtCore.QSize(75, 45))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(13)
+        self.pushButton.setFont(font)
+        self.pushButton.setStyleSheet("QPushButton\n"
+"{\n"
+"background-color: #5e3b96;\n"
+"color:white;\n"
+" border-radius:20px;\n"
+"}")
+        self.pushButton.setObjectName("pushButton")
+        self.verticalLayout_5.addWidget(self.pushButton)
         self.horizontalLayout.addWidget(self.widget_6)
         self.widget_3 = QtWidgets.QWidget(self.widget)
         self.widget_3.setObjectName("widget_3")
@@ -222,6 +241,8 @@ class Ui_MainWindow(object):
         self.logout.setText(_translate("MainWindow", "Log Out"))
         self.back.setText(_translate("MainWindow", "Back"))
         self.edit.setText(_translate("MainWindow", "Edit"))
+        self.pushButton.setText(_translate("MainWindow", "SMS"))
+
 
 if __name__ == "__main__":
     import sys

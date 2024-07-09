@@ -16,7 +16,7 @@ class ManageClientWindow(QMainWindow, Ui_MainWindow):
     maintenance_button = QtCore.pyqtSignal()
     help_button = QtCore.pyqtSignal()
     logout_button = QtCore.pyqtSignal()
-    sms_button =  QtCore.pyqtSignal()
+    sms_button = QtCore.pyqtSignal()
 
     def __init__(self, conn):
         super(ManageClientWindow, self).__init__()
@@ -40,12 +40,11 @@ class ManageClientWindow(QMainWindow, Ui_MainWindow):
         self.maintenance.clicked.connect(self.handle_maintenance)
         self.help.clicked.connect(self.handle_help)
         self.logout.clicked.connect(self.handle_logout)
+        self.sms.clicked.connect(self.handle_sms)
 
         self.search_bar.textChanged.connect(self.search_table)  # search in table
         self.table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)  # Enable row selection
         self.table.itemSelectionChanged.connect(self.handle_row_selections)  # Connect the selection signal to the slot
-
-        self.sms.clicked.connect(self.handle_sms)
 
     def refresh_data(self):
         self.table.clearContents()
@@ -110,10 +109,15 @@ class ManageClientWindow(QMainWindow, Ui_MainWindow):
                         client_details[column_name] = item.text()
 
             self.client_details = client_details  # Store the details in the instance attribute
+            print("Selected: ", self.client_details)
 
     def handle_edit(self):
         print(f"Selected Row Data: {self.client_details}")
         self.edit_button.emit(self.client_details)
+
+    def handle_sms(self):
+        #self.sms_button.emit(self.client_details['ClientID'])
+        self.sms_button.emit()
 
     def handle_back(self):
         self.back_button.emit()
@@ -169,9 +173,6 @@ class ManageClientWindow(QMainWindow, Ui_MainWindow):
             cursor.close()
             self.current_user_id = None  # Clear the current user ID after logging out
             self.current_user_type = None  # Clear the current user type after logging out
-
-    def handle_sms(self):
-        self.sms_button.emit()
 
     def handle_logout(self):
         print("Logging Out User")
