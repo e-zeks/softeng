@@ -49,12 +49,11 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         username = parts[0]
         last_name_first_name = parts[1]
         last_name, first_name = last_name_first_name.split(", ")
-        print(username)
 
         try:
             cursor = self.conn.cursor()
 
-            # Query to retrieve latest booking ID for the client
+            # Fetch the latest BookingID
             query_booking_id = """
                 SELECT BookingID 
                 FROM booking 
@@ -62,13 +61,14 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 ORDER BY BookingID DESC 
                 LIMIT 1
             """
-            cursor.execute(query_booking_id, (f"{first_name.strip()} {last_name.strip()}",))
+            cursor.execute(query_booking_id, (username,))
             booking_id = cursor.fetchone()
+            cursor.fetchall()  # Ensure all results are fetched
 
             if booking_id:
                 booking_id = booking_id[0]
 
-                # Query to retrieve coach name from booking table based on BookingID
+                # Fetch Coach_Name for the BookingID
                 query_coach = """
                     SELECT Coach_Name 
                     FROM booking 
@@ -76,44 +76,49 @@ class SMSWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 """
                 cursor.execute(query_coach, (booking_id,))
                 coach_name = cursor.fetchone()
+                cursor.fetchall()  # Ensure all results are fetched
+                coach_name = coach_name[0] if coach_name else "Coach not assigned"
+                self.coach.setText(coach_name)
+                print(f"Coach name found from booking table: {coach_name}")
 
-                if coach_name:
-                    coach_name = coach_name[0]
-                    self.coach.setText(coach_name)
-                    print(f"Coach name found from booking table: {coach_name}")
-                else:
-                    self.coach.setText("Coach not assigned")  # Or any default message
-                    print("No coach name found in booking table.")
-
-                # Query to check remaining sessions in sessions table
+                # Fetch Session_Counter for the BookingID
                 query_sessions = """
                     SELECT Session_Counter 
                     FROM sessions 
                     WHERE BookingID = %s
                 """
                 cursor.execute(query_sessions, (booking_id,))
+                print("booking id: ", booking_id)
                 session_counter = cursor.fetchone()
+                cursor.fetchall()  # Ensure all results are fetched
+                session_counter = session_counter[0] if session_counter else 0
+                print(f"Sessions left for BookingID {booking_id}: {session_counter}")
 
-                if session_counter and session_counter[0] > 0:
-                    print(f"Sessions left for BookingID {booking_id}: {session_counter[0]}")
-                    # Display coach name from booking table if sessions left
+                if session_counter > 0:
                     self.coach.setText(coach_name)
+                    self.messagefield.setText("yes")
                 else:
-                    self.coach.setText("No sessions left")  # Or handle as needed
-                    print(f"No sessions left for BookingID {booking_id}")
+                    self.coach.setText("No sessions left")
+                    self.messagefield.setText("no")
 
             else:
                 self.coach.setText("No booking found")
                 print("No booking found for client.")
 
-            # Retrieve client details from clients table
+            print("session retrieving done: ", session_counter)
+
+            # Fetch client details
             query_client = """
                 SELECT ClientID, Username, Contact_Number 
                 FROM clients 
-                WHERE Last_Name = %s AND First_Name = %s
+                WHERE Username = %s
             """
-            cursor.execute(query_client, (last_name.strip(), first_name.strip()))
+            print(f"Executing query: {query_client} with username: {username}")
+            cursor.execute(query_client, (username,))
+            print("yes")
             client_details = cursor.fetchone()
+            cursor.fetchall()  # Ensure all results are fetched
+            print("Client details fetched:", client_details)
 
             if client_details:
                 client_id, username, contact_number = client_details

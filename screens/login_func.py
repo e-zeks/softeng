@@ -105,8 +105,6 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
 
         # Hash the entered password using SHA-256
         hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        print("Original password: ", password)
-        print("Encrypted password: ", hashed_password)
 
         # Fetch login data from employees table
         employee_login_data = self.fetch_employee_login_data()
