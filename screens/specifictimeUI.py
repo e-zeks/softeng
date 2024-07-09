@@ -458,7 +458,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Sessions for: "))
         self.label_3.setText(_translate("MainWindow", "Select Session Time"))
         self.comboBox.setItemText(1, _translate("MainWindow", "7:00 AM-8:00 AM"))
-        self.comboBox.setItemText(2, _translate("MainWindow", "8:00 AM 9:00 AM"))
+        self.comboBox.setItemText(2, _translate("MainWindow", "8:00 AM-9:00 AM"))
         self.comboBox.setItemText(3, _translate("MainWindow", "9:00 AM-10:00 AM"))
         self.comboBox.setItemText(4, _translate("MainWindow", "10:00 AM-11:00 AM"))
         self.comboBox.setItemText(5, _translate("MainWindow", "11:00 AM-12:00 PM"))

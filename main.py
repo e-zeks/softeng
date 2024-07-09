@@ -462,6 +462,12 @@ class MainWindow(QMainWindow):
     def handle_manageclient(self):
         self.manageclient_screen.refresh_data()
         self.stack.setCurrentWidget(self.manageclient_screen)
+    def handle_clientdetails(self, client_details):
+        self.clientdetails_screen.set_clientdetails(client_details)
+        self.clientdetails_screen.client_details = client_details
+        self.stack.setCurrentWidget(self.clientdetails_screen)
+    def handle_sms(self):
+        self.stack.setCurrentWidget(self.sms_screen)
     def handle_userlogs(self):
         self.userlogs_screen.refresh_data()
         self.stack.setCurrentWidget(self.userlogs_screen)
@@ -506,8 +512,6 @@ class MainWindow(QMainWindow):
     def handle_coachclientedit(self, client_details):
         self.coachclientedit_screen.set_clientdetails(client_details)
         self.stack.setCurrentWidget(self.coachclientedit_screen)
-    def handle_sms(self):
-        self.stack.setCurrentWidget(self.sms_screen)
 
 # CLIENT SCREENS
     def handle_clientreg(self):
@@ -534,10 +538,6 @@ class MainWindow(QMainWindow):
         self.clientdetails = self.userdetails_screen.get_bookingdetails(client_details)
         self.userdetails_screen.set_clientdetails(client_details)
         self.stack.setCurrentWidget(self.userdetails_screen)
-    def handle_clientdetails(self, client_details):
-        self.clientdetails_screen.set_clientdetails(client_details)
-        self.clientdetails_screen.client_details = client_details
-        self.stack.setCurrentWidget(self.clientdetails_screen)
     def handle_coachselect(self):
         self.coachselection_screen.add_initial_coach_widgets()
         self.stack.setCurrentWidget(self.coachselection_screen)
