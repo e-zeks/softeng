@@ -50,10 +50,12 @@ class SpecificTimeWindow(QMainWindow, Ui_MainWindow):
         if self.completed.isChecked():
             self.decrease_session_counter()
             msg_box.setText("Session marked as completed.")
+            self.update_status()
             self.save_button.emit(self.screen_user)
         elif self.cancelled.isChecked():
             print("Cancelled")
             msg_box.setText("Session is marked as cancelled.")
+            self.update_status()
             self.save_button.emit(self.screen_user)
 
         msg_box.setStandardButtons(QMessageBox.Ok)
@@ -71,6 +73,22 @@ class SpecificTimeWindow(QMainWindow, Ui_MainWindow):
                 print(f"Session Counter decreased for BookingIDs {[self.details[i] for i in range(1, len(self.details), 3)]}")
         except Exception as e:
             print(f"Error updating Session Counter: {e}")
+
+    def update_status(self):
+        try:
+            with self.conn.cursor() as cursor:
+                # Query to update the Status column
+                update_query = """
+                    UPDATE sessions
+                    SET Status = 'Completed'
+                    WHERE Session_Counter = 0
+                """
+                cursor.execute(update_query)
+                self.conn.commit()
+                print("Status updated to 'Completed' for sessions with Session_Counter = 0")
+
+        except Exception as e:
+            print(f"Error updating Session Status: {e}")
 
     def update_date(self, formatted_date, sessions, details):
         self.date.setText(formatted_date)

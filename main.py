@@ -499,6 +499,7 @@ class MainWindow(QMainWindow):
         data = self.coachschedule_screen.get_sessions_data()
         self.specifictime_screen.update_date(formatted_date, data, details)
         self.specifictime_screen.set_user(current_user)
+        self.specifictime_screen.update_status()
         self.stack.setCurrentWidget(self.specifictime_screen)
     def handle_coachmanageclient(self):
         self.stack.setCurrentWidget(self.coachmanageemp_screen)
