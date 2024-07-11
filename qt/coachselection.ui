@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1531</width>
-    <height>773</height>
+    <width>1541</width>
+    <height>824</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -76,7 +76,7 @@ background-url:&quot;C:\Users\JC\Desktop\SOFT ENG\assets\Anytime_Fitness_logo.pn
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>../logos/logog.jpg</pixmap>
+             <pixmap>../../softeng-main/logos/logog.jpg</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -121,6 +121,39 @@ background-url:&quot;C:\Users\JC\Desktop\SOFT ENG\assets\Anytime_Fitness_logo.pn
           <item>
            <widget class="QWidget" name="widget_14" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item>
+              <widget class="QPushButton" name="back">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>71</width>
+                 <height>41</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Arial Black</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton
+{
+background-color: #5e3b96;
+color:white;
+ border-radius:20px;
+}</string>
+               </property>
+               <property name="text">
+                <string>Back</string>
+               </property>
+              </widget>
+             </item>
              <item>
               <widget class="QPushButton" name="help">
                <property name="sizePolicy">

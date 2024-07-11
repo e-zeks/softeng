@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1523</width>
-    <height>898</height>
+    <height>871</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,7 +70,7 @@ background: #5e3b96;
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>../logos/logog.jpg</pixmap>
+             <pixmap>../SOFT ENG/assets/logog.jpg</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -245,7 +245,7 @@ color:#5e3b96;
                   <property name="font">
                    <font>
                     <family>Arial Black</family>
-                    <pointsize>16</pointsize>
+                    <pointsize>20</pointsize>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -255,7 +255,7 @@ color:#5e3b96;
 }</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mark the checkboxes on the day of which &lt;/p&gt;&lt;p&gt;you want to have training sessions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mark the checkboxes on the day&lt;/p&gt;&lt;p&gt;of which you want to have&lt;/p&gt;&lt;p&gt;training sessions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -270,7 +270,7 @@ color:#5e3b96;
                   <property name="font">
                    <font>
                     <family>Arial Black</family>
-                    <pointsize>16</pointsize>
+                    <pointsize>20</pointsize>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -295,7 +295,7 @@ color:#5e3b96;
                   <property name="font">
                    <font>
                     <family>Arial Black</family>
-                    <pointsize>16</pointsize>
+                    <pointsize>20</pointsize>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -305,7 +305,7 @@ color:#5e3b96;
 }</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;Each training session has a duration &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;of one (1) hour.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;Each training session has a&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;duration of one (1) hour.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -320,7 +320,7 @@ color:#5e3b96;
                   <property name="font">
                    <font>
                     <family>Arial Black</family>
-                    <pointsize>16</pointsize>
+                    <pointsize>20</pointsize>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -330,7 +330,7 @@ color:#5e3b96;
 }</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;After selecting your desired schedule, &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;press the confirm button to finalize &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;your selection.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;After selecting your desired&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;schedule, press the confirm&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#67389a;&quot;&gt;button to finalize your selection.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>

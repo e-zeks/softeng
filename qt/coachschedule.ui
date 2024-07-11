@@ -63,7 +63,7 @@ background-color:#5e3b96;
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>../logos/logog.jpg</pixmap>
+             <pixmap>../../SOFT ENG/assets/logog.jpg</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -151,6 +151,39 @@ color:#5e3b96;
                </property>
                <property name="text">
                 <string>Clients</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="sms">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>121</width>
+                 <height>41</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Arial Black</family>
+                 <pointsize>13</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton
+{
+background-color:white ;
+color:#5e3b96;
+ border-radius:10px;
+}</string>
+               </property>
+               <property name="text">
+                <string>SMS</string>
                </property>
               </widget>
              </item>

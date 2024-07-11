@@ -179,7 +179,7 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
             self.failed_attempts[username] = 1
 
         # If 5 or more failed attempts, lock the login button for 1 minute
-        if self.failed_attempts[username] >= 5:
+        if self.failed_attempts[username] >= 3:
             self.login_disabled = True
             self.login_timer.start(60000)  # 60000 milliseconds = 1 minute
             self.show_login_locked_message()

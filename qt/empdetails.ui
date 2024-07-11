@@ -54,7 +54,7 @@ background-color:#5e3b96;
           <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -82,7 +82,7 @@ background-color:#5e3b96;
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>../logos/logog.jpg</pixmap>
+             <pixmap>../../softeng-main/logos/logog.jpg</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -95,7 +95,7 @@ background-color:#5e3b96;
           <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -179,7 +179,7 @@ color:white;
           <item>
            <spacer name="horizontalSpacer_3">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeType">
              <enum>QSizePolicy::Policy::Fixed</enum>
@@ -205,7 +205,7 @@ border-radius:20px;
              <item>
               <spacer name="horizontalSpacer_7">
                <property name="orientation">
-                <enum>Qt::Orientation::Vertical</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="sizeType">
                 <enum>QSizePolicy::Policy::Fixed</enum>
@@ -413,7 +413,7 @@ border-radius:20px;
              <item>
               <spacer name="horizontalSpacer_8">
                <property name="orientation">
-                <enum>Qt::Orientation::Vertical</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="sizeType">
                 <enum>QSizePolicy::Policy::Fixed</enum>
@@ -630,7 +630,7 @@ border-radius:20px;
              <item>
               <spacer name="horizontalSpacer_9">
                <property name="orientation">
-                <enum>Qt::Orientation::Vertical</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="sizeType">
                 <enum>QSizePolicy::Policy::Fixed</enum>
@@ -678,9 +678,9 @@ border-radius:20px;
                   </property>
                   <property name="font">
                    <font>
-                    <family>Arial Black</family>
+                    <family>Arial</family>
                     <pointsize>12</pointsize>
-                    <bold>true</bold>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -714,7 +714,7 @@ color:white;
                 <item>
                  <widget class="QLabel" name="label_10">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -733,8 +733,7 @@ color:white;
                   </property>
                   <property name="font">
                    <font>
-                    <family>Arial Black</family>
-                    <bold>true</bold>
+                    <family>Arial</family>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -789,8 +788,7 @@ color:white;
                   </property>
                   <property name="font">
                    <font>
-                    <family>Arial Black</family>
-                    <bold>true</bold>
+                    <family>Arial</family>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -835,7 +833,7 @@ color:white;
                    <item>
                     <spacer name="horizontalSpacer_5">
                      <property name="orientation">
-                      <enum>Qt::Orientation::Vertical</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
                       <enum>QSizePolicy::Policy::Fixed</enum>
@@ -884,7 +882,7 @@ border-radius:20px;
                    <item>
                     <spacer name="horizontalSpacer_6">
                      <property name="orientation">
-                      <enum>Qt::Orientation::Vertical</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
                       <enum>QSizePolicy::Policy::Fixed</enum>
@@ -922,7 +920,7 @@ border-radius:20px;
              <item>
               <spacer name="horizontalSpacer_10">
                <property name="orientation">
-                <enum>Qt::Orientation::Vertical</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="sizeType">
                 <enum>QSizePolicy::Policy::Fixed</enum>
@@ -941,7 +939,7 @@ border-radius:20px;
           <item>
            <spacer name="horizontalSpacer_4">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeType">
              <enum>QSizePolicy::Policy::Fixed</enum>

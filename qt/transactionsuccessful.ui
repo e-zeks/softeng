@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1754</width>
+    <width>2101</width>
     <height>835</height>
    </rect>
   </property>
@@ -70,7 +70,7 @@ background: #5e3b96;
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>../logos/logog.jpg</pixmap>
+             <pixmap>../SOFT ENG/assets/logog.jpg</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -589,25 +589,77 @@ color:#5e3b96;
                    </item>
                    <item>
                     <widget class="QWidget" name="widget_13" native="true">
-                     <layout class="QVBoxLayout" name="verticalLayout_7">
+                     <layout class="QHBoxLayout" name="horizontalLayout_7">
                       <item>
-                       <widget class="QLabel" name="label_3">
+                       <spacer name="horizontalSpacer_9">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                         <enum>QSizePolicy::Policy::MinimumExpanding</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="save">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>350</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>350</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
                         <property name="font">
                          <font>
                           <family>Arial Black</family>
-                          <pointsize>16</pointsize>
+                          <pointsize>24</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QLabel
+                         <string notr="true">QPushButton
 {
-color:#5e3b96;
+background-color:#5e3b96;
+color:white;
+border-radius:20px;
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Note: Please keep note of these details or take a picture of it as it will not be sent to you.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Save Transaction</string>
                         </property>
                        </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_10">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                         <enum>QSizePolicy::Policy::MinimumExpanding</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </widget>
@@ -639,7 +691,7 @@ color:#5e3b96;
                    <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Policy::Fixed</enum>
+                   <enum>QSizePolicy::Policy::MinimumExpanding</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -651,10 +703,22 @@ color:#5e3b96;
                 </item>
                 <item>
                  <widget class="QPushButton" name="Confirm">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>530</width>
+                    <height>50</height>
+                   </size>
+                  </property>
                   <property name="font">
                    <font>
                     <family>Arial Black</family>
-                    <pointsize>21</pointsize>
+                    <pointsize>30</pointsize>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -676,7 +740,7 @@ border-radius:20px;
                    <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Policy::Fixed</enum>
+                   <enum>QSizePolicy::Policy::MinimumExpanding</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
