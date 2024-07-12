@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         self.label.setSizePolicy(sizePolicy)
         self.label.setMaximumSize(QtCore.QSize(421, 121))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\softeng-main\\logos\\logog.jpg"))
+        self.label.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\DYNAMIC UI\\../softeng-main/logos/logog.jpg"))
         self.label.setScaledContents(True)
         self.label.setWordWrap(False)
         self.label.setObjectName("label")
@@ -113,7 +113,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -9, 976, 1775))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -458, 976, 1893))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
@@ -128,7 +128,7 @@ class Ui_MainWindow(object):
         font.setPointSize(22)
         self.label_3.setFont(font)
         self.label_3.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#c8a2c8 ;\n"
 "}")
         self.label_3.setObjectName("label_3")
         self.verticalLayout_7.addWidget(self.label_3)
@@ -138,7 +138,7 @@ class Ui_MainWindow(object):
         font.setPointSize(18)
         self.label_2.setFont(font)
         self.label_2.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#e6e6fa;\n"
 "}")
         self.label_2.setWordWrap(True)
         self.label_2.setObjectName("label_2")
@@ -154,7 +154,7 @@ class Ui_MainWindow(object):
         font.setPointSize(22)
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#c8a2c8;\n"
 "}")
         self.label_4.setObjectName("label_4")
         self.verticalLayout_7.addWidget(self.label_4)
@@ -164,7 +164,7 @@ class Ui_MainWindow(object):
         font.setPointSize(18)
         self.label_5.setFont(font)
         self.label_5.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#e6e6fa;\n"
 "}")
         self.label_5.setWordWrap(True)
         self.label_5.setObjectName("label_5")
@@ -175,7 +175,7 @@ class Ui_MainWindow(object):
         font.setPointSize(22)
         self.label_6.setFont(font)
         self.label_6.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#c8a2c8;\n"
 "}")
         self.label_6.setObjectName("label_6")
         self.verticalLayout_7.addWidget(self.label_6)
@@ -194,7 +194,7 @@ class Ui_MainWindow(object):
         self.label_7 = QtWidgets.QLabel(self.widget_9)
         self.label_7.setMinimumSize(QtCore.QSize(250, 250))
         self.label_7.setText("")
-        self.label_7.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\softeng-main\\logos\\zek.jpg"))
+        self.label_7.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\DYNAMIC UI\\../softeng-main/logos/zek.jpg"))
         self.label_7.setScaledContents(True)
         self.label_7.setObjectName("label_7")
         self.verticalLayout_8.addWidget(self.label_7)
@@ -214,7 +214,7 @@ class Ui_MainWindow(object):
         font.setPointSize(26)
         self.label_10.setFont(font)
         self.label_10.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#c8a2c8;\n"
 "}")
         self.label_10.setObjectName("label_10")
         self.verticalLayout_11.addWidget(self.label_10)
@@ -229,7 +229,7 @@ class Ui_MainWindow(object):
         font.setPointSize(20)
         self.label_11.setFont(font)
         self.label_11.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#e6e6fa;\n"
 "}")
         self.label_11.setObjectName("label_11")
         self.verticalLayout_11.addWidget(self.label_11)
@@ -246,7 +246,7 @@ class Ui_MainWindow(object):
         self.label_8 = QtWidgets.QLabel(self.widget_12)
         self.label_8.setMinimumSize(QtCore.QSize(250, 250))
         self.label_8.setText("")
-        self.label_8.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\softeng-main\\logos\\jc.jpg"))
+        self.label_8.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\DYNAMIC UI\\../softeng-main/logos/jc.jpg"))
         self.label_8.setScaledContents(True)
         self.label_8.setObjectName("label_8")
         self.verticalLayout_9.addWidget(self.label_8)
@@ -266,7 +266,7 @@ class Ui_MainWindow(object):
         font.setPointSize(26)
         self.label_14.setFont(font)
         self.label_14.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#c8a2c8;\n"
 "}")
         self.label_14.setObjectName("label_14")
         self.verticalLayout_13.addWidget(self.label_14)
@@ -281,7 +281,7 @@ class Ui_MainWindow(object):
         font.setPointSize(20)
         self.label_12.setFont(font)
         self.label_12.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#e6e6fa;\n"
 "}")
         self.label_12.setObjectName("label_12")
         self.verticalLayout_13.addWidget(self.label_12)
@@ -304,7 +304,7 @@ class Ui_MainWindow(object):
         self.label_9 = QtWidgets.QLabel(self.widget_15)
         self.label_9.setMinimumSize(QtCore.QSize(250, 250))
         self.label_9.setText("")
-        self.label_9.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\softeng-main\\logos\\zion.jpg"))
+        self.label_9.setPixmap(QtGui.QPixmap("C:\\Users\\JC\\Desktop\\DYNAMIC UI\\../softeng-main/logos/zion.jpg"))
         self.label_9.setScaledContents(True)
         self.label_9.setObjectName("label_9")
         self.verticalLayout_10.addWidget(self.label_9)
@@ -324,7 +324,7 @@ class Ui_MainWindow(object):
         font.setPointSize(26)
         self.label_15.setFont(font)
         self.label_15.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#c8a2c8;\n"
 "}")
         self.label_15.setObjectName("label_15")
         self.verticalLayout_12.addWidget(self.label_15)
@@ -339,7 +339,7 @@ class Ui_MainWindow(object):
         font.setPointSize(20)
         self.label_13.setFont(font)
         self.label_13.setStyleSheet("QLabel{\n"
-"color:white;\n"
+"color:#e6e6fa;\n"
 "}")
         self.label_13.setObjectName("label_13")
         self.verticalLayout_12.addWidget(self.label_13)

@@ -78,6 +78,59 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
         program_plan = self.programplan.currentText().strip()
         conditions = self.medical_conditions.text().strip()
 
+        empty_fields = []
+
+        if not last_name:
+            empty_fields.append("Last Name")
+        if not first_name:
+            empty_fields.append("First Name")
+        if not address:
+            empty_fields.append("Address")
+        if not contact_number:
+            empty_fields.append("Contact Number")
+        if not email:
+            empty_fields.append("Email Address")
+        if not username:
+            empty_fields.append("Username")
+        if not password:
+            empty_fields.append("Password")
+        if not program_plan:
+            empty_fields.append("Program Plan")
+
+        # If any fields are empty, show a single warning message and return
+        if empty_fields:
+            QMessageBox.warning(self, "Input Error",
+                                f"The following fields are required to have an input:\n\n- {', '.join(empty_fields)}")
+            return
+
+        if not last_name:
+            QMessageBox.warning(self, "Input Error", "Last Name is required to have an input.")
+            return
+        if not first_name:
+            QMessageBox.warning(self, "Input Error", "First Name is required to have an input.")
+            return
+        if not email:
+            QMessageBox.warning(self, "Input Error", "Email Address is required to have an input.")
+            return
+
+        if not address:
+            QMessageBox.warning(self, "Input Error", "Address is required to have an input.")
+            return
+
+        if not contact_number:
+            QMessageBox.warning(self, "Input Error", "Contact Number is required to have an input.")
+            return
+        if not username:
+            QMessageBox.warning(self, "Input Error", "Username is required to have an input.")
+            return
+        if not password:
+            QMessageBox.warning(self, "Input Error", "Password is required to have an input.")
+            return
+
+        if not program_plan:
+            QMessageBox.warning(self, "Input Error", "Program Plan is required to have an input.")
+            return
+
         # Check if the username is already taken
         if self.is_username_taken():
             QMessageBox.warning(self, "Input Error", "Username is already taken.")
@@ -87,6 +140,16 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
         if not self.validate_password():
             QMessageBox.warning(self, "Input Error",
                                 "Password must: \n- Have at least 8 characters\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Not contain any special characters")
+            return
+
+        # Validate the email format
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            QMessageBox.warning(self, "Input Error", "Invalid email format.")
+            return
+
+        # Check if email is already registered
+        if self.is_email_registered(email):
+            QMessageBox.warning(self, "Input Error", "Email is already registered.")
             return
 
         if re.match(r"[^@]+@[^@]+\.[^@]+", email):  # validate email
@@ -116,13 +179,13 @@ class ClientRegWindow(QMainWindow, Ui_MainWindow):
 
                     # Prepare data tuple to emit
                     data_tuple = (
-                    last_name, first_name, address, birthday, contact_number, email, username, hashed_password,
-                    program_plan, conditions)
+                        last_name, first_name, address, birthday, contact_number, email, username, hashed_password,
+                        program_plan, conditions)
 
                     # Emit the register_button signal with data_tuple
                     self.register_button.emit(self.otp, data_tuple)
 
-                    #self.sendOTP_button.emit(self.otp, email)  # Function to switch screen here
+                    # self.sendOTP_button.emit(self.otp, email)  # Function to switch screen here
 
                 except Exception as e:
                     print(f"Failed to send OTP: {str(e)}")  # Debugging statement

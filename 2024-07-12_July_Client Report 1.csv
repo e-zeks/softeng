@@ -1,0 +1,22 @@
+Name of Company:,Anytime Fitness - The Garden Walk
+Address:,"105 Felix Ave, Santo Domingo, Cainta, 1900 Rizal"
+Contact Details:,0926 679 1189
+Title of Report:,Client Report 1
+Date and Time Created:,2024-07-12 15:18:52
+Report Creator:,Zion Karl Follosco
+Month:,July
+
+SummaryID,Client_Name,Coach_Name,Package_Name,Completed_Sessions,Status
+1,Cruz,Ezekiel Gebala,Private Package,0,
+2,Myek Jego,Jeffrey Stonks,Private Package,0,
+3,09845527624,Jeffrey Stonks,Private Package,0,
+4,myek,Jeffrey Stonks,Private Package,0,
+5,myek,Ezekiel Gebala,Public Package,0,
+6,markreyes,Jeffrey Stonks,Private Package,0,
+7,myek,Ezekiel Gebala,Private Package,6,Not Done
+8,king,Jeffrey Stonks,Public Package,0,Not Done
+9,king,Ezekiel Gebala,Private Package,6,Not Done
+10,myek,Ezekiel Gebala,Public Package,0,Not Done
+11,myek,Jeffrey Stonks,Private Package,0,Not Done
+12,rofl,Ezekiel Gebala,Private Package,0,Not Done
+13,iamJCDC,Ezekiel Gebala,Private Package,0,Not Done

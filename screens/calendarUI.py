@@ -1,19 +1,18 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1079, 650)
         MainWindow.setStyleSheet("QMainWindow\n"
-"{\n"
-"background:white;\n"
-"}")
+                                 "{\n"
+                                 "background:white;\n"
+                                 "}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("QWidget\n"
-"{\n"
-"background: white;\n"
-"}")
+                                         "{\n"
+                                         "background: white;\n"
+                                         "}")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -28,9 +27,9 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.widget_2.sizePolicy().hasHeightForWidth())
         self.widget_2.setSizePolicy(sizePolicy)
         self.widget_2.setStyleSheet("QWidget\n"
-"{\n"
-"background-color:#5e3b96;\n"
-"}")
+                                    "{\n"
+                                    "background-color:#5e3b96;\n"
+                                    "}")
         self.widget_2.setObjectName("widget_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_2)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -64,11 +63,11 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         self.schedule.setFont(font)
         self.schedule.setStyleSheet("QPushButton\n"
-"{\n"
-"background-color:white ;\n"
-"color:#5e3b96;\n"
-" border-radius:10px;\n"
-"}")
+                                    "{\n"
+                                    "background-color:white ;\n"
+                                    "color:#5e3b96;\n"
+                                    " border-radius:10px;\n"
+                                    "}")
         self.schedule.setObjectName("schedule")
         self.verticalLayout_4.addWidget(self.schedule)
         self.clients = QtWidgets.QPushButton(self.widget_5)
@@ -83,11 +82,11 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         self.clients.setFont(font)
         self.clients.setStyleSheet("QPushButton\n"
-"{\n"
-"background-color:white ;\n"
-"color:#5e3b96;\n"
-" border-radius:10px;\n"
-"}")
+                                   "{\n"
+                                   "background-color:white ;\n"
+                                   "color:#5e3b96;\n"
+                                   " border-radius:10px;\n"
+                                   "}")
         self.clients.setObjectName("clients")
         self.verticalLayout_4.addWidget(self.clients)
         self.verticalLayout_2.addWidget(self.widget_5)
@@ -103,11 +102,11 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         self.help.setFont(font)
         self.help.setStyleSheet("QPushButton\n"
-"{\n"
-"background-color:white ;\n"
-"color:#5e3b96;\n"
-" border-radius:10px;\n"
-"}")
+                                "{\n"
+                                "background-color:white ;\n"
+                                "color:#5e3b96;\n"
+                                " border-radius:10px;\n"
+                                "}")
         self.help.setObjectName("help")
         self.verticalLayout_2.addWidget(self.help)
         self.logout = QtWidgets.QPushButton(self.widget_2)
@@ -122,11 +121,11 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         self.logout.setFont(font)
         self.logout.setStyleSheet("QPushButton\n"
-"{\n"
-"background-color:white ;\n"
-"color:#5e3b96;\n"
-" border-radius:10px;\n"
-"}")
+                                  "{\n"
+                                  "background-color:white ;\n"
+                                  "color:#5e3b96;\n"
+                                  " border-radius:10px;\n"
+                                  "}")
         self.logout.setObjectName("logout")
         self.verticalLayout_2.addWidget(self.logout)
         self.horizontalLayout.addWidget(self.widget_2)
@@ -151,11 +150,11 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         self.back.setFont(font)
         self.back.setStyleSheet("QPushButton\n"
-"{\n"
-"background-color: #5e3b96;\n"
-"color:white;\n"
-" border-radius:20px;\n"
-"}")
+                                "{\n"
+                                "background-color: #5e3b96;\n"
+                                "color:white;\n"
+                                " border-radius:20px;\n"
+                                "}")
         self.back.setObjectName("back")
         self.verticalLayout_5.addWidget(self.back)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -171,8 +170,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.calendar = QtWidgets.QCalendarWidget(self.widget_4)
         self.calendar.setStyleSheet("background: #5e3b96;\n"
-"color: black;")
+                                    "color: black;")
         self.calendar.setObjectName("calendar")
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(20)
+        self.calendar.setFont(font)
+        #self.calendar.setHorizontalHeaderFormat(QtWidgets.QCalendarWidget.SingleLetterDayNames)  # Adjusts header format
         self.verticalLayout_3.addWidget(self.calendar)
         self.horizontalLayout_2.addWidget(self.widget_4)
         self.horizontalLayout.addWidget(self.widget_3)

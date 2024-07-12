@@ -374,6 +374,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Report Name:"))
         self.savetodesktop.setText(_translate("MainWindow", "Save to Desktop"))
         self.label_4.setText(_translate("MainWindow", "Current Month:"))
+        self.reportname.setText(_translate("MainWindow", "Client Reports"))
 
 
 if __name__ == "__main__":

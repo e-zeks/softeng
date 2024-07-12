@@ -96,7 +96,7 @@ class Ui_MainWindow(object):
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem2)
         self.horizontalLayout_3.addWidget(self.widget_4)
-        spacerItem3 = QtWidgets.QSpacerItem(45, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem3 = QtWidgets.QSpacerItem(500, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.horizontalLayout_3.addItem(spacerItem3)
         self.widget_5 = QtWidgets.QWidget(self.widget_3)
         self.widget_5.setStyleSheet("QWidget\n"
@@ -105,6 +105,8 @@ class Ui_MainWindow(object):
 "border-radius:20px;\n"
 "}")
         self.widget_5.setObjectName("widget_5")
+        self.widget_5.setMaximumSize(QtCore.QSize(900, 600))
+
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget_5)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         spacerItem4 = QtWidgets.QSpacerItem(167, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -201,7 +203,7 @@ class Ui_MainWindow(object):
         spacerItem6 = QtWidgets.QSpacerItem(167, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.horizontalLayout_4.addItem(spacerItem6)
         self.horizontalLayout_3.addWidget(self.widget_5)
-        spacerItem7 = QtWidgets.QSpacerItem(45, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem7 = QtWidgets.QSpacerItem(580, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.horizontalLayout_3.addItem(spacerItem7)
         self.verticalLayout.addWidget(self.widget_3)
         self.horizontalLayout.addWidget(self.widget)

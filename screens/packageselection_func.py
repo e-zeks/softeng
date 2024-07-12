@@ -63,25 +63,25 @@ class PackageSelectionWindow(QMainWindow, Ui_MainWindow):
         # Package Name
         package_name_label = QtWidgets.QLabel(package_name)
         package_name_label.setFont(QtGui.QFont("Arial Black", 20, weight=QtGui.QFont.Bold))  # Larger font size
-        package_name_label.setStyleSheet("QLabel { color: white; }")
+        package_name_label.setStyleSheet("QLabel { color: #c8a2c8; }")
         new_layout.addWidget(package_name_label)
 
         # Package Price
         package_price_label = QtWidgets.QLabel(f"Price: {package_price}")
         package_price_label.setFont(QtGui.QFont("Arial Black", 14))
-        package_price_label.setStyleSheet("QLabel { color: white; }")
+        package_price_label.setStyleSheet("QLabel { color: #e6e6fa; }")
         new_layout.addWidget(package_price_label)
 
         # Package Details
         package_details_label = QtWidgets.QLabel(package_details)
         package_details_label.setFont(QtGui.QFont("Arial Black", 12))
-        package_details_label.setStyleSheet("QLabel { color: white; }")
+        package_details_label.setStyleSheet("QLabel { color: #e6e6fa; }")
         new_layout.addWidget(package_details_label)
 
         # Minimum Sessions
         min_sessions_label = QtWidgets.QLabel(f"Minimum Sessions: {min_sessions}")
         min_sessions_label.setFont(QtGui.QFont("Arial Black", 12))
-        min_sessions_label.setStyleSheet("QLabel { color: white; }")
+        min_sessions_label.setStyleSheet("QLabel { color: #e6e6fa; }")
         new_layout.addWidget(min_sessions_label)
 
         # Add spacer between details and book button

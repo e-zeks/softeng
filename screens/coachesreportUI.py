@@ -463,7 +463,8 @@ class Ui_MainWindow(object):
         self.label_10.setText(_translate("MainWindow", "Total Conducted Sessions:"))
         self.label_11.setText(_translate("MainWindow", "Total Cancelled Sessions:"))
         self.label_12.setText(_translate("MainWindow", "Total Conducted Enrollments:"))
-
+        self.reportname.setText(_translate("MainWindow", "Coaches Report"))
+        self.currentmonth.setText(_translate("MainWindow", "currmon"))
 
 if __name__ == "__main__":
     import sys

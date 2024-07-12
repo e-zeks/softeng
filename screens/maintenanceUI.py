@@ -498,7 +498,7 @@ class Ui_MainWindow(object):
         self.clients.setText(_translate("MainWindow", "Clients"))
         self.payments.setText(_translate("MainWindow", "Payments"))
         self.report.setText(_translate("MainWindow", "Report"))
-        self.userlogs.setText(_translate("MainWindow", "User Logs"))
+        self.userlogs.setText(_translate("MainWindow", "History"))
         self.maintenance.setText(_translate("MainWindow", "Maintenance"))
         self.help.setText(_translate("MainWindow", "Help"))
         self.logout.setText(_translate("MainWindow", "Log Out"))
@@ -506,13 +506,13 @@ class Ui_MainWindow(object):
         self.databaselabel_3.setText(_translate("MainWindow", "Maintenance"))
         self.databaselabel.setText(_translate("MainWindow", "Database"))
         self.backup.setText(_translate("MainWindow", "Backup"))
-        self.restore.setText(_translate("MainWindow", "Restore"))
+        self.restore.setText(_translate("MainWindow", "Recovery"))
         self.packageslabel.setText(_translate("MainWindow", "Packages"))
         self.addpackage.setText(_translate("MainWindow", "Add Package"))
-        self.editpackage.setText(_translate("MainWindow", "Edit Package"))
+        self.editpackage.setText(_translate("MainWindow", "Update Package"))
         self.databaselabel_2.setText(_translate("MainWindow", "Coaches"))
         self.addcoach.setText(_translate("MainWindow", "Add Coach"))
-        self.editcoach.setText(_translate("MainWindow", "Edit Coach Info"))
+        self.editcoach.setText(_translate("MainWindow", "Update Coach Info"))
 
 
 if __name__ == "__main__":

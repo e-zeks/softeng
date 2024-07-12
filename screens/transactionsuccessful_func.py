@@ -19,7 +19,6 @@ class TransactionSuccessfulWindow(QMainWindow, Ui_MainWindow):
 
         # Connect confirm button signal
         self.Confirm.clicked.connect(self.handle_confirm)
-        self.help.clicked.connect(self.handle_help)
         self.schedule_line_edits = [self.lineEdit, self.lineEdit_2, self.lineEdit_3, self.lineEdit_4, self.lineEdit_5,
                                     self.lineEdit_6, self.lineEdit_7]
         self.disable_and_remove_borders()

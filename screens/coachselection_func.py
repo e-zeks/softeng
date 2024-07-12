@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButt
 from PyQt5 import QtGui, QtWidgets, QtCore
 from screens.coachselectionUI import Ui_MainWindow
 import mysql.connector
+from mysql.connector import Error
 
 class CoachSelectionWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
@@ -19,6 +20,9 @@ class CoachSelectionWindow(QMainWindow, Ui_MainWindow):
         self.help.clicked.connect(self.handle_help)
         # Fetch coaches from the database
         self.coaches = self.fetch_coaches_from_database()
+
+        fully_booked_coaches = self.is_coach_fully_booked()
+        print("Fully booked coaches:", fully_booked_coaches)
 
     def button_clicked(self):
         self.back_button.emit()
@@ -68,12 +72,12 @@ class CoachSelectionWindow(QMainWindow, Ui_MainWindow):
 
         coachname = QtWidgets.QLabel(coach_name)
         coachname.setFont(QtGui.QFont("Arial Black", 20, weight=QtGui.QFont.Bold))  # Larger font size
-        coachname.setStyleSheet("QLabel { color: white; }")
+        coachname.setStyleSheet("QLabel { color: #c8a2c8; }")
         new_layout.addWidget(coachname)
 
         fullname = QtWidgets.QLabel(full_name)
         fullname.setFont(QtGui.QFont("Arial Black", 12))
-        fullname.setStyleSheet("QLabel { color: white; }")
+        fullname.setStyleSheet("QLabel { color: #e6e6fa; }")
         new_layout.addWidget(fullname)
 
         # Add spacer between Name and Experiences
@@ -82,23 +86,23 @@ class CoachSelectionWindow(QMainWindow, Ui_MainWindow):
         new_layout.addItem(spacerItem)
 
         label3 = QtWidgets.QLabel("Experiences")
-        label3.setFont(QtGui.QFont("Arial Black", 14))
-        label3.setStyleSheet("QLabel { color: white; }")
+        label3.setFont(QtGui.QFont("Arial Black", 16))
+        label3.setStyleSheet("QLabel { color: #c8a2c8; }")
         new_layout.addWidget(label3)
 
         experiences_label = QtWidgets.QLabel(experiences)
         experiences_label.setFont(QtGui.QFont("Arial Black", 12))
-        experiences_label.setStyleSheet("QLabel { color: white; }")
+        experiences_label.setStyleSheet("QLabel { color: #e6e6fa; }")
         new_layout.addWidget(experiences_label)
 
         label5 = QtWidgets.QLabel("Specialties")
-        label5.setFont(QtGui.QFont("Arial Black", 14))
-        label5.setStyleSheet("QLabel { color: white; }")
+        label5.setFont(QtGui.QFont("Arial Black", 16))
+        label5.setStyleSheet("QLabel { color: #c8a2c8; }")
         new_layout.addWidget(label5)
 
         specialties_label = QtWidgets.QLabel(specialties)
         specialties_label.setFont(QtGui.QFont("Arial Black", 12))
-        specialties_label.setStyleSheet("QLabel { color: white; }")
+        specialties_label.setStyleSheet("QLabel { color: #e6e6fa; }")
         new_layout.addWidget(specialties_label)
 
         # Add spacer between Specialties and Book button
@@ -122,4 +126,64 @@ class CoachSelectionWindow(QMainWindow, Ui_MainWindow):
             'full_name': full_name,
             'coach_name': coach_name
         }
-        self.book_button.emit()
+
+        if self.coachdetails['full_name'] in self.is_coach_fully_booked():
+            print("Coach is fully booked. Cannot book.")
+            # Optionally, you can show a message to the user:
+            QMessageBox.warning(self, "Fully Booked", "This coach is fully booked. Please choose another coach.")
+        else:
+            self.book_button.emit()
+
+    def is_coach_fully_booked(self):
+        fully_booked_coaches = []
+        times_to_check = [
+            '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
+            '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM',
+            '5:00 PM', '6:00 PM'
+        ]
+        days_of_week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+        try:
+            with self.conn.cursor(dictionary=True) as cursor:
+                # Get all unique coach names
+                query = "SELECT DISTINCT Coach_Name FROM booking WHERE Package_Name = 'Private Package'"
+                cursor.execute(query)
+                coaches = cursor.fetchall()
+
+                for coach in coaches:
+                    coach_name = coach['Coach_Name']
+
+                    fully_booked = True
+                    for day in days_of_week:
+                        for time in times_to_check:
+                            query = """
+                                SELECT COUNT(*) as count
+                                FROM sessions s
+                                JOIN booking b ON s.BookingID = b.BookingID
+                                WHERE s.Day = %s
+                                AND s.StartTime = %s
+                                AND s.Session_Counter > 0
+                                AND b.Package_Name = 'Private Package'
+                                AND b.Coach_Name = %s
+                            """
+                            print("Executing query:", query, (day, time, coach_name))  # Debug print
+                            cursor.execute(query, (day, time, coach_name))
+                            result = cursor.fetchone()
+
+                            print("Query result:", result)  # Debug print
+
+                            if result['count'] == 0:
+                                fully_booked = False
+                                break
+                        if not fully_booked:
+                            break
+
+                    if fully_booked:
+                        fully_booked_coaches.append(coach_name)
+
+        except Error as e:
+            print(f"Error executing query: {e}")
+
+        return fully_booked_coaches
+
+#working print fully booked

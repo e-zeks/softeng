@@ -276,7 +276,7 @@ class Ui_MainWindow(object):
         self.clients.setText(_translate("MainWindow", "Clients"))
         self.payments.setText(_translate("MainWindow", "Payments"))
         self.report.setText(_translate("MainWindow", "Report"))
-        self.userlogs.setText(_translate("MainWindow", "User Logs"))
+        self.userlogs.setText(_translate("MainWindow", "History"))
         self.maintenance.setText(_translate("MainWindow", "Maintenance"))
         self.help.setText(_translate("MainWindow", "Help"))
         self.logout.setText(_translate("MainWindow", "Log Out"))

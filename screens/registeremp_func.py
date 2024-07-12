@@ -10,6 +10,7 @@ from mysql.connector import Error
 
 from screens.registerempUI import Ui_MainWindow
 
+
 class RegisterWindow(QMainWindow, Ui_MainWindow):
     back_button = QtCore.pyqtSignal()
     register_button = QtCore.pyqtSignal(str, tuple)
@@ -38,9 +39,70 @@ class RegisterWindow(QMainWindow, Ui_MainWindow):
         password = self.password.text().strip()
         confirm_password = self.confirmpassword.text().strip()
 
+        empty_fields = []
+
+        if not lname:
+            empty_fields.append("Last Name")
+        if not fname:
+            empty_fields.append("First Name")
+        if not email:
+            empty_fields.append("Email Address")
+        if not contactnum:
+            empty_fields.append("Contact Number")
+        if not username:
+            empty_fields.append("Username")
+        if not password:
+            empty_fields.append("Password")
+        if not confirm_password:
+            empty_fields.append("Confirm Password")
+
+        if empty_fields:
+            QMessageBox.warning(self, "Input Error",
+                                f"The following fields are required to have an input:\n\n- {', '.join(empty_fields)}")
+            return
+
+        # Check if any field is empty and prompt the user
+        if not lname:
+            QMessageBox.warning(self, "Input Error", "Last Name is required to have an input.")
+            return
+        if not fname:
+            QMessageBox.warning(self, "Input Error", "First Name is required to have an input.")
+            return
+        if not email:
+            QMessageBox.warning(self, "Input Error", "Email Address is required to have an input.")
+            return
+        if not contactnum:
+            QMessageBox.warning(self, "Input Error", "Contact Number is required to have an input.")
+            return
+        if not username:
+            QMessageBox.warning(self, "Input Error", "Username is required to have an input.")
+            return
+        if not password:
+            QMessageBox.warning(self, "Input Error", "Password is required to have an input.")
+            return
+        if not confirm_password:
+            QMessageBox.warning(self, "Input Error", "Confirm Password is required to have an input.")
+            return
+
+        # Check password confirmation
+        if password != confirm_password:
+            QMessageBox.warning(self, "Input Error", "Passwords do not match.")
+            return
+
         if not self.validate_password():
-            QMessageBox.warning(self, "Input Error", "Password must: \n- Have at least 8 characters\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Not contain any special characters")
+            QMessageBox.warning(self, "Input Error",
+                                "Password must: \n- Have at least 8 characters\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Not contain any special characters")
             print("Password does not meet requirements.")
+            return
+
+        # Validate email format
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            QMessageBox.warning(self, "Input Error", "Invalid email format.")
+            return
+
+        # Check if email is already registered
+        if self.is_email_registered(email):
+            QMessageBox.warning(self, "Input Error", "Email is already registered.")
             return
 
         if password != confirm_password:

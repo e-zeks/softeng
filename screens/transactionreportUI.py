@@ -406,7 +406,7 @@ class Ui_MainWindow(object):
         self.savetodesktop.setText(_translate("MainWindow", "Save to Desktop"))
         self.label_4.setText(_translate("MainWindow", "Current Month:"))
         self.label_10.setText(_translate("MainWindow", "Total Amount:"))
-
+        self.reportname.setText(_translate("MainWindow", "Transactions Report"))
 
 if __name__ == "__main__":
     import sys

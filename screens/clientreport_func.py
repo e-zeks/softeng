@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox
 from screens.clientreportUI import Ui_MainWindow
 import mysql.connector
@@ -18,6 +19,7 @@ class ClientReportWindow(QMainWindow, Ui_MainWindow):
         super(ClientReportWindow, self).__init__()
         self.setupUi(self)
         self.conn = conn  # Store the database connection
+        self.report_counter = 1
 
         # Connect UI signals to methods
         self.savetodesktop.clicked.connect(self.generate_report)
@@ -30,7 +32,20 @@ class ClientReportWindow(QMainWindow, Ui_MainWindow):
         # Initialize table
         self.set_tableElements()
         self.disable_editing()
+        self.setcurrentmonth()
 
+        self.update_report_name()
+
+    def update_report_name(self):
+        self.reportname.setPlainText(f"Client Report {self.report_counter}")
+    def setcurrentmonth(self):
+        # Get the current month name with the first letter capitalized
+        current_month = datetime.now().strftime('%B')
+
+        # Set the text of self.currentmonth to the current month
+        self.currentmonth.setText(current_month)
+        self.currentmonth.setReadOnly(True)
+        self.currentmonth.setFocusPolicy(Qt.NoFocus)
     def load_data(self):
         try:
             cursor = self.conn.cursor()
@@ -133,6 +148,8 @@ class ClientReportWindow(QMainWindow, Ui_MainWindow):
 
                 QMessageBox.information(self, "Success", f"Report saved successfully as {filename}")
                 self.save_button.emit()
+                self.report_counter += 1
+                self.update_report_name()
 
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Error saving report: {str(e)}")

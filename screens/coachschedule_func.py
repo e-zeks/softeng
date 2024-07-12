@@ -52,12 +52,19 @@ class CoachScheduleWindow(QMainWindow, Ui_MainWindow):
 
     def update_date(self, formatted_date):
         self.formatted_date = formatted_date
-        self.date.setText(formatted_date)
-        self.date.setDisabled(True)
 
+        # Format the date for display
         date_obj = datetime.datetime.strptime(formatted_date, "%B %d, %Y")
-        self.selected_day = date_obj.strftime("%A")
-        self.set_sessions()
+        day_of_week = date_obj.strftime("%A")  # Get the day of the week
+
+        # Set the text with formatted date and day of the week
+        display_text = f"{formatted_date} ({day_of_week})"
+        self.date.setText(display_text)
+        self.date.setDisabled(True)  # Disable editing
+
+        self.selected_day = day_of_week  # Store the selected day of the week
+        self.set_sessions()  # Update sessions based on the selected date
+
 
     def set_sessions(self):
         if self.selected_day is None:

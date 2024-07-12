@@ -253,10 +253,13 @@ class Ui_MainWindow(object):
         font.setFamily("Arial Black")
         font.setPointSize(20)
         self.comboBox.setFont(font)
-        self.comboBox.setStyleSheet("QComboBox\n"
-"{\n"
-"color:white;\n"
-"}")
+        self.comboBox.setStyleSheet("QComboBox {\n"
+                                    "    color: white;\n"
+                                    "}\n"
+                                    "QComboBox QAbstractItemView {\n"
+                                    "    background-color: #5e3b96;\n"
+                                    "    color: white;\n"
+                                    "}\n")
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.setItemText(0, "")
